@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BudgetSquirrel.Blazor
+namespace BudgetSquirrel.Client
 {
     public class Startup
     {

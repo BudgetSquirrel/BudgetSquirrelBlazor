@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Blazor.Hosting;
 
-namespace BudgetSquirrel.Blazor
+namespace BudgetSquirrel.Client
 {
     public class Program
     {
