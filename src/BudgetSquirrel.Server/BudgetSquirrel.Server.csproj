@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <ItemGroup>
+    <ProjectReference Include="..\BudgetSquirrel.Web.Common\BudgetSquirrel.Web.Common.csproj" />
+    <ProjectReference Include="..\GateKeeper\GateKeeper.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
