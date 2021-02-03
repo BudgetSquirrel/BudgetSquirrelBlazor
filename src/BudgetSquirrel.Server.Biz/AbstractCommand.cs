@@ -11,8 +11,8 @@ namespace BudgetSquirrel.Server.Biz
       this.arguments = args;
     }
 
-    public abstract Task Execute();
-    protected abstract Task<TLoadedInputs> Loaded();
-    protected abstract Task Validate();
+    public abstract Task Execute(TLoadedInputs loadedInputs);
+    public abstract Task<TLoadedInputs> Load();
+    public abstract Task<TLoadedInputs> Validate(TLoadedInputs loadedInputs);
   }
 }

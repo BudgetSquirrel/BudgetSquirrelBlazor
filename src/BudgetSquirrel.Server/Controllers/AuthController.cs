@@ -74,7 +74,7 @@ namespace BudgetSquirrel.Server.Controllers
                 newUser.ConfirmPassword,
                 newUser.FirstName,
                 newUser.LastName));
-            await cmd.Execute();
+            await cmd.Execute(await cmd.Validate(await cmd.Load()));
 
             // LoginUser user = await this.accountRepository.GetByEmail(newUser.Email);
             // await this.authenticationService.SignInAsync(user);

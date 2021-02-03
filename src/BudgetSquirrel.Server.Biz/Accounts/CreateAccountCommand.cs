@@ -25,7 +25,7 @@ namespace BudgetSquirrel.Server.Biz.Accounts
       this.accountRepository = accountRepository;
     }
 
-    public override Task Execute()
+    public override Task Execute(LoginUser duplicateUser)
     {
       return this.accountRepository.CreateUser(
         this.arguments.email,
@@ -34,14 +34,22 @@ namespace BudgetSquirrel.Server.Biz.Accounts
         this.arguments.lastName);
     }
 
-    protected override Task<LoginUser> Loaded()
+    public override Task<LoginUser> Load()
     {
-      throw new System.NotImplementedException();
+      return this.accountRepository.GetByEmail(this.arguments.email);
     }
 
-    protected override Task Validate()
+    public override Task<LoginUser> Validate(LoginUser duplicateUser)
     {
-      throw new System.NotImplementedException();
+      if (duplicateUser != null)
+      {
+        throw new InvalidCommandOperationException("That user already exists");
+      }
+      if (this.arguments.password != this.arguments.confirmPassword)
+      {
+        throw new InvalidCommandArgumentException("Password must match confirmation password");
+      }
+      return Task.FromResult(duplicateUser);
     }
   }
 }

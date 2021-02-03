@@ -26,6 +26,7 @@ namespace BudgetSquirrel.Server
         {
             services.AddControllers();
             DalLocalDbServicesRegistry.ConfigureAuthDal(services);
+            GateKeeperServicesRegistry.AddGateKeeper(services, this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,6 +8,7 @@
     <ProjectReference Include="..\BudgetSquirrel.Web.Common\BudgetSquirrel.Web.Common.csproj" />
     <ProjectReference Include="..\BudgetSquirrel.Core\BudgetSquirrel.Core.csproj" />
     <ProjectReference Include="..\BudgetSquirrel.Server.Biz\BudgetSquirrel.Server.Biz.csproj" />
+    <ProjectReference Include="..\GateKeeper\GateKeeper.csproj" />
   </ItemGroup>
 
   <ItemGroup>
