@@ -29,7 +29,7 @@ namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
 
     public async Task CreateUser(string email, string password, string firstName, string lastName)
     {
-      int numCreated = 0;
+      int userId = 0;
 
       string encryptedPassword = this.cryptor.Encrypt(
         password,
@@ -38,13 +38,20 @@ namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
 
       using (IDbConnection conn = this.connectionProvider.GetConnection())
       {
-        numCreated = await conn.ExecuteAsync(
-          "INSERT INTO [dbo].[Account] (\"Email\", \"Password\", \"FirstName\", \"LastName\") VALUES (@Email, @Password, @FirstName, @LastName);",
+        // See schema.md
+        userId = await conn.ExecuteScalarAsync<int>(
+          "INSERT INTO [dbo].[User] (\"FirstName\", \"LastName\") VALUES (@FirstName, @LastName); SELECT CAST(SCOPE_IDENTITY() as int);",
+          new {
+            FirstName = firstName,
+            LastName = lastName
+          });
+
+        await conn.ExecuteScalarAsync<int>(
+          "INSERT INTO [dbo].[Account] (\"Email\", \"Password\", \"UserId\") VALUES (@Email, @Password, @UserId);",
           new {
             Email = email,
             Password = encryptedPassword,
-            FirstName = firstName,
-            LastName = lastName
+            UserId = userId
           });
       }
     }
@@ -60,7 +67,7 @@ namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
       using (IDbConnection conn = this.connectionProvider.GetConnection())
       {
         user = await conn.QuerySingleOrDefaultAsync<LoginUser>(
-          "SELECT * FROM [dbo].[Account] WHERE \"Email\" = @Email",
+          "SELECT * FROM [dbo].[Account] INNER JOIN [dbo].[User] ON [dbo].[User].[Id] = [dbo].[Account].[UserId] WHERE [dbo].[Account].[Email] = @Email",
           new { Email = email });
       }
       return user;
