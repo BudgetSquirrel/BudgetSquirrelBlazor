@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BudgetSquirrel.Core.Accounts;
 using BudgetSquirrel.Server.Auth;
+using BudgetSquirrel.Server.Dal.LocalDb.Accounts;
 using BudgetSquirrel.Web.Common.Messages.Auth;
 using GateKeeper.Exceptions;
 using Microsoft.AspNetCore.Authentication;
@@ -20,12 +22,12 @@ namespace BudgetSquirrel.Server.Controllers
         private readonly IAuthService authenticationService;
         private readonly IAccountRepository accountRepository;
 
-        public AuthController(ILogger<AuthController> logger,
-                                        IAuthService authenticationService,
+        public AuthController(/*ILogger<AuthController> logger,
+                                        IAuthService authenticationService,*/
                                         IAccountRepository userRepository)
         {
-            this.logger = logger;
-            this.authenticationService = authenticationService;
+            // this.logger = logger;
+            // this.authenticationService = authenticationService;
             this.accountRepository = userRepository;
         }
 
@@ -66,13 +68,13 @@ namespace BudgetSquirrel.Server.Controllers
         {
             await this.accountRepository.CreateUser(newUser);
 
-            LoginUser user = await this.accountRepository.GetByEmail(newUser.Email);
-            await this.authenticationService.SignInAsync(user);
+            // LoginUser user = await this.accountRepository.GetByEmail(newUser.Email);
+            // await this.authenticationService.SignInAsync(user);
 
-            if (user == null)
-            {
-                return this.StatusCode(500, "There was an error creating the account, please try again.");
-            }
+            // if (user == null)
+            // {
+            //     return this.StatusCode(500, "There was an error creating the account, please try again.");
+            // }
             return Ok();
 
         }

@@ -1,4 +1,4 @@
-namespace BudgetSquirrel.Server.Auth
+namespace BudgetSquirrel.Core.Accounts
 {
   public class LoginUser
   {

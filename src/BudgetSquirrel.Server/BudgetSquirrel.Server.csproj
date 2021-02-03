@@ -4,6 +4,7 @@
     <ProjectReference Include="..\BudgetSquirrel.Web.Common\BudgetSquirrel.Web.Common.csproj" />
     <ProjectReference Include="..\GateKeeper\GateKeeper.csproj" />
     <ProjectReference Include="..\BudgetSquirrel.Server.Dal.LocalDb\BudgetSquirrel.Server.Dal.LocalDb.csproj" />
+    <ProjectReference Include="..\BudgetSquirrel.Core\BudgetSquirrel.Core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
