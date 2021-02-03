@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BudgetSquirrel.Core.Accounts;
 using BudgetSquirrel.Server.Auth;
+using BudgetSquirrel.Server.Biz.Accounts;
 using BudgetSquirrel.Server.Dal.LocalDb.Accounts;
 using BudgetSquirrel.Web.Common.Messages.Auth;
 using GateKeeper.Exceptions;
@@ -66,7 +67,14 @@ namespace BudgetSquirrel.Server.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest newUser)
         {
-            await this.accountRepository.CreateUser(newUser);
+            CreateAccountCommand cmd = new CreateAccountCommand(
+                this.accountRepository,
+                (newUser.Email,
+                newUser.Password,
+                newUser.ConfirmPassword,
+                newUser.FirstName,
+                newUser.LastName));
+            await cmd.Execute();
 
             // LoginUser user = await this.accountRepository.GetByEmail(newUser.Email);
             // await this.authenticationService.SignInAsync(user);

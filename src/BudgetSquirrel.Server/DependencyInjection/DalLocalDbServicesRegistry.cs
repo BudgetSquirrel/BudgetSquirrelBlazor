@@ -1,3 +1,4 @@
+using BudgetSquirrel.Server.Biz.Accounts;
 using BudgetSquirrel.Server.Dal.LocalDb.Accounts;
 using BudgetSquirrel.Server.Dal.LocalDb.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,14 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using BudgetSquirrel.Core.Accounts;
-using BudgetSquirrel.Web.Common.Messages.Auth;
 
-namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
+namespace BudgetSquirrel.Server.Biz.Accounts
 {
   public interface IAccountRepository
   {
     Task<LoginUser> GetByEmail(string email);
-    Task CreateUser(RegisterRequest newUser);
+    Task CreateUser(string email, string password, string firstName, string lastName);
     Task DeleteUser(Guid id);
   }
 }

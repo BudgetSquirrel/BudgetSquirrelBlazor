@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Threading.Tasks;
 using BudgetSquirrel.Core.Accounts;
+using BudgetSquirrel.Server.Biz.Accounts;
 using BudgetSquirrel.Server.Dal.LocalDb.Infrastructure;
 using BudgetSquirrel.Web.Common.Messages.Auth;
 using Dapper;
@@ -17,7 +18,7 @@ namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
       this.connectionProvider = connectionProvider;
     }
 
-    public async Task CreateUser(RegisterRequest newUser)
+    public async Task CreateUser(string email, string password, string firstName, string lastName)
     {
       int numCreated = 0;
       using (IDbConnection conn = this.connectionProvider.GetConnection())
@@ -25,10 +26,10 @@ namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
         numCreated = await conn.ExecuteAsync(
           "INSERT INTO [dbo].[Account] (\"Email\", \"Password\", \"FirstName\", \"LastName\") VALUES (@Email, @Password, @FirstName, @LastName);",
           new {
-            Email = newUser.Email,
-            Password = newUser.Password,
-            FirstName = newUser.FirstName,
-            LastName = newUser.LastName
+            Email = email,
+            Password = password,
+            FirstName = firstName,
+            LastName = lastName
           });
       }
     }
