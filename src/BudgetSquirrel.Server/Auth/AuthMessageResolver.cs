@@ -2,7 +2,7 @@ using BudgetSquirrel.Web.Common.Messages.Auth;
 
 namespace BudgetSquirrel.Server.Auth
 {
-  public static class AuthConverter
+  public static class AuthMessageResolver
   {
     public static CurrentUserResponse ToApiMessage(LoginUser user)
     {

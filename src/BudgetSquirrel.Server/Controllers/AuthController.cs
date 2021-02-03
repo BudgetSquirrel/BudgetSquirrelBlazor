@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Server.Auth;
 using BudgetSquirrel.Web.Common.Messages.Auth;
@@ -21,18 +18,15 @@ namespace BudgetSquirrel.Server.Controllers
         private readonly ILogger<AuthController> logger;
 
         private readonly IAuthService authenticationService;
-        private readonly IAccountService accountService;
-        private readonly ILoginUserRepository userRepository;
+        private readonly IAccountRepository accountRepository;
 
         public AuthController(ILogger<AuthController> logger,
                                         IAuthService authenticationService,
-                                        IAccountService accountService,
-                                        ILoginUserRepository userRepository)
+                                        IAccountRepository userRepository)
         {
             this.logger = logger;
             this.authenticationService = authenticationService;
-            this.accountService = accountService;
-            this.userRepository = userRepository;
+            this.accountRepository = userRepository;
         }
 
         [Authorize]
@@ -40,7 +34,7 @@ namespace BudgetSquirrel.Server.Controllers
         public async Task<IActionResult> GetCurrentUser()
         {
             LoginUser userData = await this.authenticationService.GetCurrentUser();
-            CurrentUserResponse user = AuthConverter.ToApiMessage(userData);
+            CurrentUserResponse user = AuthMessageResolver.ToApiMessage(userData);
             return new JsonResult(user);
         }
 
@@ -70,9 +64,9 @@ namespace BudgetSquirrel.Server.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest newUser)
         {
-            await this.accountService.CreateUser(newUser);
+            await this.accountRepository.CreateUser(newUser);
 
-            LoginUser user = await this.userRepository.GetByEmail(newUser.Email);
+            LoginUser user = await this.accountRepository.GetByEmail(newUser.Email);
             await this.authenticationService.SignInAsync(user);
 
             if (user == null)
