@@ -40,18 +40,12 @@ namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
       {
         // See schema.md
         userId = await conn.ExecuteScalarAsync<int>(
-          "INSERT INTO [dbo].[User] (\"FirstName\", \"LastName\") VALUES (@FirstName, @LastName); SELECT CAST(SCOPE_IDENTITY() as int);",
+          "EXEC [dbo].[CreateAccount] @FirstName, @LastName, @Email, @Password",
           new {
             FirstName = firstName,
-            LastName = lastName
-          });
-
-        await conn.ExecuteScalarAsync<int>(
-          "INSERT INTO [dbo].[Account] (\"Email\", \"Password\", \"UserId\") VALUES (@Email, @Password, @UserId);",
-          new {
+            LastName = lastName,
             Email = email,
             Password = encryptedPassword,
-            UserId = userId
           });
       }
     }
@@ -67,7 +61,7 @@ namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
       using (IDbConnection conn = this.connectionProvider.GetConnection())
       {
         user = await conn.QuerySingleOrDefaultAsync<LoginUser>(
-          "SELECT * FROM [dbo].[Account] INNER JOIN [dbo].[User] ON [dbo].[User].[Id] = [dbo].[Account].[UserId] WHERE [dbo].[Account].[Email] = @Email",
+          "SELECT * FROM [dbo].[Accounts] INNER JOIN [dbo].[Users] ON [dbo].[Users].[Id] = [dbo].[Accounts].[UserId] WHERE [dbo].[Accounts].[Email] = @Email",
           new { Email = email });
       }
       return user;

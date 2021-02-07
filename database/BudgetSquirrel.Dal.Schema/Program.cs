@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using BudgetSquirrel.Dal.Schema.Auth;
+using BudgetSquirrel.Dal.Schema.StoredProcedures;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +42,7 @@ namespace BudgetSquirrel.Dal.Schema
                     .ScanIn(typeof(Initial).Assembly).For.Migrations())
                 // Enable logging to console in the FluentMigrator way
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
+                .AddSingleton(config)
                 // Build the service provider
                 .BuildServiceProvider(false);
         }
@@ -50,9 +54,12 @@ namespace BudgetSquirrel.Dal.Schema
         {
             // Instantiate the runner
             var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
+            IConfiguration config = serviceProvider.GetRequiredService<IConfiguration>();
 
             // Execute the migrations
             runner.MigrateUp();
+
+            CreateStoredProcedures.CreateRegisteredProcedures(config.GetConnectionString("DefaultConnection"));
         }
 
         private static IConfiguration GetConfigurations(string[] args)
