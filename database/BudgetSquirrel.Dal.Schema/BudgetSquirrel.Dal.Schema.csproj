@@ -8,8 +8,12 @@
   <ItemGroup>
     <PackageReference Include="FluentMigrator" Version="3.2.11" />
     <PackageReference Include="FluentMigrator.Runner" Version="3.2.11" />
-    <PackageReference Include="FluentMigrator.Runner.SQLServer" Version="3.2.11" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.json" CopyToOutputDirectory="Always" />
+    <None Include="appsettings.*.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>

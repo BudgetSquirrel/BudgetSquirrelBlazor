@@ -59,7 +59,7 @@ namespace BudgetSquirrel.Dal.Schema
         {
             string envName = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             
-            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+            IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).Build();
             return config;
         }
     }
