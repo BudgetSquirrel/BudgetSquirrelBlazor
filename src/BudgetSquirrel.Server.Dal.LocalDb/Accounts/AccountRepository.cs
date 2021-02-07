@@ -61,7 +61,7 @@ namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
       using (IDbConnection conn = this.connectionProvider.GetConnection())
       {
         user = await conn.QuerySingleOrDefaultAsync<LoginUser>(
-          "SELECT * FROM [dbo].[Accounts] INNER JOIN [dbo].[Users] ON [dbo].[Users].[Id] = [dbo].[Accounts].[UserId] WHERE [dbo].[Accounts].[Email] = @Email",
+          "EXEC [dbo].[GetAccountByEmail] @Email",
           new { Email = email });
       }
       return user;
