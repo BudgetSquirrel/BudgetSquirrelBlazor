@@ -1,7 +1,4 @@
-﻿/*IMPORT:
- *
- * @import url('path/starting/from/wwwroot/css.css');
- */
+﻿@import url("imports.css");
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -21,13 +18,19 @@ html, body {
     --red-500: #d26565ff;
     --blackish-500: #394648ff;
 
-    --bg-color: var(--tan-500);
-    --bg-color-alt: var(--tan-a500);
-    --bg-no-color: white;
+    --clr-bg-color: var(--tan-200);
+    --clr-bg-color-alt: var(--tan-a500);
+    --clr-bg-no-color: white;
 
-    --fg-color: var(--tan-700);
-    --fg-no-color: var(--blackish-500);
-    --fg-no-color-alt: white;
+    --clr-trim-color: var(--tan-700);
+
+    --clr-fg-color: var(--tan-700);
+    --clr-fg-no-color: var(--blackish-500);
+    --clr-fg-no-color-alt: white;
     
-    --control-color: var(--green-500);
+    --clr-control-color: var(--green-500);
+}
+
+.page-margins {
+    --page-side-margin: 110px;
 }

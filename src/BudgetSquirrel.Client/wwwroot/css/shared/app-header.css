@@ -1,0 +1,59 @@
+.app-header {
+  background-color: var(--clr-bg-color);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding-left: var(--page-side-margin);
+  padding-right: var(--page-side-margin);
+}
+
+.app-header__left {
+  display: flex;
+  align-items: center;
+}
+
+.app-header__right {
+  display: flex;
+  align-items: stretch;
+}
+
+.app-header .logo {
+  background-color: var(--clr-bg-color-alt);
+
+  display: inline-block;
+  height: 48px;
+  border-radius: 50%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.app-header .app-title {
+  margin-left: 0.5em;
+  color: var(--clr-fg-color);
+}
+
+.app-header .nav-link {
+  color: var(--clr-control-color);
+  text-decoration: none;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  --padding: 1em;
+  --underline-height: 4px;
+  padding: var(--padding);
+  padding-bottom: calc(var(--padding) + var(--underline-height));
+  text-align: center;
+}
+
+.app-header .nav-link:hover {
+  padding-bottom: var(--padding);
+  border-bottom: var(--underline-height) solid var(--clr-control-color);
+}
+
+.app-header .nav-link:visited {
+  color: var(--clr-control-color);
+  text-decoration: none;
+}
