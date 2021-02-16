@@ -7,8 +7,59 @@
     accross multiple platforms
   </p>
 
-  <input @bind="this.FormValues.FullName" class="input _form-input" placeholder="Full name..." />
-  <input @bind="this.FormValues.Email" class="input _form-input" placeholder="Email..." />
-  <input @bind="this.FormValues.Password" class="input _form-input" placeholder="Password..." type="password" />
-  <input @bind="this.FormValues.ConfirmPassword" class="input _form-input" placeholder="Confirm Password..." type="password" />
+  <input
+    @bind="this.FormValues.FullName"
+    class="input _form-input _form-input--first"
+    placeholder="Full name..."
+    name="fullName"
+    autocomplete="name" />
+  <input
+    @bind="this.FormValues.Email"
+    class="input _form-input"
+    placeholder="Email..."
+    name="email"
+    autocomplete="email" />
+
+  <div class="input input--password _form-input">
+    <input
+      @bind="this.FormValues.Password"
+      class="input" placeholder="Password..."
+      type='@(this.IsPasswordPlainText ? "text" : "password")'
+      name="password"
+      autocomplete="new-password" />
+    <button class="input__visibiliy-toggle" @onclick="this.TogglePasswordVisibility">
+      @if (this.IsPasswordPlainText)
+      {
+        <img src="images/generic/visibility_off.svg" />
+      }
+      else
+      {
+        <img src="images/generic/visibility.svg" />
+      }
+    </button>
+  </div>
+
+  <div class="input input--password _form-input">
+    <input
+      @bind="this.FormValues.ConfirmPassword"
+      class="input"
+      placeholder="Confirm Password..."
+      type='@(this.IsConfirmPasswordPlainText ? "text" : "password")'
+      name="confirmPassword"
+      autocomplete="new-password" />
+    <button class="input__visibiliy-toggle" @onclick="this.ToggleConfirmPasswordVisibility">
+      @if (this.IsConfirmPasswordPlainText)
+      {
+        <img src="images/generic/visibility_off.svg" />
+      }
+      else
+      {
+        <img src="images/generic/visibility.svg" />
+      }
+    </button>
+  </div>
+
+  <button type="submit" class="button button--disabled _btn-register" @onclick="this.OnRegisterClicked">
+    Register
+  </button>
 </div>

@@ -1,4 +1,4 @@
-.app-header {
+._app-header {
   background-color: var(--clr-bg-color);
 
   display: flex;
@@ -8,17 +8,17 @@
   padding-right: var(--page-side-margin);
 }
 
-.app-header__left {
+._app-header ._app-header__left {
   display: flex;
   align-items: center;
 }
 
-.app-header__right {
+._app-header ._app-header__right {
   display: flex;
   align-items: stretch;
 }
 
-.app-header .logo {
+._app-header ._logo {
   background-color: var(--clr-bg-color-alt);
 
   display: inline-block;
@@ -28,12 +28,12 @@
   margin-bottom: 10px;
 }
 
-.app-header .app-title {
+._app-header ._app-title {
   margin-left: 0.5em;
   color: var(--clr-fg-color);
 }
 
-.app-header .nav-link {
+._app-header ._nav-link {
   color: var(--clr-control-color);
   text-decoration: none;
 
@@ -48,12 +48,12 @@
   text-align: center;
 }
 
-.app-header .nav-link:hover {
+._app-header ._nav-link:hover {
   padding-bottom: var(--padding);
   border-bottom: var(--underline-height) solid var(--clr-control-color);
 }
 
-.app-header .nav-link:visited {
+._app-header ._nav-link:visited {
   color: var(--clr-control-color);
   text-decoration: none;
 }

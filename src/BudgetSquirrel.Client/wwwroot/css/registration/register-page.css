@@ -4,7 +4,7 @@
 }
 
 ._register-page ._title {
-  color: var(--clr-fg-no-color);
+  color: var(--clr-fg-no-color-bold);
 }
 
 ._register-page ._subtext {
@@ -18,6 +18,10 @@
   margin-top: 1em;
 }
 
-._register-page ._form-input:first-of-type {
+._register-page ._form-input--first {
+  margin-top: 2em;
+}
+
+._register-page ._btn-register {
   margin-top: 2em;
 }

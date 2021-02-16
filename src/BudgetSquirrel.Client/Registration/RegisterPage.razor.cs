@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Components;
 
 namespace BudgetSquirrel.Client.Registration
@@ -13,5 +14,23 @@ namespace BudgetSquirrel.Client.Registration
     }
 
     public Form FormValues = new Form();
+
+    public bool IsPasswordPlainText { get; private set; }
+    public bool IsConfirmPasswordPlainText { get; private set; }
+
+    public void TogglePasswordVisibility()
+    {
+      this.IsPasswordPlainText = !this.IsPasswordPlainText;
+    }
+
+    public void ToggleConfirmPasswordVisibility()
+    {
+      this.IsConfirmPasswordPlainText = !this.IsConfirmPasswordPlainText;
+    }
+
+    public void OnRegisterClicked()
+    {
+      Console.WriteLine("Register!");
+    }
   }
 }

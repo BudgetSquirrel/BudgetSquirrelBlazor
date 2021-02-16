@@ -17,23 +17,27 @@ html, body {
     --green-500: #5a8a4eff;
     --green-100: #f7f7f7;
     --red-500: #d26565ff;
-    --blackish-500: #394648ff;
-    --blackish-200: #6d8c98;
+    --blackish-700: #383838;
+    --blackish-500: #686868;
+    --blackish-200: #c4c4c4;
     --blackish-100: #e7e7e7;
     --blackish-50: #f7f7f7;
+    --blackish-a200: #6d8c98;
 
     --clr-bg-color: var(--tan-200);
     --clr-bg-color-alt: var(--tan-a500);
     --clr-bg-no-color: white;
-
+    
     --clr-trim-color: var(--tan-700);
-
+    
     --clr-fg-color: var(--tan-700);
     --clr-fg-no-color: var(--blackish-500);
-    --clr-fg-no-color-subtle: var(--blackish-200);
+    --clr-fg-no-color-bold: var(--blackish-700);
+    --clr-fg-no-color-subtle: var(--blackish-a200);
     --clr-fg-no-color-alt: white;
     
     --clr-control-color: var(--green-500);
+    --clr-control-no-color: var(--blackish-200);
 
     --clr-input-stroke: var(--blackish-500);
     --clr-input-border: var(--blackish-100);
@@ -49,9 +53,13 @@ html, body {
     margin-right: var(--page-side-margin);
 }
 
+/********* Headers *********/
+
 .header1 {
     font-size: 2em;
 }
+
+/********* Input *********/
 
 .input {
     padding: 1em;
@@ -59,4 +67,39 @@ html, body {
     color: var(--clr-input-stroke);
     caret-color: var(--clr-input-stroke);
     background-color: var(--clr-input-bg);
+}
+
+.input--password {
+    padding: 0;
+    border: none;
+    position: relative;
+}
+
+.input__visibiliy-toggle {
+    cursor: pointer;
+    position: absolute;
+    background: none;
+    border: none;
+    right: 8px;
+    top: 8px;
+}
+
+.input--password .input {
+    width: 100%;
+}
+
+/********* Button *********/
+
+.button {
+    padding: 1em;
+    font-size: 1.2em;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.button--disabled {
+    background-color: var(--clr-control-no-color);
+    color: var(--clr-fg-no-color);
+    cursor: default;
 }
