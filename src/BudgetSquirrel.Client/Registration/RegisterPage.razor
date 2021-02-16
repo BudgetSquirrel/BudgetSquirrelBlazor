@@ -1,4 +1,5 @@
 @page "/register"
+@using Common
 
 <div class="page-margins--apply _register-page">
   <h2 class="_title header1">Register your account</h2>
@@ -9,13 +10,13 @@
 
   <input
     @bind="this.FormValues.FullName"
-    class="input _form-input _form-input--first"
+    class='input _form-input _form-input--first @(this.FormValidStates.IsFullNameValid == ValidState.Valid ? "input--valid" : "")'
     placeholder="Full name..."
     name="fullName"
     autocomplete="name" />
   <input
     @bind="this.FormValues.Email"
-    class="input _form-input"
+    class='input _form-input @(this.FormValidStates.IsEmailValid == ValidState.Valid ? "input--valid" : "")'
     placeholder="Email..."
     name="email"
     autocomplete="email" />
@@ -23,7 +24,10 @@
   <div class="input input--password _form-input">
     <input
       @bind="this.FormValues.Password"
-      class="input" placeholder="Password..."
+      class='input
+             @(this.FormValidStates.IsPasswordValid == ValidState.Valid ? "input--valid" : "")
+             @(this.FormValidStates.IsPasswordValid == ValidState.Invalid ? "input--invalid" : "")'
+      placeholder="Password..."
       type='@(this.IsPasswordPlainText ? "text" : "password")'
       name="password"
       autocomplete="new-password" />
@@ -42,7 +46,9 @@
   <div class="input input--password _form-input">
     <input
       @bind="this.FormValues.ConfirmPassword"
-      class="input"
+      class='input
+             @(this.FormValidStates.IsConfirmPasswordValid == ValidState.Valid ? "input--valid" : "")
+             @(this.FormValidStates.IsConfirmPasswordValid == ValidState.Invalid ? "input--invalid" : "")'
       placeholder="Confirm Password..."
       type='@(this.IsConfirmPasswordPlainText ? "text" : "password")'
       name="confirmPassword"
@@ -59,7 +65,10 @@
     </button>
   </div>
 
-  <button type="submit" class="button button--disabled _btn-register" @onclick="this.OnRegisterClicked">
+  <button
+    type="submit"
+    class='button button--disabled _btn-register @(this.CanSubmit ? "button--encourage" : "")'
+    @onclick="this.OnRegisterClicked">
     Register
   </button>
 </div>

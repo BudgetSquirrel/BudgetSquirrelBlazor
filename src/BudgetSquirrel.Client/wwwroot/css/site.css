@@ -15,7 +15,6 @@ html, body {
     --tan-200: #fdf6ed;
     --tan-a500: #fbddb6;
     --green-500: #5a8a4eff;
-    --green-100: #f7f7f7;
     --red-500: #d26565ff;
     --blackish-700: #383838;
     --blackish-500: #686868;
@@ -42,6 +41,10 @@ html, body {
     --clr-input-stroke: var(--blackish-500);
     --clr-input-border: var(--blackish-100);
     --clr-input-bg: var(--blackish-50);
+
+    --clr-good-strong: var(--green-500);
+
+    --clr-bad-strong: var(--red-500);
 }
 
 .page-margins--var {
@@ -69,10 +72,26 @@ html, body {
     background-color: var(--clr-input-bg);
 }
 
+.input--valid {
+    border: 1px solid var(--clr-good-strong);
+    color: var(--clr-good-strong);
+    caret-color: var(--clr-good-strong);
+}
+
+.input--invalid {
+    border: 1px solid var(--clr-bad-strong);
+    color: var(--clr-bad-strong);
+    caret-color: var(--clr-bad-strong);
+}
+
 .input--password {
     padding: 0;
     border: none;
     position: relative;
+}
+
+.input--password .input {
+    width: 100%;
 }
 
 .input__visibiliy-toggle {
@@ -82,10 +101,6 @@ html, body {
     border: none;
     right: 8px;
     top: 8px;
-}
-
-.input--password .input {
-    width: 100%;
 }
 
 /********* Button *********/
@@ -102,4 +117,10 @@ html, body {
     background-color: var(--clr-control-no-color);
     color: var(--clr-fg-no-color);
     cursor: default;
+}
+
+.button--encourage {
+    background-color: var(--clr-control-color);
+    color: var(--clr-fg-no-color-alt);
+    cursor: pointer;
 }
