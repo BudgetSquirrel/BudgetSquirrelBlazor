@@ -1,0 +1,23 @@
+._register-page {
+  padding-top: 4em;
+  width: 480px;
+}
+
+._register-page ._title {
+  color: var(--clr-fg-no-color);
+}
+
+._register-page ._subtext {
+  margin-top: 1em;
+  color: var(--clr-fg-no-color-subtle);
+}
+
+._register-page ._form-input {
+  width: 100%;
+  display: block;
+  margin-top: 1em;
+}
+
+._register-page ._form-input:first-of-type {
+  margin-top: 2em;
+}

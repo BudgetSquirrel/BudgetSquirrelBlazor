@@ -15,8 +15,12 @@ html, body {
     --tan-200: #fdf6ed;
     --tan-a500: #fbddb6;
     --green-500: #5a8a4eff;
+    --green-100: #f7f7f7;
     --red-500: #d26565ff;
     --blackish-500: #394648ff;
+    --blackish-200: #6d8c98;
+    --blackish-100: #e7e7e7;
+    --blackish-50: #f7f7f7;
 
     --clr-bg-color: var(--tan-200);
     --clr-bg-color-alt: var(--tan-a500);
@@ -26,11 +30,33 @@ html, body {
 
     --clr-fg-color: var(--tan-700);
     --clr-fg-no-color: var(--blackish-500);
+    --clr-fg-no-color-subtle: var(--blackish-200);
     --clr-fg-no-color-alt: white;
     
     --clr-control-color: var(--green-500);
+
+    --clr-input-stroke: var(--blackish-500);
+    --clr-input-border: var(--blackish-100);
+    --clr-input-bg: var(--blackish-50);
 }
 
-.page-margins {
+.page-margins--var {
     --page-side-margin: 110px;
+}
+
+.page-margins--apply {
+    margin-left: var(--page-side-margin);
+    margin-right: var(--page-side-margin);
+}
+
+.header1 {
+    font-size: 2em;
+}
+
+.input {
+    padding: 1em;
+    border: 1px solid var(--clr-input-border);
+    color: var(--clr-input-stroke);
+    caret-color: var(--clr-input-stroke);
+    background-color: var(--clr-input-bg);
 }

@@ -1,3 +1,14 @@
 @page "/register"
 
-<h1>Register</h1>
+<div class="page-margins--apply _register-page">
+  <h2 class="_title header1">Register your account</h2>
+  <p class="_subtext">
+    Registering your account allows you to track your budget
+    accross multiple platforms
+  </p>
+
+  <input @bind="this.FormValues.FullName" class="input _form-input" placeholder="Full name..." />
+  <input @bind="this.FormValues.Email" class="input _form-input" placeholder="Email..." />
+  <input @bind="this.FormValues.Password" class="input _form-input" placeholder="Password..." type="password" />
+  <input @bind="this.FormValues.ConfirmPassword" class="input _form-input" placeholder="Confirm Password..." type="password" />
+</div>
