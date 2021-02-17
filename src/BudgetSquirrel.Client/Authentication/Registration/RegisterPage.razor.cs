@@ -1,8 +1,9 @@
 using System;
+using System.Threading.Tasks;
 using BudgetSquirrel.Client.Common;
 using Microsoft.AspNetCore.Components;
 
-namespace BudgetSquirrel.Client.Registration
+namespace BudgetSquirrel.Client.Authentication.Registration
 {
   public partial class RegisterPage : ComponentBase
   {
@@ -42,6 +43,9 @@ namespace BudgetSquirrel.Client.Registration
       }
     }
 
+    [Inject]
+    public IRegistrationService RegistrationService { get; set; }
+
     public Form FormValues { get; } = new Form();
     
     public FormValidState FormValidStates => new FormValidState(this.FormValues);
@@ -61,12 +65,26 @@ namespace BudgetSquirrel.Client.Registration
       this.IsConfirmPasswordPlainText = !this.IsConfirmPasswordPlainText;
     }
 
-    public void OnRegisterClicked()
+    public async Task OnRegisterClicked()
     {
+      if (this.FormValidStates.IsCompleteAndValid)
+      {
+        return;
+      }
+      
       Console.WriteLine($"FirstName: {this.FormValues.FullName}");
       Console.WriteLine($"Email: {this.FormValues.Email}");
       Console.WriteLine($"Password: {this.FormValues.Password}");
       Console.WriteLine($"ConfirmPassword: {this.FormValues.ConfirmPassword}");
+      string[] nameParts = this.FormValues.FullName.Split(' ');
+      string firstName = nameParts[0];
+      string lastName = nameParts.Length > 1 ? nameParts[1] : "";
+      await this.RegistrationService.Register(
+        firstName,
+        lastName,
+        this.FormValues.Email,
+        this.FormValues.Password,
+        this.FormValues.ConfirmPassword);
     }
   }
 }
