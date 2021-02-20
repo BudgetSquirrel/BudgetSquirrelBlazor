@@ -67,7 +67,7 @@ namespace BudgetSquirrel.Client.Authentication.Registration
 
     public async Task OnRegisterClicked()
     {
-      if (this.FormValidStates.IsCompleteAndValid)
+      if (!this.FormValidStates.IsCompleteAndValid)
       {
         return;
       }

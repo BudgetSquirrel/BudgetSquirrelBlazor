@@ -1,3 +1,4 @@
+using BudgetSquirrel.Client.AppSettings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,10 +9,8 @@ namespace BudgetSquirrel.Client.BackendClient
     public static IServiceCollection AddBackendClient(IServiceCollection services)
     {
       services.AddSingleton<BackendConfiguration>(provider => {
-
-        IConfiguration configuration = provider.GetRequiredService<IConfiguration>();
-        BackendConfiguration backendConfig = configuration.GetSection("Backend").Get<BackendConfiguration>();
-        return backendConfig;
+        AppSettingsBase configuration = provider.GetRequiredService<AppSettingsBase>();
+        return configuration.Backend;
       });
 
       services.AddSingleton<IBackendClient, BackendClient>();
