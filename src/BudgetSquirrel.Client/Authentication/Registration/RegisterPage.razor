@@ -8,15 +8,23 @@
     accross multiple platforms
   </p>
 
+  @if (this.GotError)
+  {
+    <p class="error-text _form-beginning">An error has ocurred while registerring this account.</p>
+  }
+
   <input
     @bind="this.FormValues.FullName"
-    class='input _form-input _form-input--first @(this.FormValidStates.IsFullNameValid == ValidState.Valid ? "input--valid" : "")'
+    class='input _form-input @(this.FormValidStates.IsFullNameValid == ValidState.Valid ? "input--valid" : "")'
     placeholder="Full name..."
     name="fullName"
     autocomplete="name" />
   <input
     @bind="this.FormValues.Email"
-    class='input _form-input @(this.FormValidStates.IsEmailValid == ValidState.Valid ? "input--valid" : "")'
+    class='input
+           _form-input
+           @(this.FormValidStates.IsEmailValid == ValidState.Valid ? "input--valid" : "")
+           @(this.FormValidStates.IsEmailValid == ValidState.Invalid ? "input--invalid" : "")'
     placeholder="Email..."
     name="email"
     autocomplete="email" />

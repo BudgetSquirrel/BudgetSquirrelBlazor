@@ -124,3 +124,8 @@ html, body {
     color: var(--clr-fg-no-color-alt);
     cursor: pointer;
 }
+
+/********* Errors/Warnings *********/
+.error-text {
+    color: var(--clr-bad-strong);
+}

@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,15 +16,25 @@ namespace BudgetSquirrel.Client.BackendClient
       this.backendConfiguration = backendConfiguration;
     }
     
-    public Task ExecuteCommand(string endpoint, object request)
+    public async Task ExecuteCommand(string endpoint, object request)
     {
       string requestJson = JsonConvert.SerializeObject(request);
       string url = $"{this.backendConfiguration.RootUrl}/backend/{endpoint}";
-      using (HttpClient client = this.GetClient())
+      HttpClient client = this.GetClient();
+      try
       {
         HttpContent data = new StringContent(requestJson, Encoding.UTF8, "application/json");
-        return client.PostAsync(url, data);
+        HttpResponseMessage response = await client.PostAsync(url, data);
+        if (response.StatusCode != HttpStatusCode.OK)
+        {
+          throw new BackendException();
+        }
       }
+      finally{
+        client.Dispose();
+      }
+      
+      return;
     }
 
     private HttpClient GetClient()

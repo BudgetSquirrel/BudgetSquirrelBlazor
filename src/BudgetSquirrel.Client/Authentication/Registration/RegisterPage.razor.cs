@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Client.Common;
 using Microsoft.AspNetCore.Components;
@@ -40,6 +41,19 @@ namespace BudgetSquirrel.Client.Authentication.Registration
         {
           this.IsConfirmPasswordValid = ValidState.Invalid;
         }
+
+        if (this.IsEmailValid != ValidState.Empty)
+        {
+          // Must contain one and only one '@' and it must not be the first or last character.
+          bool isInvalidEmailFormat = !form.Email.Contains("@") ||
+                                      form.Email.Where(c => c == '@').Count() != 1 ||
+                                      form.Email.EndsWith("@") ||
+                                      form.Email.StartsWith("@");
+          if (isInvalidEmailFormat)
+          {
+            this.IsEmailValid = ValidState.Invalid;
+          }
+        }
       }
     }
 
@@ -51,6 +65,10 @@ namespace BudgetSquirrel.Client.Authentication.Registration
     public FormValidState FormValidStates => new FormValidState(this.FormValues);
 
     public bool CanSubmit => this.FormValidStates.IsCompleteAndValid;
+
+    public bool GotError { get; private set; }
+
+    public bool IsSubmitting { get; private set; }
 
     public bool IsPasswordPlainText { get; private set; }
     public bool IsConfirmPasswordPlainText { get; private set; }
@@ -71,16 +89,27 @@ namespace BudgetSquirrel.Client.Authentication.Registration
       {
         return;
       }
-      
+     
+      this.GotError = false;
+      this.IsSubmitting = true; 
+
       string[] nameParts = this.FormValues.FullName.Split(' ');
       string firstName = nameParts[0];
       string lastName = nameParts.Length > 1 ? nameParts[1] : "";
-      await this.RegistrationService.Register(
-        firstName,
-        lastName,
-        this.FormValues.Email,
-        this.FormValues.Password,
-        this.FormValues.ConfirmPassword);
+      try
+      {
+        await this.RegistrationService.Register(
+          firstName,
+          lastName,
+          this.FormValues.Email,
+          this.FormValues.Password,
+          this.FormValues.ConfirmPassword);
+      }
+      catch
+      {
+        this.GotError = true;
+      }
+      this.IsSubmitting = false;
     }
   }
 }
