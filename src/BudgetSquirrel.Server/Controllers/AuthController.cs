@@ -87,6 +87,13 @@ namespace BudgetSquirrel.Server.Controllers
 
         }
 
+        [AllowAnonymous]
+        [HttpOptions("register")]
+        public async Task<IActionResult> RegisterOptions()
+        {
+            return Ok();
+        }
+
         [Authorize]
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()

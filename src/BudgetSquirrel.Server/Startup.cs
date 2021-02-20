@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BudgetSquirrel.Server.Configuration;
 using BudgetSquirrel.Server.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,8 @@ namespace BudgetSquirrel.Server
 {
     public class Startup
     {
+        readonly string AllowFrontendOrigin = "_allowFrontendOrigin";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,6 +30,19 @@ namespace BudgetSquirrel.Server
             services.AddControllers();
             DalLocalDbServicesRegistry.ConfigureAuthDal(services);
             GateKeeperServicesRegistry.AddGateKeeper(services, this.Configuration);
+
+            ConfigureHostingLayer(services);
+        }
+
+        private void ConfigureHostingLayer(IServiceCollection services)
+        {
+            HostingConfiguration hostingConfig = this.Configuration.GetSection("Hosting").Get<HostingConfiguration>();
+            services.AddCors(options =>
+                options.AddPolicy(name: AllowFrontendOrigin,
+                    builder =>
+                    {
+                        builder.WithOrigins(hostingConfig.FrontendOrigin).AllowAnyHeader().AllowAnyMethod();
+                    }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +60,8 @@ namespace BudgetSquirrel.Server
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(AllowFrontendOrigin);
 
             app.UseAuthorization();
 
