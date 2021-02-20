@@ -72,10 +72,6 @@ namespace BudgetSquirrel.Client.Authentication.Registration
         return;
       }
       
-      Console.WriteLine($"FirstName: {this.FormValues.FullName}");
-      Console.WriteLine($"Email: {this.FormValues.Email}");
-      Console.WriteLine($"Password: {this.FormValues.Password}");
-      Console.WriteLine($"ConfirmPassword: {this.FormValues.ConfirmPassword}");
       string[] nameParts = this.FormValues.FullName.Split(' ');
       string firstName = nameParts[0];
       string lastName = nameParts.Length > 1 ? nameParts[1] : "";
