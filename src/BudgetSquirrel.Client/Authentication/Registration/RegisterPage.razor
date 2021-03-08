@@ -19,6 +19,7 @@
       @bind-Value="this.Model.FullName"
       class='input _form-input _form-input--first'
       placeholder="Full name..."
+      autocomplete="name"
       name="fullName" />
     <ValidationMessage For="(() => this.Model.FullName)" />
 
@@ -26,6 +27,7 @@
       @bind-Value="this.Model.Email"
       class='input _form-input'
       placeholder="Email..."
+      autocomplete="email"
       name="email" />
     <ValidationMessage For="(() => this.Model.Email)" />
 
@@ -58,7 +60,7 @@
         type='@(this.IsConfirmPasswordPlainText ? "text" : "password")'
         name="password"
         autocomplete="new-password" />
-      <button type="button" class="input__visibiliy-toggle" @onclick="this.TogglePasswordVisibility">
+      <button type="button" class="input__visibiliy-toggle" @onclick="this.ToggleConfirmPasswordVisibility">
         @if (this.IsPasswordPlainText)
         {
           <img src="images/generic/visibility_off.svg" />
@@ -68,6 +70,13 @@
           <img src="images/generic/visibility.svg" />
         }
       </button>
+      @if (this.IsConfirmPasswordInvalid)
+      {
+        @* We have to do this manually because the ASP.NET Compare validation is bugged
+        when the form is submitted.
+        https://github.com/dotnet/aspnetcore/issues/10643 *@
+        <div class="validation-message">Password doesn't match</div>
+      }
       <ValidationMessage For="(() => this.Model.ConfirmPassword)" />
     </div>
 

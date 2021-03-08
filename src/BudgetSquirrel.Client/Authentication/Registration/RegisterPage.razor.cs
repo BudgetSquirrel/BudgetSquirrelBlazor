@@ -1,8 +1,5 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
-using BudgetSquirrel.Client.Common;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -10,7 +7,7 @@ namespace BudgetSquirrel.Client.Authentication.Registration
 {
   public partial class RegisterPage : ComponentBase
   {
-    public class FormModel
+    private class FormModel
     {
       [Required(ErrorMessage = "Name is required")]
       public string FullName { get; set; }
@@ -19,7 +16,7 @@ namespace BudgetSquirrel.Client.Authentication.Registration
       [EmailAddress]
       public string Email { get; set; }
 
-      [Required]
+      [Required(ErrorMessage = "Password is required")]
       [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
       [MaxLength(32, ErrorMessage = "Password may not be greater than 32 characters")]
       [RegularExpression(
@@ -27,40 +24,58 @@ namespace BudgetSquirrel.Client.Authentication.Registration
         ErrorMessage = "Password must not contain spaces, must contain lowercase letters, uppercase letters, and at least one digit and special character (!@#$%^&+=_-)")]
       public string Password { get; set; }
 
-      [Required]
+      [Required(ErrorMessage = "Confirm Password is required")]
       [Compare(nameof(Password), ErrorMessage = "Password doesn't match")]
       public string ConfirmPassword { get; set; }
     }
 
     [Inject]
-    public IRegistrationService RegistrationService { get; set; }
+    private IRegistrationService RegistrationService { get; set; }
 
-    public FormModel Model { get; } = new FormModel();
+    private FormModel Model { get; } = new FormModel();
 
-    public bool GotError { get; private set; }
+    private bool GotError { get; set; }
 
-    public bool IsSubmitting { get; private set; }
+    private bool IsConfirmPasswordInvalid { get; set; }
 
-    public bool IsPasswordPlainText { get; private set; }
-    public bool IsConfirmPasswordPlainText { get; private set; }
+    private bool IsSubmitting { get; set; }
 
-    public void TogglePasswordVisibility()
+    private bool IsPasswordPlainText { get; set; }
+    private bool IsConfirmPasswordPlainText { get; set; }
+
+    private void TogglePasswordVisibility()
     {
       this.IsPasswordPlainText = !this.IsPasswordPlainText;
     }
 
-    public void ToggleConfirmPasswordVisibility()
+    private void ToggleConfirmPasswordVisibility()
     {
       this.IsConfirmPasswordPlainText = !this.IsConfirmPasswordPlainText;
     }
 
-    public async Task OnRegisterClicked(EditContext editContext)
+    /// <summary>
+    /// We have to do this manually because the ASP.NET Compare validation is bugged
+    /// when the form is submitted.
+    /// https://github.com/dotnet/aspnetcore/issues/10643
+    /// </summary>
+    private bool ValidateConfirmPassword()
+    {
+      if (this.Model.ConfirmPassword != this.Model.Password)
+      {
+        this.IsConfirmPasswordInvalid = true;
+        return false;
+      }
+      return true;
+    }
+
+    private async Task OnRegisterClicked(EditContext editContext)
     {
       this.IsSubmitting = true;
       this.GotError = false;
-      if (this.Model.ConfirmPassword == this.Model.Password)
+      this.IsConfirmPasswordInvalid = false;
+      if (!this.ValidateConfirmPassword())
       {
-        this.GotError = true;
+        return;
       }
 
       string[] nameParts = this.Model.FullName.Split(' ');
