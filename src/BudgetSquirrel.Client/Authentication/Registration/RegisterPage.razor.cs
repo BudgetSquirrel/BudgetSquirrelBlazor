@@ -1,70 +1,41 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Client.Common;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace BudgetSquirrel.Client.Authentication.Registration
 {
   public partial class RegisterPage : ComponentBase
   {
-    public class Form
+    public class FormModel
     {
+      [Required(ErrorMessage = "Name is required")]
       public string FullName { get; set; }
+
+      [Required(ErrorMessage = "Email is required")]
+      [EmailAddress]
       public string Email { get; set; }
+
+      [Required]
+      [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
+      [MaxLength(32, ErrorMessage = "Password may not be greater than 32 characters")]
+      [RegularExpression(
+        @"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=_-])(?=\S+$)([0-9]|[a-z]|[A-Z]|[!@#$%^&+=_-])+$",
+        ErrorMessage = "Password must not contain spaces, must contain lowercase letters, uppercase letters, and at least one digit and special character (!@#$%^&+=_-)")]
       public string Password { get; set; }
+
+      [Required]
+      [Compare(nameof(Password), ErrorMessage = "Password doesn't match")]
       public string ConfirmPassword { get; set; }
-    }
-
-    public class FormValidState
-    {
-      public ValidState IsFullNameValid { get; set; } = ValidState.Empty;
-      public ValidState IsEmailValid { get; set; } = ValidState.Empty;
-      public ValidState IsPasswordValid { get; set; } = ValidState.Empty;
-      public ValidState IsConfirmPasswordValid { get; set; } = ValidState.Empty;
-
-      public bool IsCompleteAndValid => this.IsFullNameValid == ValidState.Valid &&
-                                        this.IsEmailValid == ValidState.Valid &&
-                                        this.IsPasswordValid == ValidState.Valid &&
-                                        this.IsConfirmPasswordValid == ValidState.Valid;
-
-      public FormValidState(Form form)
-      {
-        this.IsFullNameValid = FormValidationUtils.GetBasicValidationState(form.FullName);
-        this.IsEmailValid = FormValidationUtils.GetBasicValidationState(form.Email);
-        this.IsPasswordValid = FormValidationUtils.GetBasicValidationState(form.Password);
-        this.IsConfirmPasswordValid = FormValidationUtils.GetBasicValidationState(form.ConfirmPassword);
-
-        if (form.Password != null &&
-            form.ConfirmPassword != null &&
-            form.ConfirmPassword != form.Password)
-        {
-          this.IsConfirmPasswordValid = ValidState.Invalid;
-        }
-
-        if (this.IsEmailValid != ValidState.Empty)
-        {
-          // Must contain one and only one '@' and it must not be the first or last character.
-          bool isInvalidEmailFormat = !form.Email.Contains("@") ||
-                                      form.Email.Where(c => c == '@').Count() != 1 ||
-                                      form.Email.EndsWith("@") ||
-                                      form.Email.StartsWith("@");
-          if (isInvalidEmailFormat)
-          {
-            this.IsEmailValid = ValidState.Invalid;
-          }
-        }
-      }
     }
 
     [Inject]
     public IRegistrationService RegistrationService { get; set; }
 
-    public Form FormValues { get; } = new Form();
-    
-    public FormValidState FormValidStates => new FormValidState(this.FormValues);
-
-    public bool CanSubmit => this.FormValidStates.IsCompleteAndValid;
+    public FormModel Model { get; } = new FormModel();
 
     public bool GotError { get; private set; }
 
@@ -83,17 +54,16 @@ namespace BudgetSquirrel.Client.Authentication.Registration
       this.IsConfirmPasswordPlainText = !this.IsConfirmPasswordPlainText;
     }
 
-    public async Task OnRegisterClicked()
+    public async Task OnRegisterClicked(EditContext editContext)
     {
-      if (!this.FormValidStates.IsCompleteAndValid)
-      {
-        return;
-      }
-     
+      this.IsSubmitting = true;
       this.GotError = false;
-      this.IsSubmitting = true; 
+      if (this.Model.ConfirmPassword == this.Model.Password)
+      {
+        this.GotError = true;
+      }
 
-      string[] nameParts = this.FormValues.FullName.Split(' ');
+      string[] nameParts = this.Model.FullName.Split(' ');
       string firstName = nameParts[0];
       string lastName = nameParts.Length > 1 ? nameParts[1] : "";
       try
@@ -101,9 +71,9 @@ namespace BudgetSquirrel.Client.Authentication.Registration
         await this.RegistrationService.Register(
           firstName,
           lastName,
-          this.FormValues.Email,
-          this.FormValues.Password,
-          this.FormValues.ConfirmPassword);
+          this.Model.Email,
+          this.Model.Password,
+          this.Model.ConfirmPassword);
       }
       catch
       {
