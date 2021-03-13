@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using BudgetSquirrel.Core.Accounts;
 
 namespace BudgetSquirrel.Server.Biz.Accounts
@@ -48,6 +49,15 @@ namespace BudgetSquirrel.Server.Biz.Accounts
       if (this.arguments.password != this.arguments.confirmPassword)
       {
         throw new InvalidCommandArgumentException("Password must match confirmation password");
+      }
+      // Must contain one and only one '@' and it must not be the first or last character.
+      bool isInvalidEmailFormat = !this.arguments.email.Contains("@") ||
+                                  this.arguments.email.Where(c => c == '@').Count() != 1 ||
+                                  this.arguments.email.EndsWith("@") ||
+                                  this.arguments.email.StartsWith("@");
+      if (isInvalidEmailFormat)
+      {
+        throw new InvalidCommandArgumentException("That email is not a valid email address");
       }
       return Task.FromResult(duplicateUser);
     }

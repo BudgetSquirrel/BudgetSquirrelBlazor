@@ -78,7 +78,8 @@ html, body {
     caret-color: var(--clr-good-strong);
 }
 
-.input--invalid {
+.input--invalid,
+.input.invalid {
     border: 1px solid var(--clr-bad-strong);
     color: var(--clr-bad-strong);
     caret-color: var(--clr-bad-strong);
@@ -123,4 +124,11 @@ html, body {
     background-color: var(--clr-control-color);
     color: var(--clr-fg-no-color-alt);
     cursor: pointer;
+}
+
+/********* Errors/Warnings *********/
+.error-text,
+.invalid,
+.validation-message {
+    color: var(--clr-bad-strong);
 }

@@ -1,0 +1,90 @@
+@page "/register"
+
+<div class="page-margins--apply _register-page">
+  <h2 class="_title header1">Register your account</h2>
+  <p class="_subtext">
+    Registering your account allows you to track your budget
+    accross multiple platforms
+  </p>
+
+  @if (this.GotError)
+  {
+    <p class="error-text _form-beginning">An error has ocurred while registerring this account.</p>
+  }
+
+  <EditForm Model="this.Model" OnValidSubmit="this.OnRegisterClicked">
+    <DataAnnotationsValidator />
+
+    <InputText
+      @bind-Value="this.Model.FullName"
+      class='input _form-input _form-input--first'
+      placeholder="Full name..."
+      autocomplete="name"
+      name="fullName" />
+    <ValidationMessage For="(() => this.Model.FullName)" />
+
+    <InputText
+      @bind-Value="this.Model.Email"
+      class='input _form-input'
+      placeholder="Email..."
+      autocomplete="email"
+      name="email" />
+    <ValidationMessage For="(() => this.Model.Email)" />
+
+    <div class="input--password _form-input">
+      <InputText
+        @bind-Value="this.Model.Password"
+        class='input'
+        placeholder="Password..."
+        type='@(this.IsPasswordPlainText ? "text" : "password")'
+        name="password"
+        autocomplete="new-password" />
+      <button type="button" class="input__visibiliy-toggle" @onclick="this.TogglePasswordVisibility">
+        @if (this.IsPasswordPlainText)
+        {
+          <img src="images/generic/visibility_off.svg" />
+        }
+        else
+        {
+          <img src="images/generic/visibility.svg" />
+        }
+      </button>
+      <ValidationMessage For="(() => this.Model.Password)" />
+    </div>
+
+    <div class="input--password _form-input">
+      <InputText
+        @bind-Value="this.Model.ConfirmPassword"
+        class='input'
+        placeholder="Confirm Password..."
+        type='@(this.IsConfirmPasswordPlainText ? "text" : "password")'
+        name="password"
+        autocomplete="new-password" />
+      <button type="button" class="input__visibiliy-toggle" @onclick="this.ToggleConfirmPasswordVisibility">
+        @if (this.IsPasswordPlainText)
+        {
+          <img src="images/generic/visibility_off.svg" />
+        }
+        else
+        {
+          <img src="images/generic/visibility.svg" />
+        }
+      </button>
+      @if (this.IsConfirmPasswordInvalid)
+      {
+        @* We have to do this manually because the ASP.NET Compare validation is bugged
+        when the form is submitted.
+        https://github.com/dotnet/aspnetcore/issues/10643 *@
+        <div class="validation-message">Password doesn't match</div>
+      }
+      <ValidationMessage For="(() => this.Model.ConfirmPassword)" />
+    </div>
+
+    <button
+      type="submit"
+      class="button button--encourage _btn-register">
+      Register
+    </button>
+
+  </EditForm>
+</div>
