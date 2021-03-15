@@ -1,0 +1,44 @@
+@page "/login"
+
+<div class="page-margins--apply _login-page">
+  <h2 class="header">Login to BudgetSquirrel</h2>
+
+  <EditForm Model="this.Model" OnValidSubmit="this.OnLoginclicked">
+    <DataAnnotationsValidator />
+
+    <InputText
+      @bind-Value="this.Model.Email"
+      class='input form-input'
+      placeholder="Email..."
+      autocomplete="email"
+      name="email" />
+    <ValidationMessage For="(() => this.Model.Email)" />
+
+    <div class="input--password form-input">
+      <InputText
+        @bind-Value="this.Model.Password"
+        class='input'
+        placeholder="Password..."
+        type='@(this.IsPasswordPlainText ? "text" : "password")'
+        name="password"
+        autocomplete="current-password" />
+      <button type="button" class="input__visibiliy-toggle" @onclick="this.TogglePasswordVisibility">
+        @if (this.IsPasswordPlainText)
+        {
+          <img src="images/generic/visibility_off.svg" />
+        }
+        else
+        {
+          <img src="images/generic/visibility.svg" />
+        }
+      </button>
+      <ValidationMessage For="(() => this.Model.Password)" />
+    </div>
+
+    <button
+      type="submit"
+      class="button button--encourage _btn-login">
+      Register
+    </button>
+  </EditForm>
+</div>

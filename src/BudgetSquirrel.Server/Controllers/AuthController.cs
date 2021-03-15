@@ -75,21 +75,14 @@ namespace BudgetSquirrel.Server.Controllers
                 newUser.FirstName,
                 newUser.LastName));
             await cmd.Execute(await cmd.Validate(await cmd.Load()));
-
-            // LoginUser user = await this.accountRepository.GetByEmail(newUser.Email);
-            // await this.authenticationService.SignInAsync(user);
-
-            // if (user == null)
-            // {
-            //     return this.StatusCode(500, "There was an error creating the account, please try again.");
-            // }
+            
             return Ok();
 
         }
 
         [AllowAnonymous]
         [HttpOptions("register")]
-        public async Task<IActionResult> RegisterOptions()
+        public IActionResult RegisterOptions()
         {
             return Ok();
         }
