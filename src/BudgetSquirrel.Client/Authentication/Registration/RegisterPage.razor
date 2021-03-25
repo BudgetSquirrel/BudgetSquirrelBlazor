@@ -1,8 +1,8 @@
 @page "/register"
 
 <div class="page-margins--apply _register-page">
-  <h2 class="_title header1">Register your account</h2>
-  <p class="_subtext">
+  <h2 class="foreground-default header1">Register your account</h2>
+  <p class="foreground-default foreground-default--subtle _subtext">
     Registering your account allows you to track your budget
     accross multiple platforms
   </p>
@@ -17,7 +17,7 @@
 
     <InputText
       @bind-Value="this.Model.FullName"
-      class='input _form-input _form-input--first'
+      class='input form-input'
       placeholder="Full name..."
       autocomplete="name"
       name="fullName" />
@@ -25,13 +25,13 @@
 
     <InputText
       @bind-Value="this.Model.Email"
-      class='input _form-input'
+      class='input form-input'
       placeholder="Email..."
       autocomplete="email"
       name="email" />
     <ValidationMessage For="(() => this.Model.Email)" />
 
-    <div class="input--password _form-input">
+    <div class="input--password form-input">
       <InputText
         @bind-Value="this.Model.Password"
         class='input'
@@ -52,7 +52,7 @@
       <ValidationMessage For="(() => this.Model.Password)" />
     </div>
 
-    <div class="input--password _form-input">
+    <div class="input--password form-input">
       <InputText
         @bind-Value="this.Model.ConfirmPassword"
         class='input'

@@ -1,3 +1,5 @@
 @import url("shared/app-header.css");
+@import url("typogrophy.css");
 
 @import url("registration/register-page.css");
+@import url("registration/login-page.css");

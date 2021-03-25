@@ -1,0 +1,7 @@
+.foreground-default {
+  color: var(--clr-fg-no-color-bold);
+}
+
+.foreground-default--subtle {
+  color: var(--clr-fg-no-color-subtle);
+}
