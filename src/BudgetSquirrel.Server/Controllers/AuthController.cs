@@ -23,12 +23,12 @@ namespace BudgetSquirrel.Server.Controllers
         private readonly IAuthService authenticationService;
         private readonly IAccountRepository accountRepository;
 
-        public AuthController(/*ILogger<AuthController> logger,
-                                        IAuthService authenticationService,*/
-                                        IAccountRepository userRepository)
+        public AuthController(/*ILogger<AuthController> logger,*/
+            IAuthService authenticationService,
+            IAccountRepository userRepository)
         {
             // this.logger = logger;
-            // this.authenticationService = authenticationService;
+            this.authenticationService = authenticationService;
             this.accountRepository = userRepository;
         }
 
@@ -36,7 +36,7 @@ namespace BudgetSquirrel.Server.Controllers
         [HttpGet("me")]
         public async Task<IActionResult> GetCurrentUser()
         {
-            LoginUser userData = await this.authenticationService.GetCurrentUser();
+            Account userData = await this.authenticationService.GetCurrentUser();
             CurrentUserResponse user = AuthMessageResolver.ToApiMessage(userData);
             return new JsonResult(user);
         }
@@ -47,7 +47,7 @@ namespace BudgetSquirrel.Server.Controllers
         {
             try
             {
-                LoginUser user = await this.authenticationService.Authenticate(credentials);
+                Account user = await this.authenticationService.Authenticate(credentials);
 
                 if (user != null)
                 {
@@ -55,11 +55,11 @@ namespace BudgetSquirrel.Server.Controllers
                     return Ok();
                 }
                 
-                return this.BadRequest("Username or Password were incorrect");
+                return this.Unauthorized("Username or Password were incorrect");
             }
             catch (Exception ex) when (ex is AuthenticationException)
             {
-                return this.BadRequest("Username or Password were incorrect");
+                return this.Unauthorized("Username or Password were incorrect");
             }
         }
 

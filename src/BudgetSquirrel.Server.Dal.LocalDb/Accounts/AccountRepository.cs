@@ -55,16 +55,36 @@ namespace BudgetSquirrel.Server.Dal.LocalDb.Accounts
       throw new NotImplementedException();
     }
 
-    public async Task<LoginUser> GetByEmail(string email)
+    public async Task<Account> GetByEmail(string email)
     {
-      LoginUser user;
+      Account user;
       using (IDbConnection conn = this.connectionProvider.GetConnection())
       {
-        user = await conn.QuerySingleOrDefaultAsync<LoginUser>(
+        user = await conn.QuerySingleOrDefaultAsync<Account>(
           "EXEC [dbo].[GetAccountByEmail] @Email",
           new { Email = email });
       }
       return user;
+    }
+
+    public async Task<bool> IsPasswordAttemptCorrect(string email, string password)
+    {
+      string encryptedPassword = this.cryptor.Encrypt(
+        password,
+        this.gateKeeperConfig.EncryptionKey,
+        this.gateKeeperConfig.Salt);
+        
+      string matchingEmail;
+      using (IDbConnection conn = this.connectionProvider.GetConnection())
+      {
+        matchingEmail = await conn.QuerySingleOrDefaultAsync<string>(
+          "EXEC [dbo].[GetIsPasswordAttemptCorrect] @Email, @EncryptedPasswordAttempt",
+          new {
+            Email = email,
+            EncryptedPasswordAttempt = encryptedPassword
+          });
+      }
+      return matchingEmail != null;
     }
   }
 }

@@ -9,7 +9,8 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
       return new Dictionary<string, string>
       {
         { "CreateAccount", "StoredProcedures/Scripts/Auth/CreateAccount.sql" },
-        { "GetAccountByEmail", "StoredProcedures/Scripts/Auth/GetAccountByEmail.sql" }
+        { "GetAccountByEmail", "StoredProcedures/Scripts/Auth/GetAccountByEmail.sql" },
+        { "GetIsPasswordAttemptCorrect", "StoredProcedures/Scripts/Auth/GetIsPasswordAttemptCorrect.sql" }
       };
     }
   }
