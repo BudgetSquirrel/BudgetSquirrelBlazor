@@ -3,6 +3,11 @@
 <div class="page-margins--apply _login-page">
   <h2 class="header">Login to BudgetSquirrel</h2>
 
+    @if (this.IsLoginIncorrect)
+    {
+      <p class="error-text _form-beginning">This username or email is incorrect.</p>
+    }
+
   <EditForm Model="this.Model" OnValidSubmit="this.OnLoginclicked">
     <DataAnnotationsValidator />
 
