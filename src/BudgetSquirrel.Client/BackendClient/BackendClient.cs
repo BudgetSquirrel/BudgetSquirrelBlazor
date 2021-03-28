@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
 
@@ -31,13 +33,11 @@ namespace BudgetSquirrel.Client.BackendClient
       try
       {
         HttpContent data = new StringContent(requestJson, Encoding.UTF8, "application/json");
-        HttpResponseMessage response = await client.PostAsync(url, data);
-
-        IEnumerable<string> headers = response.Headers.Select(h => h.Key + " - " + h.Value);
-        Console.WriteLine("Headers: " + string.Join(",", headers));
-        IEnumerable<string> cookies = response.Headers.Single(h => h.Key == "cookie").Value;
-        Console.WriteLine("Cookies: " + string.Join(",", cookies));
-        // await this.jSRunTime.InvokeVoidAsync("eval", $"document.cookie = \"{cookieValue}\"");
+        HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
+        requestMessage.Content = data;
+        requestMessage.SetBrowserRequestMode(BrowserRequestMode.Cors);
+        
+        HttpResponseMessage response = await client.SendAsync(requestMessage);
 
         if (response.StatusCode != HttpStatusCode.OK)
         {

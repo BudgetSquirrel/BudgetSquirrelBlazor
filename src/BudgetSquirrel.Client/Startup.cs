@@ -2,7 +2,7 @@ using System;
 using BudgetSquirrel.Client.AppSettings;
 using BudgetSquirrel.Client.Authentication;
 using BudgetSquirrel.Client.BackendClient;
-using Microsoft.AspNetCore.Components.Builder;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BudgetSquirrel.Client
@@ -36,9 +36,9 @@ namespace BudgetSquirrel.Client
       return appSettings;
     }
 
-    public void Configure(IComponentsApplicationBuilder app)
+    public void Configure(WebAssemblyHostBuilder builder)
     {
-      app.AddComponent<App>("app");
+      builder.RootComponents.Add<App>("app");
     }
   }
 }

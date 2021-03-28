@@ -1,16 +1,23 @@
-﻿using Microsoft.AspNetCore.Blazor.Hosting;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace BudgetSquirrel.Client
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+            Startup startup = new Startup();
+            startup.ConfigureServices(builder.Services);
+            startup.Configure(builder);
+
+            await builder.Build().RunAsync();
         }
 
-        public static IWebAssemblyHostBuilder CreateHostBuilder(string[] args) =>
-            BlazorWebAssemblyHost.CreateDefaultBuilder()
-                .UseBlazorStartup<Startup>();
+        // public static WebAssemblyHostBuilder CreateHostBuilder(string[] args) =>
+        //     BlazorWebAssemblyHost.CreateDefaultBuilder()
+        //         .UseBlazorStartup<Startup>();
     }
 }
