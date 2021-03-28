@@ -33,7 +33,6 @@ namespace BudgetSquirrel.Server
 
       DalLocalDbServicesRegistry.ConfigureAuthDal(services);
       GateKeeperServicesRegistry.AddGateKeeper(services, this.Configuration);
-      AuthInfrastructureServicesRegistry.AddAuthInfrastructure(services);
 
       ConfigureHostingLayer(services);
     }
@@ -41,6 +40,9 @@ namespace BudgetSquirrel.Server
     private void ConfigureHostingLayer(IServiceCollection services)
     {
       HostingConfiguration hostingConfig = this.Configuration.GetSection("Hosting").Get<HostingConfiguration>();
+      
+      AuthInfrastructureServicesRegistry.AddAuthInfrastructure(services, hostingConfig);
+
       services.AddCors(options =>
           options.AddPolicy(name: AllowFrontendOrigin,
               builder =>
@@ -67,6 +69,7 @@ namespace BudgetSquirrel.Server
 
       app.UseCors(AllowFrontendOrigin);
 
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>

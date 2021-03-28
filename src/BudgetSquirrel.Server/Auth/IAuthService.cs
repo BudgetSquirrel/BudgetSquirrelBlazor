@@ -8,6 +8,5 @@ namespace BudgetSquirrel.Server.Auth
     {
         Task<Account> GetCurrentUser();
         Task<Account> Authenticate(LoginRequest credentials);
-        Task SignInAsync(Account user);
     }
 }

@@ -31,17 +31,16 @@ namespace BudgetSquirrel.Client.Authentication.Login
       this.IsPasswordPlainText = !this.IsPasswordPlainText;
     }
 
-    private Task OnLoginclicked()
+    private async Task OnLoginclicked()
     {
-      this.IsLoginIncorrect = true;
+      this.IsLoginIncorrect = false;
       try
       {
-        return this.loginService.Login(this.Model.Email, this.Model.Password);
+        await this.loginService.Login(this.Model.Email, this.Model.Password);
       }
       catch (Exception)
       {
         this.IsLoginIncorrect = true;
-        return Task.CompletedTask;
       }
     }
   }

@@ -47,18 +47,12 @@ namespace BudgetSquirrel.Server.Auth
 
     public Task<Account> GetCurrentUser()
     {
-      throw new System.NotImplementedException();
-    }
-
-    public async Task SignInAsync(Account user)
-    {
-      await this.httpContextAccessor.HttpContext.SignOutAsync();
-      
-      ClaimsIdentity claimsIdentity = new ClaimsIdentity(CreateUserClaims(user), CookieAuthenticationDefaults.AuthenticationScheme);
-
-      await this.httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-          new ClaimsPrincipal(claimsIdentity),
-          new AuthenticationProperties { IsPersistent = true });
+      string email = this.GetUserEmailFromClaims(this.httpContextAccessor.HttpContext.User.Claims);
+      if (email == null)
+      {
+        return null;
+      }
+      return this.accountRepository.GetByEmail(email);
     }
 
     /// <summary>	
@@ -79,14 +73,13 @@ namespace BudgetSquirrel.Server.Auth
     }
 
     /// <summary>	
-    /// Will get base User data from the cookie we can correctly retrieve their	
-    /// data from the database	
+    /// Get the email of the user who is currently logged in.
     /// </summary>	
     /// <param name="userClaims">The list of user claims attached to the cookie</param>	
-    /// <returns>The user with base user data</returns>	
-    private Guid GetUserIdFromClaims(IEnumerable<Claim> userClaims)
+    /// <returns>The email of the logged in user</returns>	
+    private string GetUserEmailFromClaims(IEnumerable<Claim> userClaims)
     {
-      return Guid.Parse(userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+      return userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
     }
   }
 }

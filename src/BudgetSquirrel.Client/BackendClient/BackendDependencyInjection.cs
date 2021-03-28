@@ -15,6 +15,8 @@ namespace BudgetSquirrel.Client.BackendClient
 
       services.AddSingleton<IBackendClient, BackendClient>();
 
+      services.AddTransient<IBackendAuthenticator, BackendAuthenticator>();
+
       return services;
     }
   }

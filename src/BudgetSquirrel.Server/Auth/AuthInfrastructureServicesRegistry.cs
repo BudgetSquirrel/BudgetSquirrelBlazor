@@ -1,34 +1,36 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Text;
+using BudgetSquirrel.Server.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BudgetSquirrel.Server.Auth
 {
   public static class AuthInfrastructureServicesRegistry
   {
-    public static void AddAuthInfrastructure(IServiceCollection services)
+    public static void AddAuthInfrastructure(IServiceCollection services, HostingConfiguration hostingConfiguration)
     {
+      string privateKeyString = hostingConfiguration.FrontendJwtSecret;
+      byte[] privateKeyBytes = Encoding.ASCII.GetBytes(privateKeyString);
+      SecurityKey privateKey = new SymmetricSecurityKey(privateKeyBytes);
+
       services.AddTransient<IAuthService, AuthService>();
 
-      services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-          .AddCookie(options =>
-          {
-            options.Events.OnRedirectToLogin = context =>
-            {
-              context.Response.StatusCode = 401;
-              return Task.CompletedTask;
-            };
-            options.ExpireTimeSpan = TimeSpan.FromHours(5);
-            options.SlidingExpiration = true;
-          });
+      services.AddTransient<IJwtTokenAuthenticator>(services => new JwtTokenAuthenticator(privateKey));
 
-      services.AddAuthorization(options =>
-      {
-        options.AddPolicy("Authenticated", policy =>
+      services.AddAuthentication(options => {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      }).AddJwtBearer(options => {
+        options.RequireHttpsMetadata = true;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters()
         {
-          policy.RequireAuthenticatedUser();
-        });
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = privateKey,
+          ValidateIssuer = false,
+          ValidateAudience = false
+        };
       });
     }
   }

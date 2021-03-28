@@ -1,6 +1,6 @@
+using System;
 using System.Threading.Tasks;
 using BudgetSquirrel.Client.BackendClient;
-using BudgetSquirrel.Web.Common.Messages.Auth;
 
 namespace BudgetSquirrel.Client.Authentication.Login
 {
@@ -8,19 +8,18 @@ namespace BudgetSquirrel.Client.Authentication.Login
   {
     private IBackendClient backend;
 
+    private LoginContext loginContext;
+
     public LoginService(IBackendClient backend)
     {
       this.backend = backend;
     }
 
-    public Task Login(string username, string password)
+    public async Task Login(string username, string password)
     {
-      LoginRequest loginRequest = new LoginRequest()
-      {
-        Username = username,
-        Password = password
-      };
-      return this.backend.ExecuteCommand("auth/login", loginRequest);
+      this.loginContext = null;
+      await this.backend.Authenticate(username, password);
+      this.loginContext = await this.backend.Fetch<LoginContext>("auth/me");
     }
   }
 }

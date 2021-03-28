@@ -22,14 +22,17 @@ namespace BudgetSquirrel.Server.Controllers
 
         private readonly IAuthService authenticationService;
         private readonly IAccountRepository accountRepository;
+        private readonly IJwtTokenAuthenticator tokenAuthenticator;
 
         public AuthController(/*ILogger<AuthController> logger,*/
             IAuthService authenticationService,
-            IAccountRepository userRepository)
+            IAccountRepository userRepository,
+            IJwtTokenAuthenticator tokenAuthenticator)
         {
             // this.logger = logger;
             this.authenticationService = authenticationService;
             this.accountRepository = userRepository;
+            this.tokenAuthenticator = tokenAuthenticator;
         }
 
         [Authorize]
@@ -42,8 +45,8 @@ namespace BudgetSquirrel.Server.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest credentials)
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] LoginRequest credentials)
         {
             try
             {
@@ -51,8 +54,8 @@ namespace BudgetSquirrel.Server.Controllers
 
                 if (user != null)
                 {
-                    await this.authenticationService.SignInAsync(user);
-                    return Ok();
+                    string token = this.tokenAuthenticator.GenerateToken(user.Email);
+                    return Ok(token);
                 }
                 
                 return this.Unauthorized("Username or Password were incorrect");
