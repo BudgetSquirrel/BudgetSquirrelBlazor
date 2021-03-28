@@ -9,7 +9,7 @@ namespace BudgetSquirrel.Client.Authentication
     public static IServiceCollection AddAuthenticationServices(IServiceCollection services)
     {
       services.AddTransient<IRegistrationService, RegistrationService>();
-      services.AddTransient<ILoginService, LoginService>();
+      services.AddSingleton<ILoginService, LoginService>();
 
       return services;
     }
