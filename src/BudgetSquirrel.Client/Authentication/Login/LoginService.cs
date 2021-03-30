@@ -19,7 +19,7 @@ namespace BudgetSquirrel.Client.Authentication.Login
     {
       this.loginContext = null;
       await this.backend.Authenticate(username, password);
-      this.loginContext = await this.backend.Fetch<LoginContext>("auth/me");
+      this.loginContext = await this.backend.Fetch<LoginContext>(BackendArea.AuthArea.ME);
     }
   }
 }
