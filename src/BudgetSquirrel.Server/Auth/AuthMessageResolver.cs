@@ -5,7 +5,7 @@ namespace BudgetSquirrel.Server.Auth
 {
   public static class AuthMessageResolver
   {
-    public static CurrentUserResponse ToApiMessage(LoginUser user)
+    public static CurrentUserResponse ToApiMessage(Account user)
     {
       return new CurrentUserResponse()
       {

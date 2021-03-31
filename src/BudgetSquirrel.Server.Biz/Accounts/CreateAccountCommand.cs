@@ -10,7 +10,7 @@ namespace BudgetSquirrel.Server.Biz.Accounts
       string confirmPassword,
       string firstName,
       string lastName),
-    LoginUser>
+    Account>
   {
     private IAccountRepository accountRepository;
     
@@ -26,7 +26,7 @@ namespace BudgetSquirrel.Server.Biz.Accounts
       this.accountRepository = accountRepository;
     }
 
-    public override Task Execute(LoginUser duplicateUser)
+    public override Task Execute(Account duplicateUser)
     {
       return this.accountRepository.CreateUser(
         this.arguments.email,
@@ -35,12 +35,12 @@ namespace BudgetSquirrel.Server.Biz.Accounts
         this.arguments.lastName);
     }
 
-    public override Task<LoginUser> Load()
+    public override Task<Account> Load()
     {
       return this.accountRepository.GetByEmail(this.arguments.email);
     }
 
-    public override Task<LoginUser> Validate(LoginUser duplicateUser)
+    public override Task<Account> Validate(Account duplicateUser)
     {
       if (duplicateUser != null)
       {

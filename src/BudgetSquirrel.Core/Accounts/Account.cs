@@ -1,6 +1,6 @@
 namespace BudgetSquirrel.Core.Accounts
 {
-  public class LoginUser
+  public class Account
   {
     public string Email { get; private set; }
     public string FirstName { get; private set; }

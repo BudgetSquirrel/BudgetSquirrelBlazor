@@ -6,8 +6,7 @@ namespace BudgetSquirrel.Server.Auth
 {
   public interface IAuthService
     {
-        Task<LoginUser> GetCurrentUser();
-        Task<LoginUser> Authenticate(LoginRequest credentials);
-        Task SignInAsync(LoginUser user);
+        Task<Account> GetCurrentUser();
+        Task<Account> Authenticate(LoginRequest credentials);
     }
 }

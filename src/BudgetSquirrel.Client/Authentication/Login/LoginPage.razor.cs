@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace BudgetSquirrel.Client.Authentication.Login
@@ -15,7 +16,12 @@ namespace BudgetSquirrel.Client.Authentication.Login
       public string Password { get; set; }
     }
 
+    [Inject]
+    private ILoginService loginService { get; set; }
+
     private FormModel Model { get; set; } = new FormModel();
+
+    private bool IsLoginIncorrect { get; set; }
 
     private bool IsPasswordPlainText { get; set; }
 
@@ -25,9 +31,17 @@ namespace BudgetSquirrel.Client.Authentication.Login
       this.IsPasswordPlainText = !this.IsPasswordPlainText;
     }
 
-    private void OnLoginclicked()
+    private async Task OnLoginclicked()
     {
-      Console.WriteLine(this.Model.Email + " - " + this.Model.Password);
+      this.IsLoginIncorrect = false;
+      try
+      {
+        await this.loginService.Login(this.Model.Email, this.Model.Password);
+      }
+      catch (Exception)
+      {
+        this.IsLoginIncorrect = true;
+      }
     }
   }
 }
