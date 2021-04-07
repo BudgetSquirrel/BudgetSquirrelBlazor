@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\BudgetSquirrel.Web.Common\BudgetSquirrel.Web.Common.csproj" />
+    <ProjectReference Include="..\GateKeeper\GateKeeper.csproj" />
+    <ProjectReference Include="..\BudgetSquirrel.Backend.Dal.LocalDb\BudgetSquirrel.Backend.Dal.LocalDb.csproj" />
+    <ProjectReference Include="..\BudgetSquirrel.Core\BudgetSquirrel.Core.csproj" />
+    <ProjectReference Include="..\BudgetSquirrel.Backend.Biz\BudgetSquirrel.Backend.Biz.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+
+
+</Project>

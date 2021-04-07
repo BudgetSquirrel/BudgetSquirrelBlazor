@@ -5,15 +5,15 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Core", "BudgetSquirrel.Core\BudgetSquirrel.Core.csproj", "{48CDAA33-801C-479D-A8A5-7DF09A3AD436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Client", "BudgetSquirrel.Client\BudgetSquirrel.Client.csproj", "{060B8BC3-F9DC-44B5-A7DF-966FD8302BBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Frontend", "BudgetSquirrel.Frontend\BudgetSquirrel.Frontend.csproj", "{060B8BC3-F9DC-44B5-A7DF-966FD8302BBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Server", "BudgetSquirrel.Server\BudgetSquirrel.Server.csproj", "{2DC0E11D-C792-4251-AC0B-3012405662E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Backend", "BudgetSquirrel.Backend\BudgetSquirrel.Backend.csproj", "{2DC0E11D-C792-4251-AC0B-3012405662E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Web.Common", "BudgetSquirrel.Web.Common\BudgetSquirrel.Web.Common.csproj", "{450B2595-5B2A-472B-AEFB-8D61070E1BD6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GateKeeper", "GateKeeper\GateKeeper.csproj", "{3885CA1E-82DF-4A21-B83B-66D9E7499762}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Server.Dal.LocalDb", "BudgetSquirrel.Server.Dal.LocalDb\BudgetSquirrel.Server.Dal.LocalDb.csproj", "{A149C8AC-14DF-4CC5-806B-9A1C7F717DE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Backend.Dal.LocalDb", "BudgetSquirrel.Backend.Dal.LocalDb\BudgetSquirrel.Backend.Dal.LocalDb.csproj", "{A149C8AC-14DF-4CC5-806B-9A1C7F717DE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
