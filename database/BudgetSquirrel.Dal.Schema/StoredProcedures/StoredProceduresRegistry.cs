@@ -16,7 +16,7 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         { "GetIsPasswordAttemptCorrect", $"{ScriptsDir}/Auth/GetIsPasswordAttemptCorrect.sql" },
 
         /* BudgetPlanning */
-        { "CreateBudgetForUser", $"{ScriptsDir}/BudgetPlanning/CreateBudgetForUser.sql" }
+        { "CreateOverallBudgetForUser", $"{ScriptsDir}/BudgetPlanning/CreateOverallBudgetForUser.sql" }
       };
     }
   }
