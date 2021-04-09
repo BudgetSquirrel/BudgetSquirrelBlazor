@@ -29,8 +29,6 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Accounts
 
     public async Task CreateUser(string email, string password, string firstName, string lastName)
     {
-      int userId = 0;
-
       string encryptedPassword = this.cryptor.Encrypt(
         password,
         this.gateKeeperConfig.EncryptionKey,
@@ -39,7 +37,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Accounts
       using (IDbConnection conn = this.connectionProvider.GetConnection())
       {
         // See schema.md
-        userId = await conn.ExecuteScalarAsync<int>(
+        await conn.ExecuteScalarAsync<int>(
           $"EXEC {AuthProcedures.CreateAccount} @FirstName, @LastName, @Email, @Password",
           new {
             FirstName = firstName,

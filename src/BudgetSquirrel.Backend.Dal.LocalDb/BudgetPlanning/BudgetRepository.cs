@@ -1,6 +1,8 @@
+using System.Data;
 using System.Threading.Tasks;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Backend.Dal.LocalDb.Infrastructure;
+using Dapper;
 using BudgetPlanningProcedures = BudgetSquirrel.Backend.Dal.LocalDb.Schema.StoredProcedures.BudgetPlanning;
 
 namespace BudgetSquirrel.Backend.Dal.LocalDb
@@ -14,10 +16,16 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb
       this.dbConnectionProvider = dbConnectionProvider;
     }
     
-    public Task CreateBudget(string userEmail)
+    public async Task CreateBudget(string userEmail)
     {
-      // $"EXEC {AuthProcedures.CreateAccount} @FirstName, @LastName, @Email, @Password"
-      throw new System.NotImplementedException();
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        await conn.ExecuteAsync(
+          $"EXEC {BudgetPlanningProcedures.CreateBudgetForUser} @Email",
+          new {
+            Email = userEmail
+          });
+      }
     }
   }
 }

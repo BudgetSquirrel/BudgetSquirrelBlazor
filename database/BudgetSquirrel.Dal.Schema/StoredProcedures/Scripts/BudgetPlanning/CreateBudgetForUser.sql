@@ -12,6 +12,6 @@ SELECT @UserId = [dbo].[Users].[Id]
     ON [dbo].[Accounts].[UserId] = [dbo].[Users].[Id]
   WHERE [dbo].[Accounts].[Email] = @Email;
 
-INSERT INTO [dbo].[FundRoot] ( [dbo].[FundRoot].[UserId] ) VALUES ( @UserId );
+INSERT INTO [dbo].[FundRoots] ( [dbo].[FundRoots].[UserId] ) VALUES ( @UserId );
 
 END
