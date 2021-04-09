@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using BudgetSquirrel.Core.Accounts;
 using BudgetSquirrel.Backend.Biz.Accounts;
 using BudgetSquirrel.Backend.Dal.LocalDb.Infrastructure;
-using BudgetSquirrel.Web.Common.Messages.Auth;
 using Dapper;
 using GateKeeper.Configuration;
 using GateKeeper.Cryptogrophy;
+using AuthProcedures = BudgetSquirrel.Backend.Dal.LocalDb.Schema.StoredProcedures.Auth;
 
 namespace BudgetSquirrel.Backend.Dal.LocalDb.Accounts
 {
@@ -40,7 +40,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Accounts
       {
         // See schema.md
         userId = await conn.ExecuteScalarAsync<int>(
-          "EXEC [dbo].[CreateAccount] @FirstName, @LastName, @Email, @Password",
+          $"EXEC {AuthProcedures.CreateAccount} @FirstName, @LastName, @Email, @Password",
           new {
             FirstName = firstName,
             LastName = lastName,
@@ -61,7 +61,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Accounts
       using (IDbConnection conn = this.connectionProvider.GetConnection())
       {
         user = await conn.QuerySingleOrDefaultAsync<Account>(
-          "EXEC [dbo].[GetAccountByEmail] @Email",
+          $"EXEC {AuthProcedures.GetAccountByEmail} @Email",
           new { Email = email });
       }
       return user;
@@ -78,7 +78,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Accounts
       using (IDbConnection conn = this.connectionProvider.GetConnection())
       {
         matchingEmail = await conn.QuerySingleOrDefaultAsync<string>(
-          "EXEC [dbo].[GetIsPasswordAttemptCorrect] @Email, @EncryptedPasswordAttempt",
+          $"EXEC {AuthProcedures.GetIsPasswordAttemptCorrect} @Email, @EncryptedPasswordAttempt",
           new {
             Email = email,
             EncryptedPasswordAttempt = encryptedPassword

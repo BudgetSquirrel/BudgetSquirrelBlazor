@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 
 namespace BudgetSquirrel.Backend.Controllers
 {
@@ -22,16 +23,19 @@ namespace BudgetSquirrel.Backend.Controllers
 
         private readonly IAuthService authenticationService;
         private readonly IAccountRepository accountRepository;
+        private readonly IBudgetRepository budgetRepository;
         private readonly IJwtTokenAuthenticator tokenAuthenticator;
 
         public AuthController(/*ILogger<AuthController> logger,*/
             IAuthService authenticationService,
             IAccountRepository userRepository,
-            IJwtTokenAuthenticator tokenAuthenticator)
+            IJwtTokenAuthenticator tokenAuthenticator,
+            IBudgetRepository budgetRepository)
         {
             // this.logger = logger;
             this.authenticationService = authenticationService;
             this.accountRepository = userRepository;
+            this.budgetRepository = budgetRepository;
             this.tokenAuthenticator = tokenAuthenticator;
         }
 
@@ -72,6 +76,7 @@ namespace BudgetSquirrel.Backend.Controllers
         {
             CreateAccountCommand cmd = new CreateAccountCommand(
                 this.accountRepository,
+                this.budgetRepository,
                 (newUser.Email,
                 newUser.Password,
                 newUser.ConfirmPassword,

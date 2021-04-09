@@ -2,11 +2,11 @@ using System.Threading.Tasks;
 
 namespace BudgetSquirrel.Backend.Biz
 {
-  public abstract class AbstractCommand<TInputs, TLoadedInputs>
+  public abstract class BasicCommand<TInputs, TLoadedInputs> : ICommand<TLoadedInputs>
   {
     protected TInputs arguments;
 
-    public AbstractCommand(TInputs args)
+    public BasicCommand(TInputs args)
     {
       this.arguments = args;
     }
