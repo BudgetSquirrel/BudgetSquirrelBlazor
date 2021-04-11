@@ -5,6 +5,6 @@ CREATE PROCEDURE [CreateBudgetForFund] (
 AS
 BEGIN
 
-INSERT INTO [dbo].[Budget] ( [dbo].[Budget].[FundId], [dbo].[Budget].[PlannedAmount] ) VALUES ( @FundId, @PlannedAmount );
+INSERT INTO [dbo].[Budgets] ( [dbo].[Budgets].[FundId], [dbo].[Budgets].[PlannedAmount] ) VALUES ( @FundId, @PlannedAmount );
 
 END

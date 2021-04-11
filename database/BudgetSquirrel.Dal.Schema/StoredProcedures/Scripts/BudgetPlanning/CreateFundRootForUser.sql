@@ -5,7 +5,6 @@ AS
 BEGIN
 
 DECLARE @UserId AS INT;
-DECLARE @FundRootId AS INT;
 
 SELECT @UserId = [dbo].[Users].[Id]
   FROM [dbo].[Users]
@@ -15,6 +14,6 @@ SELECT @UserId = [dbo].[Users].[Id]
 
 INSERT INTO [dbo].[FundRoots] ( [dbo].[FundRoots].[UserId] ) VALUES ( @UserId );
 
-SELECT @FundRootId = CAST(SCOPE_IDENTITY() AS INT);
+SELECT CAST(SCOPE_IDENTITY() AS INT);
 RETURN
 END

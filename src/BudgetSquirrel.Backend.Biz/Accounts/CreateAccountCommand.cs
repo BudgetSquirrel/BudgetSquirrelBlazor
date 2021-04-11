@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Core.Accounts;
@@ -39,7 +40,7 @@ namespace BudgetSquirrel.Backend.Biz.Accounts
         this.arguments.lastName);
 
       int fundRootId = await this.budgetRepository.CreateFundRootForUser(this.arguments.email);
-      int rootFundId = await this.budgetRepository.CreateFund(fundRootId, null, "", true);
+      int rootFundId = await this.budgetRepository.CreateFund(fundRootId, null, "ROOT_FUND", true);
       await this.budgetRepository.CreateBudgetForFund(rootFundId, 0);
     }
 

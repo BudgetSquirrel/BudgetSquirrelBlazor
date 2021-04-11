@@ -43,7 +43,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb
             FundRootId = fundRootId,
             ParentFundId = parentFundId,
             Name = name,
-            IsRoot = isRoot
+            IsRoot = isRoot ? 1 : 0
           });
       }
       return fundId;
