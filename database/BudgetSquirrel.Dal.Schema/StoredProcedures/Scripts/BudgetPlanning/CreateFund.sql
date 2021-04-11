@@ -1,6 +1,6 @@
 CREATE PROCEDURE [CreateFund] (
   @FundRootId INT,
-  @ParentFundId INT,
+  @ParentFundId INT = NULL,
   @Name NVARCHAR(45),
   @IsRoot BIT
 )

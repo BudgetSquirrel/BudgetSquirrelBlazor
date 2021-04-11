@@ -38,7 +38,9 @@ namespace BudgetSquirrel.Backend.Biz.Accounts
         this.arguments.firstName,
         this.arguments.lastName);
 
-      await this.budgetRepository.CreateBudget(this.arguments.email);
+      int fundRootId = await this.budgetRepository.CreateFundRootForUser(this.arguments.email);
+      int rootFundId = await this.budgetRepository.CreateFund(fundRootId, null, "", true);
+      await this.budgetRepository.CreateBudgetForFund(rootFundId, 0);
     }
 
     public override Task<Account> Load()

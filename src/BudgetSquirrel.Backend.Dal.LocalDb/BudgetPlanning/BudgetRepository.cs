@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using System.Threading.Tasks;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
@@ -15,15 +16,65 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb
     {
       this.dbConnectionProvider = dbConnectionProvider;
     }
-    
-    public async Task CreateBudget(string userEmail)
+
+    public async Task CreateBudgetForFund(int fundId, decimal plannedAmount)
     {
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
         await conn.ExecuteAsync(
+          $"EXEC {BudgetPlanningProcedures.CreateBudgetForFund} @FundId, @PlannedAmount",
+          new
+          {
+            FundId = fundId,
+            PlannedAmount = plannedAmount
+          });
+      }
+    }
+
+    public async Task<int> CreateFund(int fundRootId, int? parentFundId, string name, bool isRoot)
+    {
+      int fundId;
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        fundId = await conn.ExecuteScalarAsync<int>(
+          $"EXEC {BudgetPlanningProcedures.CreateFund} @FundRootId, @ParentFundId, @Name, @IsRoot",
+          new
+          {
+            FundRootId = fundRootId,
+            ParentFundId = parentFundId,
+            Name = name,
+            IsRoot = isRoot
+          });
+      }
+      return fundId;
+    }
+
+    public async Task<int> CreateFundRootForUser(string userEmail)
+    {
+      int fundRootId;
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        fundRootId = await conn.ExecuteScalarAsync<int>(
           $"EXEC {BudgetPlanningProcedures.CreateFundRootForUser} @Email",
-          new {
+          new
+          {
             Email = userEmail
+          });
+      }
+      return fundRootId;
+    }
+
+    public async Task CreateTimebox(int fundRootId, DateTime startDate, DateTime endDate)
+    {
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        await conn.ExecuteAsync(
+          $"EXEC {BudgetPlanningProcedures.CreateTimebox} @FundRootId, @StartDate, @EndDate",
+          new
+          {
+            FundRootId = fundRootId,
+            StartDate = startDate,
+            EndDate = endDate
           });
       }
     }
