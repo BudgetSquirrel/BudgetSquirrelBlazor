@@ -21,7 +21,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
         await conn.ExecuteAsync(
-          $"EXEC {BudgetPlanningProcedures.CreateOverallBudgetForUser} @Email",
+          $"EXEC {BudgetPlanningProcedures.CreateFundRootForUser} @Email",
           new {
             Email = userEmail
           });

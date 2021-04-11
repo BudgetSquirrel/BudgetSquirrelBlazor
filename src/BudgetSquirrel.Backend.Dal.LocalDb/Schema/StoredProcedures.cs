@@ -21,7 +21,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Schema
 
     public static class BudgetPlanning
     {
-      public static readonly string CreateOverallBudgetForUser = _("CreateOverallBudgetForUser");
+      public static readonly string CreateFundRootForUser = _("CreateFundRootForUser");
     }
   }
 }

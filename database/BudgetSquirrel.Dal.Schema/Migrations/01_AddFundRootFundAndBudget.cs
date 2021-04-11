@@ -15,6 +15,7 @@ namespace BudgetSquirrel.Dal.Schema.Migrations
       Create.Table("Funds")
             .WithColumn("Id").AsInt64().PrimaryKey().Identity()
             .WithColumn("Name").AsString().NotNullable()
+            .WithColumn("ParentFundId").AsInt64().Nullable().ForeignKey("Funds", "Id").OnDelete(Rule.None)
             .WithColumn("FundRootId").AsInt64().NotNullable().ForeignKey("FundRoots", "Id").OnDelete(Rule.Cascade)
             .WithColumn("Balance").AsDecimal(10, 2).NotNullable().WithDefaultValue(0)
             .WithColumn("IsRoot").AsBoolean().NotNullable().WithDefaultValue(false);
