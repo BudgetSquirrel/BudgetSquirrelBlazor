@@ -31,7 +31,7 @@ namespace BudgetSquirrel.Backend
       services.AddControllers();
       services.AddHttpContextAccessor();
 
-      DalLocalDbServicesRegistry.ConfigureAuthDal(services);
+      DalLocalDbServicesRegistry.AddLocalDbDal(services);
       GateKeeperServicesRegistry.AddGateKeeper(services, this.Configuration);
 
       ConfigureHostingLayer(services);
