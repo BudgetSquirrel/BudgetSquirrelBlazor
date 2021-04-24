@@ -23,8 +23,20 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Schema
     {
       public static readonly string CreateFundRootForUser = _("CreateFundRootForUser");
       public static readonly string CreateFund = _("CreateFund");
-      public static readonly string CreateTimebox = _("CreateTimebox");
       public static readonly string CreateBudgetForFund = _("CreateBudgetForFund");
+      public static readonly string GetBudgetForFund = _("GetBudgetForFund");
+    }
+
+    public static class Funds
+    {
+      public static readonly string GetAllFundsInFundTree = _("GetAllFundsInFundTree");
+      public static readonly string GetFundRoot = _("GetFundRoot");
+    }
+
+    public static class History
+    {
+      public static readonly string GetTimebox = _("GetTimebox");
+      public static readonly string CreateTimebox = _("CreateTimebox");
     }
   }
 }

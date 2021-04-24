@@ -19,8 +19,15 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         {
           string procedureFilePath = stroredProcedureRegistry[procedureName];
 
-          DropProcedure(procedureName, connection);
-          CreateProcedure(procedureFilePath, connection);
+          try
+          {
+            DropProcedure(procedureName, connection);
+            CreateProcedure(procedureFilePath, connection);
+          }
+          catch (Exception e)
+          {
+            throw new Exception($"Exception thrown while migrating Stored Procedure in {procedureFilePath}", e);
+          }
         }
       }
     }

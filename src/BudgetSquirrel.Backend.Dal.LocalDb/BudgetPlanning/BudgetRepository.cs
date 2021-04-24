@@ -3,6 +3,7 @@ using System.Data;
 using System.Threading.Tasks;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Backend.Dal.LocalDb.Infrastructure;
+using BudgetSquirrel.Core.BudgetPlanning;
 using Dapper;
 using BudgetPlanningProcedures = BudgetSquirrel.Backend.Dal.LocalDb.Schema.StoredProcedures.BudgetPlanning;
 
@@ -64,19 +65,20 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb
       return fundRootId;
     }
 
-    public async Task CreateTimebox(int fundRootId, DateTime startDate, DateTime endDate)
+    public async Task<Budget> GetBudget(int fundId)
     {
+      BudgetDto budget;
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
-        await conn.ExecuteAsync(
-          $"EXEC {BudgetPlanningProcedures.CreateTimebox} @FundRootId, @StartDate, @EndDate",
+        budget = await conn.QuerySingleAsync<BudgetDto>(
+          $"EXEC {BudgetPlanningProcedures.GetBudgetForFund} @FundId",
           new
           {
-            FundRootId = fundRootId,
-            StartDate = startDate,
-            EndDate = endDate
-          });
+            FundId = fundId
+          }
+        );
       }
+      return budget.ToDomain();
     }
   }
 }

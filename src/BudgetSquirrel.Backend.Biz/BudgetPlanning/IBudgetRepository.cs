@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using BudgetSquirrel.Core.BudgetPlanning;
 
 namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
 {
@@ -9,8 +10,8 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
 
     Task<int> CreateFund(int fundRootId, int? parentFundId, string name, bool isRoot);
 
-    Task CreateTimebox(int fundRootId, DateTime startDate, DateTime endDate);
-
     Task CreateBudgetForFund(int fundId, decimal plannedAmount);
+
+    Task<Budget> GetBudget(int fundId);
   }
 }

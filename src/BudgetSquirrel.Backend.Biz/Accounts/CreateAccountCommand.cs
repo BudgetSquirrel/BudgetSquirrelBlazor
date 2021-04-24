@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Core.Accounts;
+using BudgetSquirrel.Core.History;
 
 namespace BudgetSquirrel.Backend.Biz.Accounts
 {
@@ -16,10 +17,12 @@ namespace BudgetSquirrel.Backend.Biz.Accounts
   {
     private IAccountRepository accountRepository;
     private IBudgetRepository budgetRepository;
+    private ITimeboxRepository timeboxRepository;
     
     public CreateAccountCommand(
       IAccountRepository accountRepository,
       IBudgetRepository budgetRepository,
+      ITimeboxRepository timeboxRepository,
       (string email,
       string password,
       string confirmPassword,
@@ -29,6 +32,7 @@ namespace BudgetSquirrel.Backend.Biz.Accounts
     {
       this.accountRepository = accountRepository;
       this.budgetRepository = budgetRepository;
+      this.timeboxRepository = timeboxRepository;
     }
 
     public override async Task Execute(Account duplicateUser)
@@ -42,6 +46,7 @@ namespace BudgetSquirrel.Backend.Biz.Accounts
       int fundRootId = await this.budgetRepository.CreateFundRootForUser(this.arguments.email);
       int rootFundId = await this.budgetRepository.CreateFund(fundRootId, null, "ROOT_FUND", true);
       await this.budgetRepository.CreateBudgetForFund(rootFundId, 0);
+      await this.timeboxRepository.CreateTimebox(fundRootId, DateTime.Now, DateTime.Now.AddDays(30));
     }
 
     public override Task<Account> Load()
