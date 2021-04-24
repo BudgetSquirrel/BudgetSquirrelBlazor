@@ -32,13 +32,14 @@ namespace BudgetSquirrel.Frontend.Authentication.Registration
     [Inject]
     private IRegistrationService RegistrationService { get; set; }
 
+    [Inject]
+    NavigationManager navigationManager { get; set; }
+
     private FormModel Model { get; } = new FormModel();
 
     private bool GotError { get; set; }
 
     private bool IsConfirmPasswordInvalid { get; set; }
-
-    private bool IsSubmitting { get; set; }
 
     private bool IsPasswordPlainText { get; set; }
     private bool IsConfirmPasswordPlainText { get; set; }
@@ -70,7 +71,6 @@ namespace BudgetSquirrel.Frontend.Authentication.Registration
 
     private async Task OnRegisterClicked(EditContext editContext)
     {
-      this.IsSubmitting = true;
       this.GotError = false;
       this.IsConfirmPasswordInvalid = false;
       if (!this.ValidateConfirmPassword())
@@ -94,7 +94,8 @@ namespace BudgetSquirrel.Frontend.Authentication.Registration
       {
         this.GotError = true;
       }
-      this.IsSubmitting = false;
+      
+      this.navigationManager.NavigateTo("/budget-planner");
     }
   }
 }
