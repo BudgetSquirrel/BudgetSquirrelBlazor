@@ -1,4 +1,6 @@
 using BudgetSquirrel.Backend.Biz.Accounts;
+using BudgetSquirrel.Backend.Biz.BudgetPlanning;
+using BudgetSquirrel.Backend.Dal.LocalDb;
 using BudgetSquirrel.Backend.Dal.LocalDb.Accounts;
 using BudgetSquirrel.Backend.Dal.LocalDb.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,7 @@ namespace BudgetSquirrel.Backend.DependencyInjection
       services.AddTransient<DbConnectionProvider>(serviceProvider => new DbConnectionProvider(connectionString));
 
       services.AddTransient<IAccountRepository, AccountRepository>();
+      services.AddTransient<IBudgetRepository, BudgetRepository>();
     }
   }
 }

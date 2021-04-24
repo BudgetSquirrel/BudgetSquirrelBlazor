@@ -1,9 +1,9 @@
 using System.Data;
 using FluentMigrator;
 
-namespace BudgetSquirrel.Dal.Schema.Auth
+namespace BudgetSquirrel.Dal.Schema.Migrations
 {
-  [Migration(202102070833, "Initial Users Schema")]
+  [Migration(1, "Initial Users Schema")]
   public class Initial : Migration
   {
     public override void Up()

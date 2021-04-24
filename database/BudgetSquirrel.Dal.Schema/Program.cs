@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BudgetSquirrel.Dal.Schema.Auth;
+using BudgetSquirrel.Dal.Schema.Migrations;
 using BudgetSquirrel.Dal.Schema.StoredProcedures;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.Configuration;

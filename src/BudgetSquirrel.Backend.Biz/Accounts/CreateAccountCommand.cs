@@ -1,10 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Core.Accounts;
 
 namespace BudgetSquirrel.Backend.Biz.Accounts
 {
-  public class CreateAccountCommand : AbstractCommand<
+  public class CreateAccountCommand : BasicCommand<
     (string email,
       string password,
       string confirmPassword,
@@ -13,9 +15,11 @@ namespace BudgetSquirrel.Backend.Biz.Accounts
     Account>
   {
     private IAccountRepository accountRepository;
+    private IBudgetRepository budgetRepository;
     
     public CreateAccountCommand(
       IAccountRepository accountRepository,
+      IBudgetRepository budgetRepository,
       (string email,
       string password,
       string confirmPassword,
@@ -24,15 +28,20 @@ namespace BudgetSquirrel.Backend.Biz.Accounts
       : base(args)
     {
       this.accountRepository = accountRepository;
+      this.budgetRepository = budgetRepository;
     }
 
-    public override Task Execute(Account duplicateUser)
+    public override async Task Execute(Account duplicateUser)
     {
-      return this.accountRepository.CreateUser(
+      await this.accountRepository.CreateUser(
         this.arguments.email,
         this.arguments.password,
         this.arguments.firstName,
         this.arguments.lastName);
+
+      int fundRootId = await this.budgetRepository.CreateFundRootForUser(this.arguments.email);
+      int rootFundId = await this.budgetRepository.CreateFund(fundRootId, null, "ROOT_FUND", true);
+      await this.budgetRepository.CreateBudgetForFund(rootFundId, 0);
     }
 
     public override Task<Account> Load()

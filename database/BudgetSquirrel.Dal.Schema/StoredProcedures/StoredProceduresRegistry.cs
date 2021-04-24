@@ -4,13 +4,22 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
 {
   public class StoredProceduresRegistry
   {
+    private const string ScriptsDir = "StoredProcedures/Scripts";
+
     public static Dictionary<string, string> GetStoredProcedureFiles()
     {
       return new Dictionary<string, string>
       {
-        { "CreateAccount", "StoredProcedures/Scripts/Auth/CreateAccount.sql" },
-        { "GetAccountByEmail", "StoredProcedures/Scripts/Auth/GetAccountByEmail.sql" },
-        { "GetIsPasswordAttemptCorrect", "StoredProcedures/Scripts/Auth/GetIsPasswordAttemptCorrect.sql" }
+        /* Auth */
+        { "CreateAccount", $"{ScriptsDir}/Auth/CreateAccount.sql" },
+        { "GetAccountByEmail", $"{ScriptsDir}/Auth/GetAccountByEmail.sql" },
+        { "GetIsPasswordAttemptCorrect", $"{ScriptsDir}/Auth/GetIsPasswordAttemptCorrect.sql" },
+
+        /* BudgetPlanning */
+        { "CreateFundRootForUser", $"{ScriptsDir}/BudgetPlanning/CreateFundRootForUser.sql" },
+        { "CreateFund", $"{ScriptsDir}/BudgetPlanning/CreateFund.sql" },
+        { "CreateTimebox", $"{ScriptsDir}/BudgetPlanning/CreateTimebox.sql" },
+        { "CreateBudgetForFund", $"{ScriptsDir}/BudgetPlanning/CreateBudgetForFund.sql" }
       };
     }
   }

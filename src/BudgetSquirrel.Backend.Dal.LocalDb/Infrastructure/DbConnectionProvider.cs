@@ -12,6 +12,12 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Infrastructure
       this.connectionString = connectionString;
     }
 
+    /// <summary>
+    /// Opens a new connection to the Database.
+    ///
+    /// It is not meant to stay open indefinitely. It is designed to have
+    /// a lifespan no longer than the execution of a single repository method.
+    /// </summary>
     public IDbConnection GetConnection()
     {
       return new SqlConnection(this.connectionString);
