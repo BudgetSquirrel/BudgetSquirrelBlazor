@@ -40,6 +40,7 @@ namespace BudgetSquirrel.Frontend.Authentication.Login
       try
       {
         await this.loginService.Login(this.Model.Email, this.Model.Password);
+
         this.navigationManager.NavigateTo("/budget-planner");
       }
       catch (Exception)

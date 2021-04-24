@@ -57,6 +57,7 @@ namespace BudgetSquirrel.Dal.Schema
             IConfiguration config = serviceProvider.GetRequiredService<IConfiguration>();
 
             // Execute the migrations
+            
             runner.MigrateUp();
 
             CreateStoredProcedures.CreateRegisteredProcedures(config.GetConnectionString("DefaultConnection"));

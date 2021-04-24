@@ -15,7 +15,7 @@ namespace BudgetSquirrel.Backend.DependencyInjection
   {
     public static void AddLocalDbDal(IServiceCollection services)
     {
-      string connectionString = "Server=127.0.0.1;Database=BudgetSquirrel;User Id=sa;password=yourStrong(!)Password";
+      string connectionString = "Server=127.0.0.1;Database=tempdb;User Id=sa;password=yourStrong(!)Password";
       services.AddTransient<DbConnectionProvider>(serviceProvider => new DbConnectionProvider(connectionString));
 
       services.AddTransient<IAccountRepository, AccountRepository>();
