@@ -19,32 +19,32 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Funds
       this.dbConnectionProvider = dbConnectionProvider;
     }
 
-    public async Task<FundRoot> GetFundRoot(int fundRootId)
+    public async Task<Profile> GetProfile(int profileId)
     {
-      FundRootDto fundRoot;
+      ProfileDto profile;
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
-        fundRoot = await conn.QuerySingleAsync<FundRootDto>(
-          $"EXEC {StoredProcedures.Funds.GetFundRoot} @FundRootId",
+        profile = await conn.QuerySingleAsync<ProfileDto>(
+          $"EXEC {StoredProcedures.Funds.GetProfile} @ProfileId",
           new
           {
-            FundRootId = fundRootId
+            ProfileId = profileId
           }
         );
       }
-      return fundRoot.ToDomain();
+      return profile.ToDomain();
     }
 
-    public async Task<FundSubFunds> GetFundTree(int fundRootId)
+    public async Task<FundSubFunds> GetFundTree(int profileId)
     {
       IEnumerable<FundDto> flatFundTree;
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
         flatFundTree = await conn.QueryAsync<FundDto>(
-          $"EXEC {StoredProcedures.Funds.GetAllFundsInFundTree} @FundRootId",
+          $"EXEC {StoredProcedures.Funds.GetAllFundsInFundTree} @ProfileId",
           new
           {
-            FundRootId = fundRootId
+            ProfileId = profileId
           }
         );
       }

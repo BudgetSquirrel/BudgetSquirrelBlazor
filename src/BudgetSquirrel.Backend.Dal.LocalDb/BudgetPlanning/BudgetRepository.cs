@@ -18,30 +18,31 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb
       this.dbConnectionProvider = dbConnectionProvider;
     }
 
-    public async Task CreateBudgetForFund(int fundId, decimal plannedAmount)
+    public async Task CreateBudgetForFund(int fundId, decimal plannedAmount, int timeboxId)
     {
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
         await conn.ExecuteAsync(
-          $"EXEC {BudgetPlanningProcedures.CreateBudgetForFund} @FundId, @PlannedAmount",
+          $"EXEC {BudgetPlanningProcedures.CreateBudgetForFund} @FundId, @PlannedAmount, @TimeboxId",
           new
           {
             FundId = fundId,
-            PlannedAmount = plannedAmount
+            PlannedAmount = plannedAmount,
+            TimeboxId = timeboxId
           });
       }
     }
 
-    public async Task<int> CreateFund(int fundRootId, int? parentFundId, string name, bool isRoot)
+    public async Task<int> CreateFund(int profileId, int? parentFundId, string name, bool isRoot)
     {
       int fundId;
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
         fundId = await conn.ExecuteScalarAsync<int>(
-          $"EXEC {BudgetPlanningProcedures.CreateFund} @FundRootId, @ParentFundId, @Name, @IsRoot",
+          $"EXEC {BudgetPlanningProcedures.CreateFund} @ProfileId, @ParentFundId, @Name, @IsRoot",
           new
           {
-            FundRootId = fundRootId,
+            ProfileId = profileId,
             ParentFundId = parentFundId,
             Name = name,
             IsRoot = isRoot ? 1 : 0
@@ -50,19 +51,19 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb
       return fundId;
     }
 
-    public async Task<int> CreateFundRootForUser(string userEmail)
+    public async Task<int> CreateProfileForUser(string userEmail)
     {
-      int fundRootId;
+      int profileId;
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
-        fundRootId = await conn.ExecuteScalarAsync<int>(
-          $"EXEC {BudgetPlanningProcedures.CreateFundRootForUser} @Email",
+        profileId = await conn.ExecuteScalarAsync<int>(
+          $"EXEC {BudgetPlanningProcedures.CreateProfileForUser} @Email",
           new
           {
             Email = userEmail
           });
       }
-      return fundRootId;
+      return profileId;
     }
 
     public async Task<Budget> GetBudget(int fundId)

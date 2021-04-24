@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Threading.Tasks;
+using BudgetSquirrel.Backend.Biz.History;
 using BudgetSquirrel.Backend.Dal.LocalDb.Infrastructure;
 using BudgetSquirrel.Backend.Dal.LocalDb.Schema;
 using BudgetSquirrel.Core.History;
@@ -17,15 +18,15 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.History
       this.dbConnectionProvider = dbConnectionProvider;
     }
 
-    public async Task CreateTimebox(int fundRootId, DateTime startDate, DateTime endDate)
+    public async Task CreateTimebox(int profileId, DateTime startDate, DateTime endDate)
     {
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
         await conn.ExecuteAsync(
-          $"EXEC {StoredProcedures.History.CreateTimebox} @FundRootId, @StartDate, @EndDate",
+          $"EXEC {StoredProcedures.History.CreateTimebox} @ProfileId, @StartDate, @EndDate",
           new
           {
-            FundRootId = fundRootId,
+            ProfileId = profileId,
             StartDate = startDate,
             EndDate = endDate
           });
@@ -42,6 +43,23 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.History
           new
           {
             TimeboxId = timeboxId
+          }
+        );
+      }
+      return timebox.ToDomain();
+    }
+
+    public async Task<Timebox> GetTimebox(int profileId, DateTime startDate)
+    {
+      TimeboxDto timebox;
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        timebox = await conn.QuerySingleAsync<TimeboxDto>(
+          $"EXEC {StoredProcedures.History.GetTimeboxByStartDate} @ProfileId, @StartDate",
+          new
+          {
+            ProfileId = profileId,
+            StartDate = startDate
           }
         );
       }

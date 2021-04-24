@@ -2,14 +2,14 @@ namespace BudgetSquirrel.Core.Funds
 {
   public class Fund
   {
-    public Fund(string name, decimal balance, bool isRoot, int fundRootId, int id, int parentFundId)
+    public Fund(string name, decimal balance, bool isRoot, int profileId, int id, int parentFundId)
     {
       this.Name = name;
       this.Balance = balance;
       this.IsRoot = isRoot;
-      this.FundRootId = fundRootId;
+      this.ProfileId = profileId;
       this.Id = id;
-      ParentFundId = parentFundId;
+      this.ParentFundId = parentFundId;
     }
 
     public int Id { get; private set; }
@@ -20,7 +20,7 @@ namespace BudgetSquirrel.Core.Funds
 
     public bool IsRoot { get; private set; }
 
-    public int FundRootId { get; private set; }
+    public int ProfileId { get; private set; }
 
     public int ParentFundId { get; private set; }
   }

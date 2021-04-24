@@ -21,7 +21,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Schema
 
     public static class BudgetPlanning
     {
-      public static readonly string CreateFundRootForUser = _("CreateFundRootForUser");
+      public static readonly string CreateProfileForUser = _("CreateProfileForUser");
       public static readonly string CreateFund = _("CreateFund");
       public static readonly string CreateBudgetForFund = _("CreateBudgetForFund");
       public static readonly string GetBudgetForFund = _("GetBudgetForFund");
@@ -30,12 +30,13 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Schema
     public static class Funds
     {
       public static readonly string GetAllFundsInFundTree = _("GetAllFundsInFundTree");
-      public static readonly string GetFundRoot = _("GetFundRoot");
+      public static readonly string GetProfile = _("GetProfile");
     }
 
     public static class History
     {
       public static readonly string GetTimebox = _("GetTimebox");
+      public static readonly string GetTimeboxByStartDate = _("GetTimeboxByStartDate");
       public static readonly string CreateTimebox = _("CreateTimebox");
     }
   }

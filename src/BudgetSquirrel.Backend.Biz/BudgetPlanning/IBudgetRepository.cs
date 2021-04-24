@@ -6,11 +6,11 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
 {
   public interface IBudgetRepository
   {
-    Task<int> CreateFundRootForUser(string userEmail);
+    Task<int> CreateProfileForUser(string userEmail);
 
-    Task<int> CreateFund(int fundRootId, int? parentFundId, string name, bool isRoot);
+    Task<int> CreateFund(int profileId, int? parentFundId, string name, bool isRoot);
 
-    Task CreateBudgetForFund(int fundId, decimal plannedAmount);
+    Task CreateBudgetForFund(int fundId, decimal plannedAmount, int timeboxId);
 
     Task<Budget> GetBudget(int fundId);
   }

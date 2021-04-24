@@ -1,4 +1,4 @@
-CREATE PROCEDURE [CreateFundRootForUser] (
+CREATE PROCEDURE [CreateProfileForUser] (
   @Email NVARCHAR(75)
 )
 AS
@@ -12,7 +12,7 @@ SELECT @UserId = [dbo].[Users].[Id]
     ON [dbo].[Accounts].[UserId] = [dbo].[Users].[Id]
   WHERE [dbo].[Accounts].[Email] = @Email;
 
-INSERT INTO [dbo].[FundRoots] ( [dbo].[FundRoots].[UserId] ) VALUES ( @UserId );
+INSERT INTO [dbo].[Profiles] ( [dbo].[Profiles].[UserId] ) VALUES ( @UserId );
 
 SELECT CAST(SCOPE_IDENTITY() AS INT);
 RETURN

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
+using BudgetSquirrel.Backend.Biz.History;
 using BudgetSquirrel.Core.Accounts;
 using BudgetSquirrel.Core.History;
 
@@ -43,10 +44,13 @@ namespace BudgetSquirrel.Backend.Biz.Accounts
         this.arguments.firstName,
         this.arguments.lastName);
 
-      int fundRootId = await this.budgetRepository.CreateFundRootForUser(this.arguments.email);
-      int rootFundId = await this.budgetRepository.CreateFund(fundRootId, null, "ROOT_FUND", true);
-      await this.budgetRepository.CreateBudgetForFund(rootFundId, 0);
-      await this.timeboxRepository.CreateTimebox(fundRootId, DateTime.Now, DateTime.Now.AddDays(30));
+      int profileId = await this.budgetRepository.CreateProfileForUser(this.arguments.email);
+      int rootFundId = await this.budgetRepository.CreateFund(profileId, null, "ROOT_FUND", true);
+
+      DateTime timeboxStartDate = DateTime.Now;
+      await this.timeboxRepository.CreateTimebox(profileId, timeboxStartDate, timeboxStartDate.AddDays(30));
+      Timebox createdTimebox = await this.timeboxRepository.GetTimebox(profileId, timeboxStartDate);
+      await this.budgetRepository.CreateBudgetForFund(rootFundId, 0, createdTimebox.Id);
     }
 
     public override Task<Account> Load()

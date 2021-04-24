@@ -5,8 +5,8 @@ namespace BudgetSquirrel.Backend.Biz.Funds
 {
   public interface IFundRepository
   {
-    Task<FundRoot> GetFundRoot(int fundRootId);
+    Task<Profile> GetProfile(int profileId);
     
-    Task<FundSubFunds> GetFundTree(int fundRootId);
+    Task<FundSubFunds> GetFundTree(int profileId);
   }
 }

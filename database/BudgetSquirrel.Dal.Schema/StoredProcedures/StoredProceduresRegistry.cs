@@ -16,18 +16,19 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         { "GetIsPasswordAttemptCorrect", $"{ScriptsDir}/Auth/GetIsPasswordAttemptCorrect.sql" },
 
         /* BudgetPlanning */
-        { "CreateFundRootForUser", $"{ScriptsDir}/BudgetPlanning/CreateFundRootForUser.sql" },
+        { "CreateProfileForUser", $"{ScriptsDir}/BudgetPlanning/CreateProfileForUser.sql" },
         { "CreateFund", $"{ScriptsDir}/BudgetPlanning/CreateFund.sql" },
         { "CreateBudgetForFund", $"{ScriptsDir}/BudgetPlanning/CreateBudgetForFund.sql" },
         { "GetBudgetForFund", $"{ScriptsDir}/BudgetPlanning/GetBudgetForFund.sql" },
 
         /* Funds */
         { "GetAllFundsInFundTree", $"{ScriptsDir}/Funds/GetAllFundsInFundTree.sql" },
-        { "GetFundRoot", $"{ScriptsDir}/Funds/GetFundRoot.sql" },
+        { "GetProfile", $"{ScriptsDir}/Funds/GetProfile.sql" },
 
         /* History */
         { "CreateTimebox", $"{ScriptsDir}/History/CreateTimebox.sql" },
-        { "GetTimebox", $"{ScriptsDir}/History/GetTimebox.sql" }
+        { "GetTimebox", $"{ScriptsDir}/History/GetTimebox.sql" },
+        { "GetTimeboxByStartDate", $"{ScriptsDir}/History/GetTimeboxByStartDate.sql" }
       };
     }
   }

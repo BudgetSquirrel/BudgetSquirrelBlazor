@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Backend.Biz.Funds;
+using BudgetSquirrel.Backend.Biz.History;
 using BudgetSquirrel.Core.History;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,14 +26,14 @@ namespace BudgetSquirrel.Backend.Controllers
     }
 
     [HttpGet("context")]
-    public Task<GetBudgetPlanningContextQuery.BudgetPlanningContext> GetContext(int timeboxId, int fundRootId)
+    public Task<GetBudgetPlanningContextQuery.BudgetPlanningContext> GetContext(int timeboxId, int profileId)
     {
       GetBudgetPlanningContextQuery query = new GetBudgetPlanningContextQuery(
         this.fundRepository,
         this.budgetRepository,
         this.timeboxRepository,
         timeboxId,
-        fundRootId);
+        profileId);
 
       return query.Query();
     }

@@ -1,5 +1,5 @@
 CREATE PROCEDURE [GetAllFundsInFundTree] (
-  @FundRootId INT
+  @ProfileId INT
 )
 AS
 BEGIN
@@ -9,9 +9,9 @@ SELECT
   [dbo].[Funds].[Name],
   [dbo].[Funds].[Balance],
   [dbo].[Funds].[IsRoot],
-  [dbo].[Funds].[FundRootId],
+  [dbo].[Funds].[ProfileId],
   [dbo].[Funds].[ParentFundId]
 FROM [dbo].[Funds]
-WHERE [dbo].[Funds].[FundRootId] = @FundRootId;
+WHERE [dbo].[Funds].[ProfileId] = @ProfileId;
 
 END

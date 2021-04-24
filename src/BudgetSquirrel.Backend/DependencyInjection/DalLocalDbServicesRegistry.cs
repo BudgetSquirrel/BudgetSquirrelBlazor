@@ -1,6 +1,7 @@
 using BudgetSquirrel.Backend.Biz.Accounts;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Backend.Biz.Funds;
+using BudgetSquirrel.Backend.Biz.History;
 using BudgetSquirrel.Backend.Dal.LocalDb;
 using BudgetSquirrel.Backend.Dal.LocalDb.Accounts;
 using BudgetSquirrel.Backend.Dal.LocalDb.Funds;

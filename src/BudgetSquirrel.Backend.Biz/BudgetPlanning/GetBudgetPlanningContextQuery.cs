@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Backend.Biz.Funds;
+using BudgetSquirrel.Backend.Biz.History;
 using BudgetSquirrel.Core;
 using BudgetSquirrel.Core.BudgetPlanning;
 using BudgetSquirrel.Core.Funds;
@@ -18,15 +19,15 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
     {
       public Timebox Timebox { get; private set; }
 
-      public FundRoot FundRoot { get; private set; }
+      public Profile Profile { get; private set; }
       
       public FundSubFunds FundTree { get; private set; }
 
       public IEnumerable<FundBudget> Budgets { get; private set; }
 
-      public BudgetPlanningContext(FundRoot fundRoot, FundSubFunds fundTree, IEnumerable<FundBudget> budgets, Timebox timebox)
+      public BudgetPlanningContext(Profile profile, FundSubFunds fundTree, IEnumerable<FundBudget> budgets, Timebox timebox)
       {
-        this.FundRoot = fundRoot;
+        this.Profile = profile;
         this.FundTree = fundTree;
         this.Budgets = budgets;
         this.Timebox = timebox;
@@ -38,30 +39,30 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
     private ITimeboxRepository timeboxRepository;
 
     private int timeBoxId;
-    private int fundRootId;
+    private int profileId;
 
     public GetBudgetPlanningContextQuery(
       IFundRepository fundRepository,
       IBudgetRepository budgetRepository,
       ITimeboxRepository timeboxRepository,
       int timeBoxId,
-      int fundRootId)
+      int profileId)
     {
       this.budgetRepository = budgetRepository;
       this.timeboxRepository = timeboxRepository;
       this.timeBoxId = timeBoxId;
-      this.fundRootId = fundRootId;
+      this.profileId = profileId;
       this.fundRepository = fundRepository;
     }
 
     public async Task<BudgetPlanningContext> Query()
     {
       Timebox timebox = await this.timeboxRepository.GetTimebox(this.timeBoxId);
-      FundRoot fundRoot = await this.fundRepository.GetFundRoot(this.fundRootId);
-      FundSubFunds fundTree = await this.fundRepository.GetFundTree(this.fundRootId);
+      Profile profile = await this.fundRepository.GetProfile(this.profileId);
+      FundSubFunds fundTree = await this.fundRepository.GetFundTree(this.profileId);
       IEnumerable<FundBudget> fundBudgets = await this.GetBudgetsForFundTree(fundTree);
 
-      return new BudgetPlanningContext(fundRoot, fundTree, fundBudgets, timebox);
+      return new BudgetPlanningContext(profile, fundTree, fundBudgets, timebox);
     }
 
     private async Task<IEnumerable<FundBudget>> GetBudgetsForFundTree(FundSubFunds fundBranch)

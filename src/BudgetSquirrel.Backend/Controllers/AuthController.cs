@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Core.History;
+using BudgetSquirrel.Backend.Biz.History;
 
 namespace BudgetSquirrel.Backend.Controllers
 {

@@ -3,12 +3,12 @@ using FluentMigrator;
 
 namespace BudgetSquirrel.Dal.Schema.Migrations
 {
-  [Migration(2, "Add FundRoot, Fund and Budget")]
-  public class AddFundRootFundAndBudget : Migration
+  [Migration(2, "Add Profile, Fund and Budget")]
+  public class AddProfileFundAndBudget : Migration
   {
     public override void Up()
     {
-      Create.Table("FundRoots")
+      Create.Table("Profiles")
             .WithColumn("Id").AsInt64().PrimaryKey().Identity()
             .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("Users", "Id").OnDelete(Rule.Cascade);
 
@@ -16,7 +16,7 @@ namespace BudgetSquirrel.Dal.Schema.Migrations
             .WithColumn("Id").AsInt64().PrimaryKey().Identity()
             .WithColumn("Name").AsString().NotNullable()
             .WithColumn("ParentFundId").AsInt64().Nullable().ForeignKey("Funds", "Id").OnDelete(Rule.None)
-            .WithColumn("FundRootId").AsInt64().NotNullable().ForeignKey("FundRoots", "Id").OnDelete(Rule.Cascade)
+            .WithColumn("ProfileId").AsInt64().NotNullable().ForeignKey("Profiles", "Id").OnDelete(Rule.Cascade)
             .WithColumn("Balance").AsDecimal(10, 2).NotNullable().WithDefaultValue(0)
             .WithColumn("IsRoot").AsBoolean().NotNullable().WithDefaultValue(false);
 
@@ -30,7 +30,7 @@ namespace BudgetSquirrel.Dal.Schema.Migrations
     {
       Delete.Table("Budgets");
       Delete.Table("Funds");
-      Delete.Table("FundRoots");
+      Delete.Table("Profiles");
     }
   }
 }

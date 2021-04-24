@@ -10,8 +10,8 @@ namespace BudgetSquirrel.Dal.Schema.Migrations
     {
       Create.Table("Timebox")
             .WithColumn("Id").AsInt64().PrimaryKey().Identity()
-            .WithColumn("FundRootId").AsInt64()
-                                  .ForeignKey("FundRoots", "Id")
+            .WithColumn("ProfileId").AsInt64()
+                                  .ForeignKey("Profiles", "Id")
                                   .OnDelete(Rule.Cascade)
                                   .NotNullable()
             .WithColumn("StartDate").AsDate().NotNullable()
@@ -19,17 +19,21 @@ namespace BudgetSquirrel.Dal.Schema.Migrations
       
       Create.Table("TimeboxRule")
             .WithColumn("Id").AsInt64().PrimaryKey().Identity()
-            .WithColumn("FundRootId").AsInt64()
-                                    .ForeignKey("FundRoots", "Id")
+            .WithColumn("ProfileId").AsInt64()
+                                    .ForeignKey("Profiles", "Id")
                                     .OnDelete(Rule.Cascade)
                                     .NotNullable()
                                     .Unique()
             .WithColumn("EndDayOfMonth").AsInt16().NotNullable()
             .WithColumn("ShouldRolloverOnShortMonths").AsBoolean().NotNullable();
+
+      Alter.Table("Budgets")
+           .AddColumn("TimeboxId").AsInt64().ForeignKey("Timebox", "Id").OnDelete(Rule.None).NotNullable();
     }
 
     public override void Down()
     {
+      Delete.Column("[Budgets].[TimeboxId]");
       Delete.Table("Timebox");
       Delete.Table("TimeboxRule");
     }

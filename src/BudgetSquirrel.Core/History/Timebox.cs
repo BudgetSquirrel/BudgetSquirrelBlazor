@@ -12,11 +12,14 @@ namespace BudgetSquirrel.Core.History
   /// </summary>
   public class Timebox
   {
-    public Timebox(DateTime startDate, DateTime endDate)
+    public Timebox(int id, DateTime startDate, DateTime endDate)
     {
+      this.Id = id;
       this.StartDate = startDate;
       this.EndDate = endDate;
     }
+
+    public int Id { get; private set; }
 
     public DateTime StartDate { get; private set; }
 

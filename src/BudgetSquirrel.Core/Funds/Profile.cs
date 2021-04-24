@@ -9,13 +9,13 @@ namespace BudgetSquirrel.Core.Funds
   ///
   /// In another sense, this is the abstraction for a tree of funds.
   /// </summary>
-  public class FundRoot
+  public class Profile
   {
-    public FundRoot(int fundRootId)
+    public Profile(int profileId)
     {
-      this.FundRootId = fundRootId;
+      this.ProfileId = profileId;
     }
 
-    public int FundRootId { get; private set; }
+    public int ProfileId { get; private set; }
   }
 }

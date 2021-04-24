@@ -15,13 +15,13 @@ namespace BudgetSquirrel.Core.Funds
 
     public bool IsRoot { get; set; }
 
-    public int FundRootId { get; set; }
+    public int ProfileId { get; set; }
 
     public int ParentFundId { get; set; }
 
     public Fund ToDomain()
     {
-      return new Fund(this.Name, this.Balance, this.IsRoot, this.FundRootId, this.Id, this.ParentFundId);
+      return new Fund(this.Name, this.Balance, this.IsRoot, this.ProfileId, this.Id, this.ParentFundId);
     }
   }
 }
