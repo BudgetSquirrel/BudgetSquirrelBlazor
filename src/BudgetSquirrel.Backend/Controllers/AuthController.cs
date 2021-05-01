@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Core.History;
 using BudgetSquirrel.Backend.Biz.History;
+using Microsoft.AspNetCore.Http;
 
 namespace BudgetSquirrel.Backend.Controllers
 {
