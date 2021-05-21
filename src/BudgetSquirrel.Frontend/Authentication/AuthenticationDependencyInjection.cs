@@ -6,7 +6,7 @@ namespace BudgetSquirrel.Frontend.Authentication
 {
   public static class AuthenticationDependencyInjection
   {
-    public static IServiceCollection AddAuthenticationServices(IServiceCollection services)
+    public static IServiceCollection AddServices(IServiceCollection services)
     {
       services.AddTransient<IRegistrationService, RegistrationService>();
       services.AddSingleton<ILoginService, LoginService>();
