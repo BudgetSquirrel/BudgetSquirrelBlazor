@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BudgetSquirrel.Frontend.Authentication.Login;
 using Microsoft.AspNetCore.Components;
 
@@ -8,9 +9,9 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     [Inject]
     private ILoginService loginService { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-      this.loginService.PromptLoginIfNecessary();
+      await this.loginService.PromptLoginIfNecessary();
     }
   }
 }

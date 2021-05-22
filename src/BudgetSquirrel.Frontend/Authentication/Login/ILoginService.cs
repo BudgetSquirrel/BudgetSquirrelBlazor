@@ -8,7 +8,7 @@ namespace BudgetSquirrel.Frontend.Authentication.Login
     
     Task Login(string username, string password);
 
-    void PromptLoginIfNecessary();
+    Task PromptLoginIfNecessary();
 
     bool IsAuthenticated { get; }
   }

@@ -63,11 +63,18 @@ namespace BudgetSquirrel.Frontend.BackendClient
       return JsonConvert.DeserializeObject<T>(responseData);
     }
 
-    public async Task Authenticate(string username, string password)
+    public void RestoreAuthentication(string authToken)
+    {
+      HttpClient client = this.GetClient();
+      client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+    }
+
+    public async Task<string> Authenticate(string username, string password)
     {
       HttpClient client = this.GetClient();
       string authToken = await this.backendAuthenticator.GetAuthToken(client, username, password);
       client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+      return authToken;
     }
 
     private HttpClient GetClient()

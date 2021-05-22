@@ -6,6 +6,7 @@ namespace BudgetSquirrel.Frontend.BackendClient
   {
     Task ExecuteCommand(string endpoint, object request);
     Task<T> Fetch<T>(string endpoint);
-    Task Authenticate(string username, string password);
+    Task<string> Authenticate(string username, string password);
+    void RestoreAuthentication(string authToken);
   }
 }
