@@ -1,4 +1,5 @@
 @page "/register"
+@using BudgetSquirrel.Frontend.Components.Buttons
 
 <div class="page-margins__apply _register-page">
   <h2 class="foreground-default header1">Register your account</h2>
@@ -80,11 +81,7 @@
       <ValidationMessage For="(() => this.Model.ConfirmPassword)" />
     </div>
 
-    <button
-      type="submit"
-      class="button button--encourage _btn-register">
-      Register
-    </button>
+    <PositiveButton Type="submit" Title="Register" />
 
   </EditForm>
 </div>

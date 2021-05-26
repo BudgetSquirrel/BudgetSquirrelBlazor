@@ -1,0 +1,26 @@
+@page "/"
+
+@using BudgetSquirrel.Frontend.Components.Buttons
+
+<div id="splash">
+    <h1>
+        A Budget management tool designed for both control freaks and the laid back.
+    </h1>
+    <p>
+        A budget management tool designed for both control freaks and the laid back.
+    </p>
+
+    <PositiveButton Title="Sign Up" />
+
+</div>
+
+@code {
+
+    [Inject]
+    NavigationManager navigationManager { get; set; }
+
+    private void NavigateToSignUp() { 
+        this.navigationManager.NavigateTo("/register");
+    }
+
+}

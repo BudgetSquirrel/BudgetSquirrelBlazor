@@ -1,0 +1,17 @@
+<button type="@Type" class="button button--encourage" @onclick="OnButtonClick">
+    @Title
+</button>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; } = new EventCallback();
+
+    [Parameter]
+    public string Type { get; set; } = "button";
+
+    private async Task OnButtonClick() => await OnClick.InvokeAsync();
+}
