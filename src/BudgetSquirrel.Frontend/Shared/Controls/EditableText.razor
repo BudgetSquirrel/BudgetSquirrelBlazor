@@ -1,0 +1,37 @@
+<div class="_editable-text">
+  <input
+    value="@this.ValueState"
+    @onchange="@((ChangeEventArgs __e) => this.ValueState = __e.Value.ToString())"
+    class="_input"
+    placeholder="@this.Placeholder"
+    type="@this.Type"
+    name="@this.Name" />
+
+  <button @onclick="this.Change">Done</button>
+</div>
+
+@code {
+  [Parameter]
+  public string Value { get; set; }
+
+  [Parameter]
+  public string Placeholder { get; set; } = "";
+
+  [Parameter]
+  public string Name { get; set; } = "";
+
+  [Parameter]
+  public string Type { get; set; } = "text";
+
+  [Parameter]
+  public EventCallback<string> OnChange { get; set; } = new EventCallback<string>();
+
+  private string ValueState { get; set; }
+
+  protected override void OnInitialized()
+  {
+    this.ValueState = this.Value;
+  }
+
+  private Task Change() => this.OnChange.InvokeAsync(this.ValueState);
+}

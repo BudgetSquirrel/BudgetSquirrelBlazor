@@ -38,7 +38,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       }
     }
 
-    private string PlannedAmount
+    private string PlannedIncome
     {
       get
       {
@@ -49,6 +49,11 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         BudgetPlanningContext.FundBudget rootBudget = this.context.Budgets.Single(b => b.FundId == this.context.FundTree.Fund.Id);
         return $"{rootBudget.Budget.PlannedAmount.ToString("C")}";
       }
+    }
+
+    private void ChangePlannedIncome(string amount)
+    {
+      Console.WriteLine("Change income: " + amount);
     }
   }
 }
