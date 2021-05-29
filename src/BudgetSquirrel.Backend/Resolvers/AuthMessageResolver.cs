@@ -1,7 +1,7 @@
 using BudgetSquirrel.Core.Accounts;
 using BudgetSquirrel.Web.Common.Messages.Auth;
 
-namespace BudgetSquirrel.Backend.Auth
+namespace BudgetSquirrel.Backend.Resolvers
 {
   public static class AuthMessageResolver
   {

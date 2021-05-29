@@ -36,7 +36,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Schema
     public static class History
     {
       public static readonly string GetTimebox = _("GetTimebox");
-      public static readonly string GetTimeboxByStartDate = _("GetTimeboxByStartDate");
+      public static readonly string GetTimeboxByDate = _("GetTimeboxByDate");
       public static readonly string CreateTimebox = _("CreateTimebox");
     }
   }

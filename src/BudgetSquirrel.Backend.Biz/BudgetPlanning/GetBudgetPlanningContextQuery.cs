@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,14 +39,14 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
     private IBudgetRepository budgetRepository;
     private ITimeboxRepository timeboxRepository;
 
-    private int timeBoxId;
+    private int? timeBoxId;
     private int profileId;
 
     public GetBudgetPlanningContextQuery(
       IFundRepository fundRepository,
       IBudgetRepository budgetRepository,
       ITimeboxRepository timeboxRepository,
-      int timeBoxId,
+      int? timeBoxId,
       int profileId)
     {
       this.budgetRepository = budgetRepository;
@@ -57,7 +58,15 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
 
     public async Task<BudgetPlanningContext> Query()
     {
-      Timebox timebox = await this.timeboxRepository.GetTimebox(this.timeBoxId);
+      Timebox timebox;
+      if (this.timeBoxId.HasValue)
+      {
+        timebox = await this.timeboxRepository.GetTimebox(this.timeBoxId.Value);
+      }
+      else
+      {
+        timebox = await this.timeboxRepository.GetTimebox(this.profileId, DateTime.Now);
+      }
       Profile profile = await this.fundRepository.GetProfile(this.profileId);
       FundSubFunds fundTree = await this.fundRepository.GetFundTree(this.profileId);
       IEnumerable<FundBudget> fundBudgets = await this.GetBudgetsForFundTree(fundTree);
