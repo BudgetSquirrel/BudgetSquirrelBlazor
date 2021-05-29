@@ -48,7 +48,8 @@
   text-align: center;
 }
 
-._app-header ._nav-link:hover {
+._app-header ._nav-link:hover,
+._app-header ._nav-link:focus {
   padding-bottom: var(--padding);
   border-bottom: var(--underline-height) solid var(--clr-control-color);
 }

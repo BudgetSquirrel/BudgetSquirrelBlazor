@@ -26,6 +26,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       this.isLoading = false;
     }
 
+    private BudgetPlanningContext.FundBudget rootBudget => this.context.Budgets.Single(b => b.FundId == this.context.FundTree.Fund.Id);
+
     private string timeboxDisplay
     {
       get
@@ -46,8 +48,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         {
           return "";
         }
-        BudgetPlanningContext.FundBudget rootBudget = this.context.Budgets.Single(b => b.FundId == this.context.FundTree.Fund.Id);
-        return $"{rootBudget.Budget.PlannedAmount.ToString("C")}";
+        return $"{this.rootBudget.Budget.PlannedAmount.ToString("C")}";
       }
     }
 

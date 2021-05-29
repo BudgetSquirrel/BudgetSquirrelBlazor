@@ -1,13 +1,25 @@
 <div class="_editable-text">
-  <input
-    value="@this.ValueState"
-    @onchange="@((ChangeEventArgs __e) => this.ValueState = __e.Value.ToString())"
-    class="_input"
-    placeholder="@this.Placeholder"
-    type="@this.Type"
-    name="@this.Name" />
+  @if (this.isEditing)
+  {
+    <input
+      value="@this.valueState"
+      @onchange="@((ChangeEventArgs __e) => this.manualValue = __e.Value.ToString())"
+      class="_input"
+      placeholder="@this.Placeholder"
+      type="@this.Type"
+      name="@this.Name" />
 
-  <button @onclick="this.Change">Done</button>
+    <button @onclick="@this.Change">Done</button>
+  }
+  else
+  {
+    <span>@this.valueState</span>
+    <button
+      @onclick="@this.OnEditClicked"
+      class="material-icons icon-button">
+      mode_edit
+    </button>
+  }
 </div>
 
 @code {
@@ -26,12 +38,20 @@
   [Parameter]
   public EventCallback<string> OnChange { get; set; } = new EventCallback<string>();
 
-  private string ValueState { get; set; }
+  private string manualValue { get; set; } = null;
 
-  protected override void OnInitialized()
+  private string valueState => this.manualValue ?? this.Value ?? "";
+
+  private bool isEditing = false;
+
+  private void OnEditClicked()
   {
-    this.ValueState = this.Value;
+    this.isEditing = true;
   }
 
-  private Task Change() => this.OnChange.InvokeAsync(this.ValueState);
+  private Task Change()
+  {
+    this.isEditing = false;
+    return this.OnChange.InvokeAsync(this.valueState);
+  }
 }
