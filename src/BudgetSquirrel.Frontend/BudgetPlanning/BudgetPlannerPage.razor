@@ -1,5 +1,23 @@
 @page "/budget-planner"
 
-<div>
-  @(this.Context?.FundTree.Fund.Name ?? "")
+<div class="_budget-planner-page page-margins__apply">
+
+  @if(this.isLoading)
+  {
+    <p>Loading...</p>
+  }
+  else
+  {
+    <h1 class="_root-budget-title">
+      My Budget
+      <span class="foreground-default--subtle subtle-detail">@this.timeboxDisplay</span>
+    </h1>
+
+    <div class="stat__box _root-budget-stats">
+      <div class="stat">
+        <span class="stat__label">Planned Income</span>
+        <span class="stat__value">@this.PlannedAmount</span>
+      </div>
+    </div>
+  }
 </div>

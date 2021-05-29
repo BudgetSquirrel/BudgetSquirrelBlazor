@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Frontend.Authentication.Login;
 using Microsoft.AspNetCore.Components;
@@ -13,13 +14,41 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     [Inject]
     private IBudgetPlanningService budgetPlanningService { get; set; }
 
-    public BudgetPlanningContext Context;
+    private BudgetPlanningContext context;
+
+    private bool isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
+      this.isLoading = true;
       await this.loginService.PromptLoginIfNecessary();
-      this.Context = await this.budgetPlanningService.GetBudgetTree();
-      Console.WriteLine(this.Context);
+      this.context = await this.budgetPlanningService.GetBudgetTree();
+      this.isLoading = false;
+    }
+
+    private string timeboxDisplay
+    {
+      get
+      {
+        if (this.context == null)
+        {
+          return "";
+        }
+        return $"({this.context.Timebox.StartDate.ToString("%M/%d")} - {this.context.Timebox.EndDate.ToString("%M/%d")})";
+      }
+    }
+
+    private string PlannedAmount
+    {
+      get
+      {
+        if (this.context == null)
+        {
+          return "";
+        }
+        BudgetPlanningContext.FundBudget rootBudget = this.context.Budgets.Single(b => b.FundId == this.context.FundTree.Fund.Id);
+        return $"{rootBudget.Budget.PlannedAmount.ToString("C")}";
+      }
     }
   }
 }

@@ -1,0 +1,17 @@
+.stat__box {
+  background-color: var(--clr-bg-no-color-subtle);
+  padding: 1em;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 1.2em;
+}
+
+.stat__value {
+  color: var(--clr-fg-no-color-subtle);
+  margin-top: 0.1em;
+}

@@ -1,9 +1,5 @@
 ﻿@import url("imports.css");
 
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
 * {
     margin: 0;
     box-sizing: border-box;
@@ -26,6 +22,7 @@ html, body {
     --clr-bg-color: var(--tan-200);
     --clr-bg-color-alt: var(--tan-a500);
     --clr-bg-no-color: white;
+    --clr-bg-no-color-subtle: var(--blackish-100);
     
     --clr-trim-color: var(--tan-700);
     
@@ -47,11 +44,16 @@ html, body {
     --clr-bad-strong: var(--red-500);
 }
 
+.app {
+    color: var(--clr-fg-no-color-bold);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 .page-margins--var {
     --page-side-margin: 110px;
 }
 
-.page-margins--apply {
+.page-margins__apply {
     margin-left: var(--page-side-margin);
     margin-right: var(--page-side-margin);
 }
