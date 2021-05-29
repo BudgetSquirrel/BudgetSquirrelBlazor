@@ -1,17 +1,43 @@
 @page "/"
 
-@using BudgetSquirrel.Frontend.Components.Buttons
-
 <div id="splash">
-    <h1>
-        A Budget management tool designed for both control freaks and the laid back.
-    </h1>
-    <p>
-        A budget management tool designed for both control freaks and the laid back.
-    </p>
+	<div class="section-1 standard-padding">
+		<div>
+			<h1>
+				A Budget management tool designed for both control freaks and the laid back.
+			</h1>
+			<div class="info-section">
+				<p>
+					A budget management tool designed for both control freaks and the laid back.
+				</p>
 
-    <PositiveButton Title="Sign Up" />
+				<button
+					@onclick="NavigateToSignUp"
+					class="button button--encourage">
+					Sign Up
+				</button>
 
+				<p class="sub-text">
+					Already have an account?
+				</p>
+				<a href="login" class="_nav-link">
+					Login
+				</a>
+				
+			</div>
+		</div>
+		<div>
+			<img class="standard-image" />
+		</div>
+	</div>
+	
+	<svg class="diag-border"
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 100 10"
+		preserveAspectRatio="none">
+		<polygon class="diag-border__border" points="0 9,100 0,100 1,0 10" />
+		<polygon class="diag-border__bottom" points="0 10,100 1,100 100" />
+	</svg>
 </div>
 
 @code {
@@ -22,5 +48,4 @@
     private void NavigateToSignUp() { 
         this.navigationManager.NavigateTo("/register");
     }
-
 }

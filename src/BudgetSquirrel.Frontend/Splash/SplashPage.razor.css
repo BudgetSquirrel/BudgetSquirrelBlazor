@@ -1,3 +1,84 @@
-.splash-button {
-    width: 50%;
+#splash {
+	background-color: var(--clr-bg-color);
+}
+
+.button--encourage {
+	background-color: #5a8a4eff;
+	color: white;
+	cursor: pointer;
+	width: 100%;
+	padding: 8px;
+}
+
+.diag-border {
+	display: block;
+	width: 100%;
+	height: 40%;
+	position: absolute;
+	bottom: 0;
+	z-index: 5;
+}
+
+.diag-border__bottom {
+	fill: white;
+}
+
+.diag-border__border {
+	fill: #a17a5e
+}
+
+.section-1 {
+	display: flex;
+}
+
+.section-1 h1 {
+	color: var(--clr-fg-color);
+}
+
+.section-1 .info-section {
+	width: 50%;
+}
+
+.section-1 .info-section p {
+	padding: 16px 0;
+}
+
+.section-1 .info-section .sub-text {
+	font-size: 10pt;
+}
+
+.section-1 .info-section ._nav-link {
+	text-decoration: none;
+}
+
+.section-1 .info-section ._nav-link {
+	color: var(--clr-control-color);
+	text-decoration: none;
+
+	cursor: pointer;
+
+	display: flex;
+	align-items: center;
+	--padding: 1em;
+	--underline-height: 4px;
+	padding: var(--padding);
+	padding-bottom: calc(var(--padding) + var(--underline-height));
+	text-align: center;
+}
+
+.section-1 .info-section ._nav-link:hover {
+	padding-bottom: var(--padding);
+	border-bottom: var(--underline-height) solid var(--clr-control-color);
+}
+
+.section-1 .info-section ._nav-link:visited {
+	color: var(--clr-control-color);
+	text-decoration: none;
+}
+
+.standard-image {
+	display: block;
+	height: 124px;
+	width: 200px;
+	margin: 0 auto;
 }
