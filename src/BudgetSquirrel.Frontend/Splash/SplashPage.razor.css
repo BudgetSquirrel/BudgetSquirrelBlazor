@@ -29,6 +29,7 @@
 
 .section-1 {
 	display: flex;
+	justify-content: space-between;
 }
 
 .section-1 h1 {
@@ -54,14 +55,10 @@
 .section-1 .info-section ._nav-link {
 	color: var(--clr-control-color);
 	text-decoration: none;
-
 	cursor: pointer;
-
-	display: flex;
 	align-items: center;
 	--padding: 1em;
 	--underline-height: 4px;
-	padding: var(--padding);
 	padding-bottom: calc(var(--padding) + var(--underline-height));
 	text-align: center;
 }
@@ -81,4 +78,19 @@
 	height: 124px;
 	width: 200px;
 	margin: 0 auto;
+}
+
+.text-section {
+    max-width: 65%;
+}
+
+@media screen and (max-width: 560px) {
+	.section-1 {
+		display: block;
+	}
+
+	.text-section {
+		max-width: 100%;
+		padding-bottom: 16px;
+	}
 }
