@@ -17,12 +17,13 @@
     <div class="stat__box _root-budget-stats">
       <div class="stat">
         <span class="stat__label">Planned Income</span>
-        <span class="stat__value">@this.PlannedIncome</span>
         <EditableText
-          Value="@this.PlannedIncome"
+          CssClass="stat__value"
+          Value="@this.PlannedIncome.ToString()"
           OnChange="@this.ChangePlannedIncome"
           Placeholder="(ex. 3000.00)"
-          Type="number" />
+          Type="currency"
+          WidthEms=8 />
       </div>
     </div>
   }

@@ -1,4 +1,4 @@
-<div class="_editable-text">
+<div class="_editable-text @this.CssClass">
   @if (this.isEditing)
   {
     <input
@@ -7,24 +7,36 @@
       class="_input"
       placeholder="@this.Placeholder"
       type="@this.Type"
-      name="@this.Name" />
+      name="@this.Name"
+      style='@("width: " + this.inputWidth + ";")' />
 
-    <button @onclick="@this.Change">Done</button>
+    <button
+      @onclick="@this.Change"
+      class="material-icons icon-button">
+      check
+    </button>
   }
   else
   {
-    <span>@this.valueState</span>
+    <span class="_stat">@this.displayValue</span>
     <button
       @onclick="@this.OnEditClicked"
-      class="material-icons icon-button">
+      class="material-icons icon-button _btn-done">
       mode_edit
     </button>
   }
 </div>
 
 @code {
+  private const string buttonWidth = "1.4em";
+
+  private const string typeCurrency = "currency";
+  
   [Parameter]
   public string Value { get; set; }
+  
+  [Parameter]
+  public string CssClass { get; set; } = "";
 
   [Parameter]
   public string Placeholder { get; set; } = "";
@@ -36,13 +48,46 @@
   public string Type { get; set; } = "text";
 
   [Parameter]
+  public double WidthEms { get; set; } = 12;
+
+  [Parameter]
   public EventCallback<string> OnChange { get; set; } = new EventCallback<string>();
 
   private string manualValue { get; set; } = null;
 
   private string valueState => this.manualValue ?? this.Value ?? "";
 
+  private string displayValue
+  {
+    get
+    {
+      switch(this.Type)
+      {
+        case typeCurrency:
+          return decimal.Parse(this.valueState).ToString("C");
+        default:
+          return this.valueState;
+      }
+    }
+  }
+
   private bool isEditing = false;
+
+  private string inputWidth => $"calc({this.WidthEms}em - {buttonWidth})";
+
+  private string inputType
+  {
+    get
+    {
+      switch(this.Type)
+      {
+        case typeCurrency:
+          return "number";
+        default:
+          return this.Type;
+      }
+    }
+  }
 
   private void OnEditClicked()
   {

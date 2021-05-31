@@ -40,17 +40,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       }
     }
 
-    private string PlannedIncome
-    {
-      get
-      {
-        if (this.context == null)
-        {
-          return "";
-        }
-        return $"{this.rootBudget.Budget.PlannedAmount.ToString("C")}";
-      }
-    }
+    private decimal PlannedIncome => this.rootBudget.Budget.PlannedAmount;
 
     private void ChangePlannedIncome(string amount)
     {

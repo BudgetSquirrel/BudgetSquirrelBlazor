@@ -1,5 +1,6 @@
 ._editable-text {
   height: 1.4em;
+  display: flex;
 }
 
 ._editable-text ._input {
@@ -9,4 +10,14 @@
   color: var(--clr-input-stroke);
   caret-color: var(--clr-input-stroke);
   background-color: var(--clr-input-bg);
+}
+
+._editable-text ._stat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+._editable-text ._btn-done {
+  margin-left: 1em;
 }

@@ -131,6 +131,7 @@
 .icon-button {
     --button-bg-default: none;
     --button-bg-hover: var(--clr-control-no-color);
+    --button-size: 1.4em;
 
     background-color: var(--button-bg-default);
     border: none;
@@ -141,8 +142,8 @@
 
 .material-icons.icon-button {
     font-size: 18px;
-    height: 1.4em;
-    width: 1.4em;
+    height: var(--button-size);
+    width: var(--button-size);
 }
 
 .icon-button:hover,
