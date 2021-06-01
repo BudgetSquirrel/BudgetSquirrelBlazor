@@ -25,6 +25,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Schema
       public static readonly string CreateFund = _("CreateFund");
       public static readonly string CreateBudgetForFund = _("CreateBudgetForFund");
       public static readonly string GetBudgetForFund = _("GetBudgetForFund");
+      public static readonly string EditBudget = _("EditBudget");
     }
 
     public static class Funds

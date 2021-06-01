@@ -69,12 +69,12 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
       }
       Profile profile = await this.fundRepository.GetProfile(this.profileId);
       FundSubFunds fundTree = await this.fundRepository.GetFundTree(this.profileId);
-      IEnumerable<FundBudget> fundBudgets = await this.GetBudgetsForFundTree(fundTree);
+      IEnumerable<FundBudget> fundBudgets = await this.GetBudgetsForFundTree(fundTree, timebox);
 
       return new BudgetPlanningContext(profile, fundTree, fundBudgets, timebox);
     }
 
-    private async Task<IEnumerable<FundBudget>> GetBudgetsForFundTree(FundSubFunds fundBranch)
+    private async Task<IEnumerable<FundBudget>> GetBudgetsForFundTree(FundSubFunds fundBranch, Timebox timebox)
     {
       IEnumerable<FundBudget> budgetsInTree = new List<FundBudget>();
 
@@ -83,7 +83,7 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
       // Load the budget for the current fund in fundBranch.
       budgetLoadTasks.Add(Task.Run(async () =>
       {
-        budgetsInTree = budgetsInTree.Append(await this.GetBudgetForFund(fundBranch.Fund));
+        budgetsInTree = budgetsInTree.Append(await this.GetBudgetForFund(fundBranch.Fund, timebox));
       }));
 
       // Load budgets for each sub fund of the current fund branch.
@@ -91,7 +91,7 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
       {
         budgetLoadTasks.Add(Task.Run(async () =>
         {
-          budgetsInTree = budgetsInTree.Concat(await this.GetBudgetsForFundTree(fundSubBranch));
+          budgetsInTree = budgetsInTree.Concat(await this.GetBudgetsForFundTree(fundSubBranch, timebox));
         }));
       }
 
@@ -100,9 +100,9 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
       return budgetsInTree;
     }
 
-    private async Task<FundBudget> GetBudgetForFund(Fund fund)
+    private async Task<FundBudget> GetBudgetForFund(Fund fund, Timebox timebox)
     {
-      Budget budget = await this.budgetRepository.GetBudget(fund.Id);
+      Budget budget = await this.budgetRepository.GetBudget(fund.Id, timebox.Id);
       FundBudget fundBudgetRelationship = new FundBudget(budget, fund);
       return fundBudgetRelationship;
     }

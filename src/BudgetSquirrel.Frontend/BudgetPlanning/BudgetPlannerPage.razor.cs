@@ -18,7 +18,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private bool isLoading = true;
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
+    {
+      return this.ReloadContext();
+    }
+
+    private async Task ReloadContext()
     {
       this.isLoading = true;
       await this.loginService.PromptLoginIfNecessary();
@@ -42,9 +47,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private decimal PlannedIncome => this.rootBudget.Budget.PlannedAmount;
 
-    private void ChangePlannedIncome(string amount)
+    private async Task ChangePlannedIncome(string amount)
     {
       Console.WriteLine("Change income: " + amount);
+      decimal newPlannedIncome = decimal.Parse(amount);
+      await this.budgetPlanningService.EditPlannedIncome(this.context.FundTree.Fund.Id, this.context.Timebox.Id, newPlannedIncome);
+      await this.ReloadContext();
     }
   }
 }

@@ -39,5 +39,18 @@ namespace BudgetSquirrel.Backend.Controllers
       GetBudgetPlanningContextQuery.BudgetPlanningContext response = await query.Query();
       return BudgetPlanningMessageResolvers.ToApiMessage(response);
     }
+
+    [HttpPost("edit-planned-income")]
+    public async Task<IActionResult> EditPlannedIncome([FromBody] EditPlannedIncomeRequest request)
+    {
+      EditPlannedIncomeCommand cmd = new EditPlannedIncomeCommand(
+        this.budgetRepository,
+        request.FundId,
+        request.TimeboxId,
+        request.PlannedIncome);
+
+      await cmd.Execute(await cmd.Validate(await cmd.Load()));
+      return Ok();
+    }
   }
 }

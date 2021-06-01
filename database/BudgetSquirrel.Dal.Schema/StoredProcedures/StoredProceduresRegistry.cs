@@ -20,6 +20,7 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         { "CreateFund", $"{ScriptsDir}/BudgetPlanning/CreateFund.sql" },
         { "CreateBudgetForFund", $"{ScriptsDir}/BudgetPlanning/CreateBudgetForFund.sql" },
         { "GetBudgetForFund", $"{ScriptsDir}/BudgetPlanning/GetBudgetForFund.sql" },
+        { "EditBudget", $"{ScriptsDir}/BudgetPlanning/EditBudget.sql" },
 
         /* Funds */
         { "GetAllFundsInFundTree", $"{ScriptsDir}/Funds/GetAllFundsInFundTree.sql" },

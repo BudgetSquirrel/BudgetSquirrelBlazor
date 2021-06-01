@@ -66,20 +66,37 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb
       return profileId;
     }
 
-    public async Task<Budget> GetBudget(int fundId)
+    public async Task<Budget> GetBudget(int fundId, int timeboxId)
     {
       BudgetDto budget;
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
         budget = await conn.QuerySingleAsync<BudgetDto>(
-          $"EXEC {BudgetPlanningProcedures.GetBudgetForFund} @FundId",
+          $"EXEC {BudgetPlanningProcedures.GetBudgetForFund} @FundId, @TimeboxId",
           new
           {
-            FundId = fundId
+            FundId = fundId,
+            TimeboxId = timeboxId
           }
         );
       }
       return budget.ToDomain();
+    }
+
+    public async Task SaveBudget(int fundId, int timeboxId, Budget budget)
+    {
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        await conn.ExecuteAsync(
+          $"EXEC {BudgetPlanningProcedures.EditBudget} @FundId, @TimeboxId, @PlannedAmount",
+          new
+          {
+            FundId = fundId,
+            TimeboxId = timeboxId,
+            PlannedAmount = budget.PlannedAmount
+          }
+        );
+      }
     }
   }
 }

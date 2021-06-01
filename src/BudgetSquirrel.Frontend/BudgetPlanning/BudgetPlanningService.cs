@@ -10,6 +10,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
   {
     private const string BudgetPlanningUri = "budget-planning";
     private const string ContextEndpoint = BudgetPlanningUri + "/context";
+    private const string EditPlannedIncomeEndpoint = BudgetPlanningUri + "/edit-planned-income";
     
     private ILoginService loginService;
     private IBackendClient backendClient;
@@ -27,6 +28,18 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         new Dictionary<string, object>() { { "profileId", 1 } });
       BudgetPlanningContext context = BudgetPlanningResponseResolvers.ToFrontendDto(contextResponse);
       return context;
+    }
+
+    public Task EditPlannedIncome(int fundId, int timeboxId, decimal plannedIncome)
+    {
+      return this.backendClient.ExecuteCommand(
+        EditPlannedIncomeEndpoint,
+        new EditPlannedIncomeRequest()
+        {
+          FundId = fundId,
+          TimeboxId = timeboxId,
+          PlannedIncome = plannedIncome
+        });
     }
   }
 }
