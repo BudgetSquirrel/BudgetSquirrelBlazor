@@ -1,7 +1,7 @@
 @page "/"
 
-<div id="splash">
-	<div class="section-1 standard-padding">
+<div id="splash" class="standard-padding">
+	<div class="section-1">
 		<div class="text-section">
 			<h1>
 				A Budget management tool designed for both control freaks and the laid back.
@@ -27,25 +27,59 @@
 			</div>
 		</div>
 		<div>
-			<img class="standard-image" />
+			<img class="standard-image" src="images/grey.png" />
 		</div>
 	</div>
-	
-	<svg class="diag-border"
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 100 10"
-		preserveAspectRatio="none">
-		<polygon class="diag-border__border" points="0 9,100 0,100 1,0 10" />
-		<polygon class="diag-border__bottom" points="0 10,100 1,100 100" />
-	</svg>
+	<div class="sub-sections">
+		<div class="text-section">
+				<h1>
+					Create budget goals
+				</h1>				
+			<div class="info-section">
+				<p>
+					Set budgets for each spending category and track your spending over time.
+				</p>
+
+				<button
+					@onclick="NavigateToSignUp"
+					class="button button--encourage">
+					Sign Up
+				</button>
+			</div>
+		</div>
+		<div>
+			<img class="standard-image" src="images/grey.png" />
+		</div>
+	</div>
+	<div class="sub-sections">
+		<div>
+			<img class="standard-image" src="images/grey.png" />
+		</div>
+		<div class="text-section">
+				<h1>
+					Track your goals
+				</h1>				
+			<div class="info-section">
+				<p>
+					Create seperate spending periods for different categories and check your performance.
+				</p>
+
+				<button
+					@onclick="NavigateToSignUp"
+					class="button button--encourage">
+					Sign Up
+				</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 @code {
 
-    [Inject]
-    NavigationManager navigationManager { get; set; }
+	[Inject]
+	NavigationManager navigationManager { get; set; }
 
-    private void NavigateToSignUp() { 
-        this.navigationManager.NavigateTo("/register");
-    }
+	private void NavigateToSignUp() { 
+		this.navigationManager.NavigateTo("/register");
+	}
 }

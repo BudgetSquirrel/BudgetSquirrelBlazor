@@ -13,3 +13,9 @@
   #register-page ._btn-register {
     margin-top: 2em;
   }
+
+  @media screen and (max-width: 600px) {
+    #register-page {
+      max-width: 100%;
+    }
+  }
