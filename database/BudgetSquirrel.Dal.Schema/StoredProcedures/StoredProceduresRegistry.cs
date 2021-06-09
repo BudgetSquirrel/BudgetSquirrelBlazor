@@ -25,6 +25,8 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         /* Funds */
         { "GetAllFundsInFundTree", $"{ScriptsDir}/Funds/GetAllFundsInFundTree.sql" },
         { "GetProfile", $"{ScriptsDir}/Funds/GetProfile.sql" },
+        { "GetFundById", $"{ScriptsDir}/Funds/GetFundById.sql" },
+        { "UpdateFundDetails", $"{ScriptsDir}/Funds/UpdateFundDetails.sql" },
 
         /* History */
         { "CreateTimebox", $"{ScriptsDir}/History/CreateTimebox.sql" },

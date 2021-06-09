@@ -8,5 +8,19 @@ namespace BudgetSquirrel.Backend.Biz.Funds
     Task<Profile> GetProfile(int profileId);
     
     Task<FundSubFunds> GetFundTree(int profileId);
+    
+    Task<Fund> GetFundById(int fundId);
+    
+    Task UpdateFund(int fundId, FundDetails fundDetails);
+  }
+
+  public class FundDetails
+  {
+    public string Name { get; private set; }
+
+    public FundDetails(string name)
+    {
+      this.Name = name;
+    }
   }
 }

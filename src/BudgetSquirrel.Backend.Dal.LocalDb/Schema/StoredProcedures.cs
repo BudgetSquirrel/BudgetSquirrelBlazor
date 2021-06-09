@@ -32,6 +32,8 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Schema
     {
       public static readonly string GetAllFundsInFundTree = _("GetAllFundsInFundTree");
       public static readonly string GetProfile = _("GetProfile");
+      public static readonly string GetFundById = _("GetFundById");
+      public static readonly string UpdateFundDetails = _("UpdateFundDetails");
     }
 
     public static class History

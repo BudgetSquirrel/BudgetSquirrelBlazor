@@ -55,6 +55,37 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Funds
       return rootFundNode;
     }
 
+    public async Task<Fund> GetFundById(int fundId)
+    {
+      FundDto fundDto;
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        fundDto = await conn.QuerySingleAsync<FundDto>(
+          $"EXEC {StoredProcedures.Funds.GetFundById} @FundId",
+          new
+          {
+            FundId = fundId
+          }
+        );
+      }
+      return fundDto.ToDomain();
+    }
+
+    public async Task UpdateFund(int fundId, FundDetails fundDetails)
+    {
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        await conn.ExecuteAsync(
+          $"EXEC {StoredProcedures.Funds.UpdateFundDetails} @FundId, @Name",
+          new
+          {
+            FundId = fundId,
+            Name = fundDetails.Name
+          }
+        );
+      }
+    }
+
     private FundSubFunds BuildFundTree(Fund rootFund, IEnumerable<Fund> allFunds)
     {
       List<FundSubFunds> subFundNodes = new List<FundSubFunds>();
@@ -64,7 +95,7 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.Funds
         FundSubFunds subFundNode = this.BuildFundTree(subFund, allFunds);
         subFundNodes.Add(subFundNode);
       }
-      
+
       FundSubFunds fundSubFunds = new FundSubFunds(rootFund, subFundNodes);
 
       return fundSubFunds;

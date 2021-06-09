@@ -52,5 +52,17 @@ namespace BudgetSquirrel.Backend.Controllers
       await cmd.Execute(await cmd.Validate(await cmd.Load()));
       return Ok();
     }
+
+    [HttpPost("edit-fund-name")]
+    public async Task<IActionResult> EditFundName([FromBody] EditFundNameRequest request)
+    {
+      EditFundNameCommand cmd = new EditFundNameCommand(
+        this.fundRepository,
+        request.FundId,
+        request.NewName);
+
+      await cmd.Execute(await cmd.Validate(await cmd.Load()));
+      return Ok();
+    }
   }
 }

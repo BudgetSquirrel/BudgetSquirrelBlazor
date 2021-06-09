@@ -47,11 +47,18 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private decimal PlannedIncome => this.rootBudget.Budget.PlannedAmount;
 
+    private string RootFundName => this.context.FundTree.Fund.Name;
+
     private async Task ChangePlannedIncome(string amount)
     {
-      Console.WriteLine("Change income: " + amount);
       decimal newPlannedIncome = decimal.Parse(amount);
       await this.budgetPlanningService.EditPlannedIncome(this.context.FundTree.Fund.Id, this.context.Timebox.Id, newPlannedIncome);
+      await this.ReloadContext();
+    }
+
+    private async Task ChangeRootFundName(string newName)
+    {
+      await this.budgetPlanningService.EditFundName(this.context.FundTree.Fund.Id, newName);
       await this.ReloadContext();
     }
   }

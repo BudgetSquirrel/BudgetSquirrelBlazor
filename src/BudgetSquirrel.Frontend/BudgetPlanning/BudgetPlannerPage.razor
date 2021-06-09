@@ -9,8 +9,14 @@
   }
   else
   {
-    <h1 class="_root-budget-title">
-      My Budget
+    <h1 class="_root-budget-title__container">
+      <div class="_root-budget-title">
+        <EditableText
+          Value="@this.RootFundName"
+          OnChange="@this.ChangeRootFundName"
+          Placeholder="(ex. My Main Budget)"
+          Type="text" />
+      </div>
       <span class="foreground-default--subtle subtle-detail">@this.timeboxDisplay</span>
     </h1>
 

@@ -11,6 +11,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private const string BudgetPlanningUri = "budget-planning";
     private const string ContextEndpoint = BudgetPlanningUri + "/context";
     private const string EditPlannedIncomeEndpoint = BudgetPlanningUri + "/edit-planned-income";
+    private const string EditFundNameEndpoint = BudgetPlanningUri + "/edit-fund-name";
     
     private ILoginService loginService;
     private IBackendClient backendClient;
@@ -39,6 +40,17 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
           FundId = fundId,
           TimeboxId = timeboxId,
           PlannedIncome = plannedIncome
+        });
+    }
+
+    public Task EditFundName(int fundId, string newName)
+    {
+      return this.backendClient.ExecuteCommand(
+        EditFundNameEndpoint,
+        new EditFundNameRequest()
+        {
+          FundId = fundId,
+          NewName = newName
         });
     }
   }
