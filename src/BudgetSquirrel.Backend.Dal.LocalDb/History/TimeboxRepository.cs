@@ -49,17 +49,17 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb.History
       return timebox.ToDomain();
     }
 
-    public async Task<Timebox> GetTimebox(int profileId, DateTime startDate)
+    public async Task<Timebox> GetTimebox(int profileId, DateTime date)
     {
       TimeboxDto timebox;
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
         timebox = await conn.QuerySingleAsync<TimeboxDto>(
-          $"EXEC {StoredProcedures.History.GetTimeboxByStartDate} @ProfileId, @StartDate",
+          $"EXEC {StoredProcedures.History.GetTimeboxByDate} @ProfileId, @Date",
           new
           {
             ProfileId = profileId,
-            StartDate = startDate
+            Date = date
           }
         );
       }

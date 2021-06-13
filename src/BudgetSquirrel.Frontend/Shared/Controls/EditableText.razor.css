@@ -1,0 +1,23 @@
+._editable-text {
+  display: flex;
+}
+
+._editable-text ._input {
+  font-size: inherit;
+  padding: 0.2em;
+  border: 1px solid var(--clr-input-border);
+  color: var(--clr-input-stroke);
+  caret-color: var(--clr-input-stroke);
+  background-color: var(--clr-input-bg);
+}
+
+._editable-text ._text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-break: break-word;
+}
+
+._editable-text ._btn-done {
+  margin-left: 1em;
+}

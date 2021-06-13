@@ -5,3 +5,7 @@
 .foreground-default--subtle {
   color: var(--clr-fg-no-color-subtle);
 }
+
+.subtle-detail {
+  font-size: 0.7em;
+}

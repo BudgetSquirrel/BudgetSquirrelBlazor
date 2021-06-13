@@ -1,0 +1,11 @@
+._budget-planner-page ._root-budget-title {
+  display: inline-flex;
+}
+
+._budget-planner-page ._root-budget-title__container {
+  margin-top: 2rem;
+}
+
+._budget-planner-page ._root-budget-stats {
+  margin-top: 2rem;
+}

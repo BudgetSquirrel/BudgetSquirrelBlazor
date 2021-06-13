@@ -20,15 +20,18 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         { "CreateFund", $"{ScriptsDir}/BudgetPlanning/CreateFund.sql" },
         { "CreateBudgetForFund", $"{ScriptsDir}/BudgetPlanning/CreateBudgetForFund.sql" },
         { "GetBudgetForFund", $"{ScriptsDir}/BudgetPlanning/GetBudgetForFund.sql" },
+        { "EditBudget", $"{ScriptsDir}/BudgetPlanning/EditBudget.sql" },
 
         /* Funds */
         { "GetAllFundsInFundTree", $"{ScriptsDir}/Funds/GetAllFundsInFundTree.sql" },
         { "GetProfile", $"{ScriptsDir}/Funds/GetProfile.sql" },
+        { "GetFundById", $"{ScriptsDir}/Funds/GetFundById.sql" },
+        { "UpdateFundDetails", $"{ScriptsDir}/Funds/UpdateFundDetails.sql" },
 
         /* History */
         { "CreateTimebox", $"{ScriptsDir}/History/CreateTimebox.sql" },
         { "GetTimebox", $"{ScriptsDir}/History/GetTimebox.sql" },
-        { "GetTimeboxByStartDate", $"{ScriptsDir}/History/GetTimeboxByStartDate.sql" }
+        { "GetTimeboxByDate", $"{ScriptsDir}/History/GetTimeboxByDate.sql" }
       };
     }
   }

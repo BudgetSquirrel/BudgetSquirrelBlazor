@@ -1,6 +1,6 @@
-CREATE PROCEDURE [GetTimeboxByStartDate] (
+CREATE PROCEDURE [GetTimeboxByDate] (
   @ProfileId INT,
-  @StartDate DATE
+  @Date DATE
 )
 AS
 BEGIN
@@ -11,6 +11,7 @@ SELECT
   [dbo].[Timebox].[EndDate]
 FROM [dbo].[Timebox]
 WHERE [dbo].[Timebox].[ProfileId] = @ProfileId
-  AND [dbo].[Timebox].[StartDate] = @StartDate;
+  AND [dbo].[Timebox].[StartDate] <= @Date
+  AND [dbo].[Timebox].[EndDate] >= @Date;
 
 END

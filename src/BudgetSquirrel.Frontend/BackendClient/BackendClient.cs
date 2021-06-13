@@ -63,6 +63,23 @@ namespace BudgetSquirrel.Frontend.BackendClient
       return JsonConvert.DeserializeObject<T>(responseData);
     }
 
+    public async Task<T> Fetch<T>(string endpoint, Dictionary<string, object> queryParams)
+    {
+      string url = $"{this.backendConfiguration.RootUrl}/backend/{endpoint}";
+      url += "?" + UrlHelpers.ToQueryString(queryParams);
+      
+      HttpClient client = this.GetClient();
+      HttpResponseMessage responseMessage = await client.GetAsync(url);
+
+      if (responseMessage.StatusCode != HttpStatusCode.OK)
+      {
+        throw new BackendException();
+      }
+
+      string responseData = await responseMessage.Content.ReadAsStringAsync();
+      return JsonConvert.DeserializeObject<T>(responseData);
+    }
+
     public void RestoreAuthentication(string authToken)
     {
       HttpClient client = this.GetClient();

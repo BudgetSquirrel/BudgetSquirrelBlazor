@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,14 +39,14 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
     private IBudgetRepository budgetRepository;
     private ITimeboxRepository timeboxRepository;
 
-    private int timeBoxId;
+    private int? timeBoxId;
     private int profileId;
 
     public GetBudgetPlanningContextQuery(
       IFundRepository fundRepository,
       IBudgetRepository budgetRepository,
       ITimeboxRepository timeboxRepository,
-      int timeBoxId,
+      int? timeBoxId,
       int profileId)
     {
       this.budgetRepository = budgetRepository;
@@ -57,15 +58,23 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
 
     public async Task<BudgetPlanningContext> Query()
     {
-      Timebox timebox = await this.timeboxRepository.GetTimebox(this.timeBoxId);
+      Timebox timebox;
+      if (this.timeBoxId.HasValue)
+      {
+        timebox = await this.timeboxRepository.GetTimebox(this.timeBoxId.Value);
+      }
+      else
+      {
+        timebox = await this.timeboxRepository.GetTimebox(this.profileId, DateTime.Now);
+      }
       Profile profile = await this.fundRepository.GetProfile(this.profileId);
       FundSubFunds fundTree = await this.fundRepository.GetFundTree(this.profileId);
-      IEnumerable<FundBudget> fundBudgets = await this.GetBudgetsForFundTree(fundTree);
+      IEnumerable<FundBudget> fundBudgets = await this.GetBudgetsForFundTree(fundTree, timebox);
 
       return new BudgetPlanningContext(profile, fundTree, fundBudgets, timebox);
     }
 
-    private async Task<IEnumerable<FundBudget>> GetBudgetsForFundTree(FundSubFunds fundBranch)
+    private async Task<IEnumerable<FundBudget>> GetBudgetsForFundTree(FundSubFunds fundBranch, Timebox timebox)
     {
       IEnumerable<FundBudget> budgetsInTree = new List<FundBudget>();
 
@@ -74,7 +83,7 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
       // Load the budget for the current fund in fundBranch.
       budgetLoadTasks.Add(Task.Run(async () =>
       {
-        budgetsInTree = budgetsInTree.Append(await this.GetBudgetForFund(fundBranch.Fund));
+        budgetsInTree = budgetsInTree.Append(await this.GetBudgetForFund(fundBranch.Fund, timebox));
       }));
 
       // Load budgets for each sub fund of the current fund branch.
@@ -82,7 +91,7 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
       {
         budgetLoadTasks.Add(Task.Run(async () =>
         {
-          budgetsInTree = budgetsInTree.Concat(await this.GetBudgetsForFundTree(fundSubBranch));
+          budgetsInTree = budgetsInTree.Concat(await this.GetBudgetsForFundTree(fundSubBranch, timebox));
         }));
       }
 
@@ -91,9 +100,9 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
       return budgetsInTree;
     }
 
-    private async Task<FundBudget> GetBudgetForFund(Fund fund)
+    private async Task<FundBudget> GetBudgetForFund(Fund fund, Timebox timebox)
     {
-      Budget budget = await this.budgetRepository.GetBudget(fund.Id);
+      Budget budget = await this.budgetRepository.GetBudget(fund.Id, timebox.Id);
       FundBudget fundBudgetRelationship = new FundBudget(budget, fund);
       return fundBudgetRelationship;
     }

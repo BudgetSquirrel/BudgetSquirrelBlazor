@@ -15,6 +15,6 @@ namespace BudgetSquirrel.Core.BudgetPlanning
       this.PlannedAmount = plannedAmount;
     }
 
-    public decimal PlannedAmount { get; private set; }
+    public decimal PlannedAmount { get; set; }
   }
 }
