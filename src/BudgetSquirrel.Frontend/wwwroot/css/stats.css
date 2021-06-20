@@ -1,3 +1,4 @@
+/* A box surrounding a group of statistics */
 .stat__box {
   background-color: var(--clr-bg-no-color-subtle);
   padding: 1em;
@@ -7,16 +8,31 @@
   display: flex;
 }
 
+/* A single stat label and value display */
 .stat {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 
 .stat__box--row .stat {
   margin-left: 1.5em;
+}
+
+.stat__label {
+  text-transform: uppercase;
+  color: var(--clr-fg-no-color-2);
+  font-size: 0.6em;
+  font-weight: bold;
+}
+
+.stat__label--prominent {
+  text-transform: none;
+  font-size: inherit;
+  color: var(--clr-fg-no-color-bold);
+  font-weight: initial;
 }
 
 .stat__value {

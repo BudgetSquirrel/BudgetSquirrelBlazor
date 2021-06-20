@@ -12,6 +12,7 @@ SELECT
   [dbo].[Funds].[ProfileId],
   [dbo].[Funds].[ParentFundId]
 FROM [dbo].[Funds]
-WHERE [dbo].[Funds].[ProfileId] = @ProfileId;
+WHERE [dbo].[Funds].[ProfileId] = @ProfileId
+  AND [dbo].[Funds].[IsRoot] = 1;
 
 END

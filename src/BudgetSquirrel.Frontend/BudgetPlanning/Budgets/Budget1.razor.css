@@ -1,0 +1,18 @@
+._budget1 ._budget__name {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: var(--clr-fg-no-color);
+}
+
+._budget1 ._budget-stat__container {
+  margin-top: 1em;
+}
+
+._budget1 ._budget-stat {
+  margin-left: 2em;
+  display: inline-block;
+}
+
+._budget1 ._budget-stat--first {
+  margin-left: 0;
+}

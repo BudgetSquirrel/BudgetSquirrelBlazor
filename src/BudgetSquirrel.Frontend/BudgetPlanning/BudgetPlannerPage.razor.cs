@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Frontend.Authentication.Login;
@@ -46,9 +47,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     #region convenience accessors
 
-    private Budget rootBudget => this.context.FundTree.Budget;
-
-    private Fund rootFund => this.context.FundTree.Fund;
+    private FundRelationships rootBudget => this.context.FundTree;
 
     private string timeboxDisplay
     {
@@ -77,7 +76,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private string RootFundName => this.context.FundTree.Fund.Name;
 
-    private decimal PlannedIncome => this.rootBudget.PlannedAmount;
+    private decimal PlannedIncome => this.rootBudget.Budget.PlannedAmount;
 
     public bool ShouldShowAmountLeftToBudget => this.amountLeftToBudget != 0;
 
@@ -111,11 +110,36 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         {
           cssClass += "stat__value--good";
         }
+        return cssClass;
+      }
+    }
+
+    private string AmountLeftToBudgetCssClass
+    {
+      get
+      {
+        string cssClass = "stat__value ";
+        if (this.amountLeftToBudget == 0)
+        {
+          cssClass += "stat__value--good";
+        }
         else
         {
           cssClass += "stat__value--bad";
         }
         return cssClass;
+      }
+    }
+
+    public IEnumerable<FundRelationships> Level1Budgets
+    {
+      get
+      {
+        if (this.isLoading)
+        {
+          return Array.Empty<FundRelationships>();
+        }
+        return this.rootBudget.SubFunds;
       }
     }
 
@@ -157,7 +181,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private async Task SubmitNewBudget1(IBudget1AddFormValues values)
     {
       await this.budgetPlanningService.CreateBudget(
-        this.rootFund.ProfileId,
+        this.rootBudget.Fund.ProfileId,
         this.context.Timebox.Id,
         values.Name,
         values.PlannedAmount);

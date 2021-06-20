@@ -29,7 +29,7 @@
     @* ========================== *@
     <div class="stat__box stat__box--row _root-budget-stats">
       <div class="stat">
-        <div class="stat__label">Planned Income</div>
+        <div class="stat__label stat__label--prominent">Planned Income</div>
         <EditableText
           CssClass="@this.PlannedIncomeCssClass"
           Value="@this.PlannedIncome.ToString()"
@@ -42,8 +42,8 @@
       @if (this.ShouldShowAmountLeftToBudget)
       {
         <div class="stat">
-          <div class="stat__label">@this.AmountLeftToBudgetLabel</div>
-          <div class="stat__value">@this.AmountLeftToBudgetDisplay</div>
+          <div class="stat__label stat__label--prominent">@this.AmountLeftToBudgetLabel</div>
+          <div class="@this.AmountLeftToBudgetCssClass">@this.AmountLeftToBudgetDisplay</div>
         </div>
       }
     </div>
@@ -73,6 +73,13 @@
       @if (this.isCreatingBudget)
       {
         <Budget1AddForm OnSubmit="@this.SubmitNewBudget1" />
+      }
+
+      @foreach (BudgetPlanningContext.FundRelationships subFundBudget in this.Level1Budgets)
+      {
+        <div class="_budget-container">
+          <Budget1 Budget=@subFundBudget />
+        </div>
       }
     </div>
   }

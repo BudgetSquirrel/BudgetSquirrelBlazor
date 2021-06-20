@@ -76,14 +76,14 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
 
     private async Task<IEnumerable<FundBudget>> GetBudgetsForFundTree(FundSubFunds fundBranch, Timebox timebox)
     {
-      IEnumerable<FundBudget> budgetsInTree = new List<FundBudget>();
+      List<FundBudget> budgetsInTree = new List<FundBudget>();
 
       List<Task> budgetLoadTasks = new List<Task>();
 
       // Load the budget for the current fund in fundBranch.
       budgetLoadTasks.Add(Task.Run(async () =>
       {
-        budgetsInTree = budgetsInTree.Append(await this.GetBudgetForFund(fundBranch.Fund, timebox));
+        budgetsInTree.Add(await this.GetBudgetForFund(fundBranch.Fund, timebox));
       }));
 
       // Load budgets for each sub fund of the current fund branch.
@@ -91,7 +91,7 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
       {
         budgetLoadTasks.Add(Task.Run(async () =>
         {
-          budgetsInTree = budgetsInTree.Concat(await this.GetBudgetsForFundTree(fundSubBranch, timebox));
+          budgetsInTree.AddRange(await this.GetBudgetsForFundTree(fundSubBranch, timebox));
         }));
       }
 
