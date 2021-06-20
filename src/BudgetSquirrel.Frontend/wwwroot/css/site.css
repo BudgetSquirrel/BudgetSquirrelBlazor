@@ -11,7 +11,9 @@
     --tan-200: #fdf6ed;
     --tan-a500: #fbddb6;
     --green-500: #5a8a4eff;
+    --green-a700: #2fc215;
     --red-500: #d26565ff;
+    --red-900: #9b1616;
     --blackish-700: #383838;
     --blackish-500: #686868;
     --blackish-200: #c4c4c4;
@@ -27,6 +29,8 @@
     --clr-trim-color: var(--tan-700);
     
     --clr-fg-color: var(--tan-700);
+    --clr-fg-color-good: var(--green-a700);
+    --clr-fg-color-bad: var(--red-900);
     --clr-fg-no-color: var(--blackish-500);
     --clr-fg-no-color-bold: var(--blackish-700);
     --clr-fg-no-color-subtle: var(--blackish-a200);

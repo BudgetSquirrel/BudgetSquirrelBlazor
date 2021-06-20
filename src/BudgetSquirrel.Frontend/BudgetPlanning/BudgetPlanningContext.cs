@@ -7,14 +7,11 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
   {
     public TimeboxDetails Timebox { get; private set; }
     
-    public FundSubFunds FundTree { get; private set; }
+    public FundRelationships FundTree { get; private set; }
 
-    public IEnumerable<FundBudget> Budgets { get; private set; }
-
-    public BudgetPlanningContext(FundSubFunds fundTree, IEnumerable<FundBudget> budgets, TimeboxDetails timebox)
+    public BudgetPlanningContext(FundRelationships fundTree, TimeboxDetails timebox)
     {
       this.FundTree = fundTree;
-      this.Budgets = budgets;
       this.Timebox = timebox;
     }
     
@@ -34,17 +31,20 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       }
     }
 
-    public class FundSubFunds
+    public class FundRelationships
     {
-      public FundSubFunds(Fund parentFund, IEnumerable<FundSubFunds> subFunds)
+      public FundRelationships(Fund parentFund, Budget budget, IEnumerable<FundRelationships> subFunds)
       {
         this.Fund = parentFund;
+        this.Budget = budget;
         this.SubFunds = subFunds;
       }
 
       public Fund Fund { get; private set; }
 
-      public IEnumerable<FundSubFunds> SubFunds { get; private set; }
+      public Budget Budget { get; private set; }
+
+      public IEnumerable<FundRelationships> SubFunds { get; private set; }
     }
 
     public class Fund

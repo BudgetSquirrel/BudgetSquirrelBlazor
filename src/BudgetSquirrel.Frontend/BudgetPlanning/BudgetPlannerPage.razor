@@ -20,17 +20,25 @@
       <span class="foreground-default--subtle subtle-detail">@this.timeboxDisplay</span>
     </h1>
 
-    <div class="stat__box _root-budget-stats">
+    <div class="stat__box stat__box--row _root-budget-stats">
       <div class="stat">
-        <span class="stat__label">Planned Income</span>
+        <div class="stat__label">Planned Income</div>
         <EditableText
-          CssClass="stat__value"
+          CssClass="@this.PlannedIncomeCssClass"
           Value="@this.PlannedIncome.ToString()"
           OnChange="@this.ChangePlannedIncome"
           Placeholder="(ex. 3000.00)"
           Type="currency"
           WidthEms=8 />
       </div>
+
+      @if (this.ShouldShowAmountLeftToBudget)
+      {
+        <div class="stat">
+          <div class="stat__label">@this.AmountLeftToBudgetLabel</div>
+          <div class="stat__value">@this.AmountLeftToBudgetDisplay</div>
+        </div>
+      }
     </div>
   }
 </div>

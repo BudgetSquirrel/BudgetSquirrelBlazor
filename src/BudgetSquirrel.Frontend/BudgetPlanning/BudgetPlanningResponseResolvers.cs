@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using BudgetSquirrel.Web.Common.Messages.BudgetPlanning;
 using static BudgetSquirrel.Frontend.BudgetPlanning.BudgetPlanningContext;
@@ -8,23 +9,29 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
   {
     public static BudgetPlanningContext ToFrontendDto(BudgetPlanningContextResponse contextResponse)
     {
+      IEnumerable<FundBudget> fundBudgets = contextResponse.Budgets.Select(b => ToFrontendDto(b));
       return new BudgetPlanningContext(
-        ToFrontendDto(contextResponse.FundTree),
-        contextResponse.Budgets.Select(b => ToFrontendDto(b)),
+        ToFrontendDto(contextResponse.FundTree, fundBudgets),
         new TimeboxDetails(contextResponse.Timebox.Id, contextResponse.Timebox.StartDate, contextResponse.Timebox.EndDate));
     }
 
-    private static FundSubFunds ToFrontendDto(BudgetPlanningContextResponse.FundSubFunds fundSubFunds)
+    private static FundRelationships ToFrontendDto(
+      BudgetPlanningContextResponse.FundSubFunds fundSubFunds,
+      IEnumerable<FundBudget> fundBudgets)
     {
-      return new FundSubFunds(
+      BudgetPlanningContextResponse.Fund fund = fundSubFunds.Fund;
+      Budget budget = fundBudgets.Single(fb => fb.FundId == fundSubFunds.Fund.Id).Budget;
+
+      return new FundRelationships(
         new Fund(
-          fundSubFunds.Fund.Name,
-          fundSubFunds.Fund.Balance,
-          fundSubFunds.Fund.IsRoot,
-          fundSubFunds.Fund.ProfileId,
-          fundSubFunds.Fund.Id,
-          fundSubFunds.Fund.ParentFundId),
-        fundSubFunds.SubFunds.Select(fsf => ToFrontendDto(fsf)));
+          fund.Name,
+          fund.Balance,
+          fund.IsRoot,
+          fund.ProfileId,
+          fund.Id,
+          fund.ParentFundId),
+        budget,
+        fundSubFunds.SubFunds.Select(fsf => ToFrontendDto(fsf, fundBudgets)));
     }
 
     private static FundBudget ToFrontendDto(BudgetPlanningContextResponse.FundBudget fundBudget)
