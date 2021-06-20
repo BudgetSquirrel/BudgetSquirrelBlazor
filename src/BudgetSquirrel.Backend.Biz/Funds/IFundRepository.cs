@@ -11,6 +11,8 @@ namespace BudgetSquirrel.Backend.Biz.Funds
     
     Task<Fund> GetFundById(int fundId);
     
+    Task<Fund> GetRootFundForProfile(int profileId);
+    
     Task UpdateFund(int fundId, FundDetails fundDetails);
   }
 

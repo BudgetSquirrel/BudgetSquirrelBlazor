@@ -5,6 +5,7 @@ using BudgetSquirrel.Backend.Biz.History;
 using BudgetSquirrel.Backend.Resolvers;
 using BudgetSquirrel.Web.Common.Messages.BudgetPlanning;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BudgetSquirrel.Backend.Controllers
 {
@@ -60,6 +61,22 @@ namespace BudgetSquirrel.Backend.Controllers
         this.fundRepository,
         request.FundId,
         request.NewName);
+
+      await cmd.Execute(await cmd.Validate(await cmd.Load()));
+      return Ok();
+    }
+
+    [HttpPost("create-budget")]
+    public async Task<IActionResult> CreateBudget([FromBody] CreateBudgetRequest request)
+    {
+      CreateBudgetCommand cmd = new CreateBudgetCommand(
+        this.budgetRepository,
+        this.fundRepository,
+        this.timeboxRepository,
+        request.ProfileId,
+        request.TimeboxId,
+        request.Name,
+        request.PlannedAmount);
 
       await cmd.Execute(await cmd.Validate(await cmd.Load()));
       return Ok();

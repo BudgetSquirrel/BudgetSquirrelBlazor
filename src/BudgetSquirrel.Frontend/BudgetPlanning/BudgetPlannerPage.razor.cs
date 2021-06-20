@@ -48,6 +48,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private Budget rootBudget => this.context.FundTree.Budget;
 
+    private Fund rootFund => this.context.FundTree.Fund;
+
     private string timeboxDisplay
     {
       get
@@ -154,7 +156,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private async Task SubmitNewBudget1(IBudget1AddFormValues values)
     {
-      Console.WriteLine(JsonConvert.SerializeObject(values));
+      await this.budgetPlanningService.CreateBudget(
+        this.rootFund.ProfileId,
+        this.context.Timebox.Id,
+        values.Name,
+        values.PlannedAmount);
+        
       this.isCreatingBudget = false;
       await this.ReloadContext();
     }

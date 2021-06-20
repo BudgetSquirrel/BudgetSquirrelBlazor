@@ -12,7 +12,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private const string ContextEndpoint = BudgetPlanningUri + "/context";
     private const string EditPlannedIncomeEndpoint = BudgetPlanningUri + "/edit-planned-income";
     private const string EditFundNameEndpoint = BudgetPlanningUri + "/edit-fund-name";
-    
+    private const string CreateBudgetEndpoint = BudgetPlanningUri + "/create-budget";
+
     private ILoginService loginService;
     private IBackendClient backendClient;
 
@@ -22,7 +23,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       this.loginService = loginService;
     }
 
-    public async Task<BudgetPlanningContext> GetBudgetTree(int? timeboxId=null)
+    public async Task<BudgetPlanningContext> GetBudgetTree(int? timeboxId = null)
     {
       BudgetPlanningContextResponse contextResponse = await this.backendClient.Fetch<BudgetPlanningContextResponse>(
         ContextEndpoint,
@@ -51,6 +52,19 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         {
           FundId = fundId,
           NewName = newName
+        });
+    }
+
+    public Task CreateBudget(int profileId, int timeboxId, string name, decimal plannedAmount)
+    {
+      return this.backendClient.ExecuteCommand(
+        CreateBudgetEndpoint,
+        new CreateBudgetRequest()
+        {
+          Name = name,
+          PlannedAmount = plannedAmount,
+          ProfileId = profileId,
+          TimeboxId = timeboxId
         });
     }
   }

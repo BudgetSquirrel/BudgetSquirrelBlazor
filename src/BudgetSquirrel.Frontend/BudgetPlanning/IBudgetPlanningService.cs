@@ -9,5 +9,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     Task EditPlannedIncome(int fundId, int timeboxId, decimal plannedIncome);
 
     Task EditFundName(int fundId, string newName);
+
+    Task CreateBudget(int profileId, int timeboxId, string name, decimal plannedAmount);
   }
 }
