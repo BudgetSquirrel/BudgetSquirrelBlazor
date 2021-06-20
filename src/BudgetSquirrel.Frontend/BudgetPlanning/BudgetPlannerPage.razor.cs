@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Frontend.Authentication.Login;
+using BudgetSquirrel.Frontend.BudgetPlanning.Budgets;
 using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
 using static BudgetSquirrel.Frontend.BudgetPlanning.BudgetPlanningContext;
 
 namespace BudgetSquirrel.Frontend.BudgetPlanning
@@ -25,9 +27,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private bool isLoading = true;
 
-    #endregion
-
-    #region internal methods
+    private bool isCreatingBudget = false;
 
     protected override Task OnInitializedAsync()
     {
@@ -131,6 +131,31 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private async Task ChangeRootFundName(string newName)
     {
       await this.budgetPlanningService.EditFundName(this.context.FundTree.Fund.Id, newName);
+      await this.ReloadContext();
+    }
+
+    /// <summary>
+    /// "Add Budget" button was clicked. Budget detail form
+    /// will pop up.
+    /// </summary>
+    private void StartCreateBudgetClicked()
+    {
+      this.isCreatingBudget = true;
+    }
+
+    /// <summary>
+    /// "Stop Adding Budget" button was clicked. Budget detail form
+    /// will close.
+    /// </summary>
+    private void CancelCreateBudgetClicked()
+    {
+      this.isCreatingBudget = false;
+    }
+
+    private async Task SubmitNewBudget1(IBudget1AddFormValues values)
+    {
+      Console.WriteLine(JsonConvert.SerializeObject(values));
+      this.isCreatingBudget = false;
       await this.ReloadContext();
     }
 

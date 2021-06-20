@@ -1,0 +1,9 @@
+.budget--1.budget__group {
+  border: 2px solid var(--clr-brdr-no-color-subtle);
+  border-radius: 4px;
+}
+
+.budget--1 .budget__details {
+  padding: 1em;
+  background-color: var(--clr-bg-color);
+}

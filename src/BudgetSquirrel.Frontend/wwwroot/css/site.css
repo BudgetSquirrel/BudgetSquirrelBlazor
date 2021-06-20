@@ -35,6 +35,9 @@
     --clr-fg-no-color-bold: var(--blackish-700);
     --clr-fg-no-color-subtle: var(--blackish-a200);
     --clr-fg-no-color-alt: white;
+
+    --clr-brdr-no-color: var(--blackish-200);
+    --clr-brdr-no-color-subtle: var(--blackish-100);
     
     --clr-control-color: var(--green-500);
     --clr-control-no-color: var(--blackish-200);
@@ -113,11 +116,16 @@
 /********* Button *********/
 
 .button {
-    padding: 1em;
     font-size: 1.2em;
     border-radius: 4px;
     border: none;
     cursor: pointer;
+
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    padding-left: 1em;
+    padding-right: 1em;
+    min-width: 16em;
 }
 
 .button--disabled {
@@ -168,4 +176,12 @@
     width: 100%;
     display: block;
     margin-top: 1em;
+}
+
+.form-field-group {
+    display: inline-block;
+}
+
+.form-field-group__label {
+    display: block;
 }
