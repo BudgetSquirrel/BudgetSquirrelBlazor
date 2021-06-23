@@ -20,10 +20,6 @@
 	color: var(--clr-fg-color);
 }
 
-.section-1 .info-section {
-	width: 50%;
-}
-
 .section-1 .info-section p {
 	padding: 16px 0;
 	color: var(--blackish-700);
@@ -66,7 +62,11 @@
 }
 
 .text-section {
-    max-width: 65%;
+    width: min-content;
+}
+
+.text-section h1 {
+	width: 300px;
 }
 
 @media screen and (max-width: 600px) {
