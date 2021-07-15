@@ -1,32 +1,32 @@
-._budget1 ._budget__heading {
+._budget2 ._budget__heading {
   display: flex;
   align-items: center;
 }
 
-._budget1 ._budget__name {
+._budget2 ._budget__name {
   font-size: 1.4em;
   font-weight: bold;
   color: var(--clr-fg-no-color);
 }
 
-._budget1 ._budget__actions {
+._budget2 ._budget__actions {
   display: none;
   margin-left: 1.5em;
 }
 
-._budget1:hover ._budget__actions {
+._budget2:hover ._budget__actions {
   display: block;
 }
 
-._budget1 ._budget-stat__container {
+._budget2 ._budget-stat__container {
   margin-top: 1em;
 }
 
-._budget1 ._budget-stat {
+._budget2 ._budget-stat {
   margin-left: 2em;
   display: inline-block;
 }
 
-._budget1 ._budget-stat--first {
+._budget2 ._budget-stat--first {
   margin-left: 0;
 }

@@ -1,0 +1,11 @@
+._budget2-add-form ._detail-field {
+  margin-left: 2em;
+}
+
+._budget2-add-form ._detail-field--first {
+  margin-left: 0;
+}
+
+._budget2-add-form ._actions {
+  margin-top: 1em;
+}

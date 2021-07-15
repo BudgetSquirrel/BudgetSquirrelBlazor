@@ -32,10 +32,12 @@ namespace BudgetSquirrel.Backend.Resolvers
 
     private static FundBudget ToApiMessage(BudgetSquirrel.Core.BudgetPlanning.FundBudget fundBudget)
     {
+      decimal plannedAmount = fundBudget.Budget.PlannedAmount;
+      int fundId = fundBudget.Fund.Id;
       return new FundBudget(
         new Budget(
-          fundBudget.Budget.PlannedAmount),
-        fundBudget.Fund.Id);
+          plannedAmount),
+        fundId);
     }
   }
 }

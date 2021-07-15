@@ -7,3 +7,17 @@
   padding: 1em;
   background-color: var(--clr-bg-color);
 }
+
+.budget--2.budget__group {
+  border: 2px solid var(--clr-brdr-no-color);
+  border-radius: 4px;
+}
+
+.budget--2 .budget__details {
+  padding: 1em;
+  background-color: var(--clr-bg-no-color-subtle);
+}
+
+.budget .budget__sub-budgets {
+  padding: 1em;
+}

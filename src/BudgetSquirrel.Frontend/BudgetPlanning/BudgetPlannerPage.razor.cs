@@ -190,6 +190,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       await this.ReloadContext();
     }
 
+    private async Task SubmitNewBudget2(IBudget2AddFormValues values)
+    {
+      Console.WriteLine(JsonConvert.SerializeObject(values));
+      await this.ReloadContext();
+    }
+
     #endregion
   }
 }

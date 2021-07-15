@@ -1,16 +1,13 @@
-<div class="budget budget--1 budget__group _budget1">
+<div class="budget budget--2 budget__group _budget2">
   <div class="budget__details">
     <div class="_budget__heading">
       <p class="_budget__name">
         @this.Name
       </p>
       <div class="_budget__actions">
-        @if (!this.IsAddingSubBudget)
-        {
-          <button class="material-icons icon-button" @onclick="this.OnAddSubBudgetClicked">
-            add_box
-          </button>
-        }
+        <button class="material-icons icon-button">
+          add_box
+        </button>
       </div>
     </div>
     <div class="_budget-stat__container">
@@ -29,16 +26,4 @@
       </div>
     </div>
   </div>
-
-  @if (this.ShouldShowSubBudgetArea)
-  {
-    <div class="budget__sub-budgets">
-      @if (this.IsAddingSubBudget)
-      {
-        <Budget2AddForm
-          OnSubmit="@this.CreateSubBudget2"
-          OnCancel="@this.CancelSubBudgetCreation" />
-      }
-    </div>
-  }
 </div>
