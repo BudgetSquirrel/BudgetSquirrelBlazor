@@ -1,6 +1,6 @@
 namespace BudgetSquirrel.Web.Common.Messages.BudgetPlanning
 {
-  public class CreateBudgetRequest
+  public class CreateLevel1BudgetRequest
   {
     public string Name { get; set; }
     public decimal PlannedAmount { get; set; }

@@ -8,6 +8,10 @@
   background-color: var(--clr-bg-color);
 }
 
+.budget--1 .budget__sub-budget {
+  margin-top: 1em;
+}
+
 .budget--2.budget__group {
   border: 2px solid var(--clr-brdr-no-color);
   border-radius: 4px;
@@ -18,6 +22,7 @@
   background-color: var(--clr-bg-no-color-subtle);
 }
 
-.budget .budget__sub-budgets {
+.budget .budget__sub-budget-container {
   padding: 1em;
+  padding-top: 0;
 }

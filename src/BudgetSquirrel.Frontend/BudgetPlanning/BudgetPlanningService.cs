@@ -12,7 +12,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private const string ContextEndpoint = BudgetPlanningUri + "/context";
     private const string EditPlannedIncomeEndpoint = BudgetPlanningUri + "/edit-planned-income";
     private const string EditFundNameEndpoint = BudgetPlanningUri + "/edit-fund-name";
-    private const string CreateBudgetEndpoint = BudgetPlanningUri + "/create-budget";
+    private const string CreateLevel1BudgetEndpoint = BudgetPlanningUri + "/create-level1-budget";
+    private const string CreateSubBudgetEndpoint = BudgetPlanningUri + "/create-sub-budget";
 
     private ILoginService loginService;
     private IBackendClient backendClient;
@@ -55,15 +56,28 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         });
     }
 
-    public Task CreateBudget(int profileId, int timeboxId, string name, decimal plannedAmount)
+    public Task CreateLevel1Budget(int profileId, int timeboxId, string name, decimal plannedAmount)
     {
       return this.backendClient.ExecuteCommand(
-        CreateBudgetEndpoint,
-        new CreateBudgetRequest()
+        CreateLevel1BudgetEndpoint,
+        new CreateLevel1BudgetRequest()
         {
           Name = name,
           PlannedAmount = plannedAmount,
           ProfileId = profileId,
+          TimeboxId = timeboxId
+        });
+    }
+
+    public Task CreateSubBudget(int parentFundId, int timeboxId, string name, decimal plannedAmount)
+    {
+      return this.backendClient.ExecuteCommand(
+        CreateSubBudgetEndpoint,
+        new CreateSubBudgetRequest()
+        {
+          Name = name,
+          PlannedAmount = plannedAmount,
+          ParentFundId = parentFundId,
           TimeboxId = timeboxId
         });
     }

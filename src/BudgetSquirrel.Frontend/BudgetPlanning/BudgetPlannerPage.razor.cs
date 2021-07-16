@@ -180,7 +180,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private async Task SubmitNewBudget1(IBudget1AddFormValues values)
     {
-      await this.budgetPlanningService.CreateBudget(
+      await this.budgetPlanningService.CreateLevel1Budget(
         this.rootBudget.Fund.ProfileId,
         this.context.Timebox.Id,
         values.Name,
@@ -190,9 +190,13 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       await this.ReloadContext();
     }
 
-    private async Task SubmitNewBudget2(IBudget2AddFormValues values)
+    private async Task SubmitNewSubBudget(IBudget2AddFormValues values)
     {
-      Console.WriteLine(JsonConvert.SerializeObject(values));
+      await this.budgetPlanningService.CreateSubBudget(
+        values.ParentFundId,
+        this.context.Timebox.Id,
+        values.Name,
+        values.PlannedAmount);
       await this.ReloadContext();
     }
 

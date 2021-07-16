@@ -1,3 +1,5 @@
+@using BudgetSquirrel.Frontend.BudgetPlanning
+
 <div class="budget budget--1 budget__group _budget1">
   <div class="budget__details">
     <div class="_budget__heading">
@@ -32,12 +34,22 @@
 
   @if (this.ShouldShowSubBudgetArea)
   {
-    <div class="budget__sub-budgets">
+    <div class="budget__sub-budget-container">
       @if (this.IsAddingSubBudget)
       {
-        <Budget2AddForm
-          OnSubmit="@this.CreateSubBudget2"
-          OnCancel="@this.CancelSubBudgetCreation" />
+        <div class="budget__sub-budget">
+          <Budget2AddForm
+            ParentBudget="@this.Budget"
+            OnSubmit="@this.CreateSubBudget2"
+            OnCancel="@this.CancelSubBudgetCreation" />
+        </div>
+      }
+
+      @foreach (BudgetPlanningContext.FundRelationships subBudget in this.Budget.SubFunds)
+      {
+        <div class="budget__sub-budget">
+          <Budget2 Budget=@subBudget />
+        </div>
       }
     </div>
   }

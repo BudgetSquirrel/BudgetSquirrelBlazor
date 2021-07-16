@@ -4,41 +4,40 @@ using BudgetSquirrel.Backend.Biz.History;
 using BudgetSquirrel.Core.BudgetPlanning;
 using BudgetSquirrel.Core.Funds;
 using BudgetSquirrel.Core.History;
-using Newtonsoft.Json;
 
 namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
 {
-  public class CreateBudgetCommandLoadedContext
+  public class CreateSubBudgetCommandLoadedContext
   {
-    public FundBudget RootFund { get; private set; }
+    public FundBudget ParentFund { get; private set; }
     public Timebox Timebox { get; private set; }
 
-    public CreateBudgetCommandLoadedContext(
-      Fund rootFund,
-      Budget rootBudget,
+    public CreateSubBudgetCommandLoadedContext(
+      Fund parentFund,
+      Budget parentBudget,
       Timebox timebox)
     {
-      this.RootFund = new FundBudget(rootBudget, rootFund);
+      this.ParentFund = new FundBudget(parentBudget, parentFund);
       this.Timebox = timebox;
     }
   }
 
-  public class CreateBudgetCommand : ICommand<CreateBudgetCommandLoadedContext>
+  public class CreateSubBudgetCommand : ICommand<CreateSubBudgetCommandLoadedContext>
   {
     private IBudgetRepository budgetRepository;
     private IFundRepository fundRepository;
     private ITimeboxRepository timeboxRepository;
 
-    private int profileId;
+    private int parentFundId;
     private int timeboxId;
     private string name;
     private decimal plannedAmount;
 
-    public CreateBudgetCommand(
+    public CreateSubBudgetCommand(
       IBudgetRepository budgetRepository,
       IFundRepository fundRepository,
       ITimeboxRepository timeboxRepository,
-      int profileId,
+      int parentFundId,
       int timeboxId,
       string name,
       decimal plannedAmount)
@@ -47,35 +46,39 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
       this.fundRepository = fundRepository;
       this.timeboxRepository = timeboxRepository;
 
-      this.profileId = profileId;
+      this.parentFundId = parentFundId;
       this.timeboxId = timeboxId;
       this.name = name;
       this.plannedAmount = plannedAmount;
     }
     
-    public async Task Execute(CreateBudgetCommandLoadedContext loadedInputs)
+    public async Task Execute(CreateSubBudgetCommandLoadedContext loadedInputs)
     {
-      int fundId = await this.budgetRepository.CreateFund(this.profileId, loadedInputs.RootFund.Fund.Id, this.name, false);
+      int profileId = loadedInputs.ParentFund.Fund.ProfileId;
+      int parentFundId = loadedInputs.ParentFund.Fund.Id;
+      int fundId = await this.budgetRepository.CreateFund(profileId, parentFundId, this.name, false);
       await this.budgetRepository.CreateBudgetForFund(fundId, this.plannedAmount, this.timeboxId);
     }
 
-    public async Task<CreateBudgetCommandLoadedContext> Load()
+    public async Task<CreateSubBudgetCommandLoadedContext> Load()
     {
-      Fund rootFund = await this.fundRepository.GetRootFundForProfile(this.profileId);
-      Budget rootBudget = await this.budgetRepository.GetBudget(rootFund.Id, this.timeboxId);
+      Fund parentFund = await this.fundRepository.GetFundById(this.parentFundId);
+      Budget parentBudget = await this.budgetRepository.GetBudget(parentFund.Id, this.timeboxId);
       Timebox timebox = await this.timeboxRepository.GetTimebox(this.timeboxId);
-      return new CreateBudgetCommandLoadedContext(rootFund, rootBudget, timebox);
+      return new CreateSubBudgetCommandLoadedContext(parentFund, parentBudget, timebox);
     }
 
-    public Task<CreateBudgetCommandLoadedContext> Validate(CreateBudgetCommandLoadedContext loadedInputs)
+    public Task<CreateSubBudgetCommandLoadedContext> Validate(CreateSubBudgetCommandLoadedContext loadedInputs)
     {
-      if (loadedInputs.RootFund.Fund == null)
+      int profileId = loadedInputs.ParentFund.Fund.ProfileId;
+
+      if (loadedInputs.ParentFund.Fund == null)
       {
-        throw new InvalidCommandArgumentException("Cannot find profile for id " + this.profileId);
+        throw new InvalidCommandArgumentException("Cannot find profile for id " + profileId);
       }
       if (loadedInputs.Timebox == null)
       {
-        throw new InvalidCommandArgumentException($"Cannot find timebox with id {this.timeboxId} for profile id {this.profileId}");
+        throw new InvalidCommandArgumentException($"Cannot find timebox with id {this.timeboxId} for profile id {profileId}");
       }
       
       if (this.plannedAmount < 0)

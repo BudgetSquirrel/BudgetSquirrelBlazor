@@ -1,11 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using static BudgetSquirrel.Frontend.BudgetPlanning.BudgetPlanningContext;
 
 namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
 {
   public interface IBudget2AddFormValues
   {
+    int ParentFundId { get; }
     string Name { get; }
     decimal PlannedAmount { get; }
   }
@@ -18,14 +20,29 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     [Parameter]
     public EventCallback OnCancel { get; set; } = new EventCallback();
 
+    [Parameter]
+    public FundRelationships ParentBudget { get; set; }
+
     private class Budget2AddFormValues : IBudget2AddFormValues
     {
+      public int ParentFundId { get; private set; } = -1;
+
       public string Name { get; set; } = string.Empty;
 
       public decimal PlannedAmount { get; set; } = -1;
+
+      public Budget2AddFormValues(int parentBudgetId)
+      {
+        this.ParentFundId = parentBudgetId;
+      }
     }
 
-    private Budget2AddFormValues values { get; set; } = new Budget2AddFormValues();
+    protected override void OnInitialized()
+    {
+      this.values = new Budget2AddFormValues(this.ParentBudget.Fund.Id);
+    }
+
+    private Budget2AddFormValues values { get; set; }
 
     private string nameDisplay => this.values.Name;
 

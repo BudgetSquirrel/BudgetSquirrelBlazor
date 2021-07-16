@@ -15,7 +15,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
 
     private bool IsAddingSubBudget { get; set; } = false;
 
-    private bool ShouldShowSubBudgetArea => this.IsAddingSubBudget;
+    private bool ShouldShowSubBudgetArea => this.Budget.SubFunds.Any() || this.IsAddingSubBudget;
 
     private bool IsSubBudgetPlannedAmountZeroedOut => this.Budget.SubBudgetsTotalPlannedAmount == this.Budget.Budget.PlannedAmount ||
                                                       this.Budget.SubFunds.Count() == 0;

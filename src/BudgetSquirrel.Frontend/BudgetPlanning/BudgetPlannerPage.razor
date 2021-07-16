@@ -4,39 +4,31 @@
 
 <div class="_budget-planner-page page-margins__apply">
 
-  @if(this.isLoading)
+  @if (this.isLoading)
   {
     <p>Loading...</p>
   }
   else
   {
     @* ========================== *@
-    @*        Page title          *@
+    @* Page title *@
     @* ========================== *@
     <h1 class="_root-budget-title__container">
       <div class="_root-budget-title">
-        <EditableText
-          Value="@this.RootFundName"
-          OnChange="@this.ChangeRootFundName"
-          Placeholder="(ex. My Main Budget)"
-          Type="text" />
+        <EditableText Value="@this.RootFundName" OnChange="@this.ChangeRootFundName" Placeholder="(ex. My Main Budget)"
+        Type="text" />
       </div>
       <span class="foreground-default--subtle subtle-detail">@this.timeboxDisplay</span>
     </h1>
 
     @* ========================== *@
-    @*  Root budget summary box   *@
+    @* Root budget summary box *@
     @* ========================== *@
     <div class="stat__box stat__box--row _root-budget-stats">
       <div class="stat">
         <div class="stat__label stat__label--prominent">Planned Income</div>
-        <EditableText
-          CssClass="@this.PlannedIncomeCssClass"
-          Value="@this.PlannedIncome.ToString()"
-          OnChange="@this.ChangePlannedIncome"
-          Placeholder="(ex. 3000.00)"
-          Type="currency"
-          WidthEms=8 />
+        <EditableText CssClass="@this.PlannedIncomeCssClass" Value="@this.PlannedIncome.ToString()"
+        OnChange="@this.ChangePlannedIncome" Placeholder="(ex. 3000.00)" Type="currency" WidthEms=8 />
       </div>
 
       @if (this.ShouldShowAmountLeftToBudget)
@@ -49,10 +41,10 @@
     </div>
 
     @* ========================== *@
-    @*     Page level actions     *@
+    @* Page level actions *@
     @* ========================== *@
     <div class="_page-actions">
-      @if (this.isCreatingBudget)
+    @if (this.isCreatingBudget)
       {
         <button class="button" @onclick="@this.CancelCreateBudgetClicked">
           Stop Adding Budget
@@ -67,10 +59,10 @@
     </div>
 
     @* ========================== *@
-    @*   Budget display section   *@
+    @* Budget display section *@
     @* ========================== *@
     <div class="_budget-section">
-      @if (this.isCreatingBudget)
+    @if (this.isCreatingBudget)
       {
         <Budget1AddForm OnSubmit="@this.SubmitNewBudget1" />
       }
@@ -78,7 +70,7 @@
       @foreach (BudgetPlanningContext.FundRelationships subFundBudget in this.Level1Budgets)
       {
         <div class="_budget-container">
-          <Budget1 Budget=@subFundBudget OnCreateSubBudget2="@this.SubmitNewBudget2" />
+          <Budget1 Budget=@subFundBudget OnCreateSubBudget2="@this.SubmitNewSubBudget" />
         </div>
       }
     </div>

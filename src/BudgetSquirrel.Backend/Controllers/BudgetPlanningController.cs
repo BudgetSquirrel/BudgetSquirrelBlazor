@@ -66,14 +66,30 @@ namespace BudgetSquirrel.Backend.Controllers
       return Ok();
     }
 
-    [HttpPost("create-budget")]
-    public async Task<IActionResult> CreateBudget([FromBody] CreateBudgetRequest request)
+    [HttpPost("create-level1-budget")]
+    public async Task<IActionResult> CreateLevel1Budget([FromBody] CreateLevel1BudgetRequest request)
     {
-      CreateBudgetCommand cmd = new CreateBudgetCommand(
+      CreateLevel1BudgetCommand cmd = new CreateLevel1BudgetCommand(
         this.budgetRepository,
         this.fundRepository,
         this.timeboxRepository,
         request.ProfileId,
+        request.TimeboxId,
+        request.Name,
+        request.PlannedAmount);
+
+      await cmd.Execute(await cmd.Validate(await cmd.Load()));
+      return Ok();
+    }
+
+    [HttpPost("create-sub-budget")]
+    public async Task<IActionResult> CreateSubBudget([FromBody] CreateSubBudgetRequest request)
+    {
+      CreateSubBudgetCommand cmd = new CreateSubBudgetCommand(
+        this.budgetRepository,
+        this.fundRepository,
+        this.timeboxRepository,
+        request.ParentFundId,
         request.TimeboxId,
         request.Name,
         request.PlannedAmount);
