@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+.standard-padding {
+    padding: 4em 10% 2em 10%
+}
+
 .theme-default {
     --tan-700: #7d5f4a;
     --tan-500: #c8ac92ff;

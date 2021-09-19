@@ -1,0 +1,13 @@
+#login-page {
+    max-width: 50%;
+  }
+  
+  #login-page ._btn-login {
+    margin-top: 2em;
+  }
+
+  @media screen and (max-width: 600px) {
+    #login-page {
+      max-width: 100%;
+    }
+  }
