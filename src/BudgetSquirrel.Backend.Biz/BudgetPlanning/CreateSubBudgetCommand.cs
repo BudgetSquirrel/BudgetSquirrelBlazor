@@ -74,7 +74,7 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
 
       if (loadedInputs.ParentFund.Fund == null)
       {
-        throw new InvalidCommandArgumentException("Cannot find profile for id " + profileId);
+        throw new InvalidCommandArgumentException("Cannot find fund with id " + this.parentFundId);
       }
       if (loadedInputs.Timebox == null)
       {

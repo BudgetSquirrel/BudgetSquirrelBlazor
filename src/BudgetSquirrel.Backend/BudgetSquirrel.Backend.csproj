@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <None Include="BudgetSquirrel.Backend.Biz.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BudgetSquirrel.Web.Common\BudgetSquirrel.Web.Common.csproj" />
     <ProjectReference Include="..\GateKeeper\GateKeeper.csproj" />
     <ProjectReference Include="..\BudgetSquirrel.Backend.Dal.LocalDb\BudgetSquirrel.Backend.Dal.LocalDb.csproj" />
