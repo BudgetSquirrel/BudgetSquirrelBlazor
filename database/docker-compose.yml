@@ -3,7 +3,7 @@ version: '3'
 services:
   db:
     container_name: bs-db
-    image: microsoft/mssql-server-linux:latest
+    image: mcr.microsoft.com/mssql/server:2017-latest
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=yourStrong(!)Password
