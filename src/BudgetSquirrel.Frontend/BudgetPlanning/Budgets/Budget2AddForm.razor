@@ -1,0 +1,43 @@
+<div class="budget--2 budget__group _budget2-add-form">
+  <div class="budget__details">
+
+    <div>
+      <div class="form-field-group _detail-field _detail-field--first">
+        <label for="budgetName" class="form-field-group__label">
+          Name
+        </label>
+        <input
+          id="budgetName"
+          class="input"
+          value="@this.nameDisplay"
+          @onchange="(ChangeEventArgs __e) => this.OnNameChanged(__e.Value.ToString())"
+          placeholder="ex. Grocieries"
+          name="budgetName" />
+      </div>
+
+      <div class="form-field-group _detail-field">
+        <label for="budgetPlannedAmount" class="form-field-group__label">
+          Planned Amount
+        </label>
+        <input
+          id="budgetPlannedAmount"
+          class="input"
+          value="@this.plannedAmountDisplay"
+          type="number"
+          @onchange="(ChangeEventArgs __e) => this.OnPlannedAmountChanged(__e.Value.ToString())"
+          placeholder="ex. $250"
+          name="budgetPlannedAmount" />
+      </div>
+    </div>
+
+    <div class="_actions">
+      <button class="button button--encourage" @onclick="@this.OnSaveClicked" >
+        Save Budget
+      </button>
+      <button class="button" @onclick="@this.OnCancelClicked" >
+        Cancel
+      </button>
+    </div>
+
+  </div>
+</div>

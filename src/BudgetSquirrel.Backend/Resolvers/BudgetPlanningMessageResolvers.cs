@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
 using BudgetSquirrel.Web.Common.Messages.BudgetPlanning;
@@ -31,9 +32,12 @@ namespace BudgetSquirrel.Backend.Resolvers
 
     private static FundBudget ToApiMessage(BudgetSquirrel.Core.BudgetPlanning.FundBudget fundBudget)
     {
+      decimal plannedAmount = fundBudget.Budget.PlannedAmount;
+      int fundId = fundBudget.Fund.Id;
       return new FundBudget(
-        new Budget(fundBudget.Budget.PlannedAmount),
-        fundBudget.Fund.Id);
+        new Budget(
+          plannedAmount),
+        fundId);
     }
   }
 }

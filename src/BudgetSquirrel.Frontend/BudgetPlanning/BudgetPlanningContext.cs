@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BudgetSquirrel.Frontend.BudgetPlanning
 {
@@ -43,6 +44,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       public Fund Fund { get; private set; }
 
       public Budget Budget { get; private set; }
+
+      public decimal SubBudgetsTotalPlannedAmount => this.SubFunds.Sum(f => f.Budget.PlannedAmount);
 
       public IEnumerable<FundRelationships> SubFunds { get; private set; }
     }

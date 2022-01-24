@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.Frontend.Authentication.Login;
+using BudgetSquirrel.Frontend.BudgetPlanning.Budgets;
 using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
 using static BudgetSquirrel.Frontend.BudgetPlanning.BudgetPlanningContext;
 
 namespace BudgetSquirrel.Frontend.BudgetPlanning
@@ -25,9 +28,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private bool isLoading = true;
 
-    #endregion
-
-    #region internal methods
+    private bool isCreatingBudget = false;
 
     protected override Task OnInitializedAsync()
     {
@@ -46,7 +47,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     #region convenience accessors
 
-    private Budget rootBudget => this.context.FundTree.Budget;
+    private FundRelationships rootBudget => this.context.FundTree;
 
     private string timeboxDisplay
     {
@@ -75,7 +76,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private string RootFundName => this.context.FundTree.Fund.Name;
 
-    private decimal PlannedIncome => this.rootBudget.PlannedAmount;
+    private decimal PlannedIncome => this.rootBudget.Budget.PlannedAmount;
 
     public bool ShouldShowAmountLeftToBudget => this.amountLeftToBudget != 0;
 
@@ -109,11 +110,36 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         {
           cssClass += "stat__value--good";
         }
+        return cssClass;
+      }
+    }
+
+    private string AmountLeftToBudgetCssClass
+    {
+      get
+      {
+        string cssClass = "stat__value ";
+        if (this.amountLeftToBudget == 0)
+        {
+          cssClass += "stat__value--good";
+        }
         else
         {
           cssClass += "stat__value--bad";
         }
         return cssClass;
+      }
+    }
+
+    public IEnumerable<FundRelationships> Level1Budgets
+    {
+      get
+      {
+        if (this.isLoading)
+        {
+          return Array.Empty<FundRelationships>();
+        }
+        return this.rootBudget.SubFunds;
       }
     }
 
@@ -131,6 +157,46 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private async Task ChangeRootFundName(string newName)
     {
       await this.budgetPlanningService.EditFundName(this.context.FundTree.Fund.Id, newName);
+      await this.ReloadContext();
+    }
+
+    /// <summary>
+    /// "Add Budget" button was clicked. Budget detail form
+    /// will pop up.
+    /// </summary>
+    private void StartCreateBudgetClicked()
+    {
+      this.isCreatingBudget = true;
+    }
+
+    /// <summary>
+    /// "Stop Adding Budget" button was clicked. Budget detail form
+    /// will close.
+    /// </summary>
+    private void CancelCreateBudgetClicked()
+    {
+      this.isCreatingBudget = false;
+    }
+
+    private async Task SubmitNewBudget1(IBudget1AddFormValues values)
+    {
+      await this.budgetPlanningService.CreateLevel1Budget(
+        this.rootBudget.Fund.ProfileId,
+        this.context.Timebox.Id,
+        values.Name,
+        values.PlannedAmount);
+        
+      this.isCreatingBudget = false;
+      await this.ReloadContext();
+    }
+
+    private async Task SubmitNewSubBudget(IBudget2AddFormValues values)
+    {
+      await this.budgetPlanningService.CreateSubBudget(
+        values.ParentFundId,
+        this.context.Timebox.Id,
+        values.Name,
+        values.PlannedAmount);
       await this.ReloadContext();
     }
 

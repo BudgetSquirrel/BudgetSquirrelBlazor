@@ -9,3 +9,9 @@
 ._budget-planner-page ._root-budget-stats {
   margin-top: 2rem;
 }
+
+._budget-planner-page ._page-actions,
+._budget-planner-page ._budget-section,
+._budget-planner-page ._budget-container {
+  margin-top: 1rem;
+}

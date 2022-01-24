@@ -19,9 +19,12 @@
     --red-500: #d26565ff;
     --red-900: #9b1616;
     --blackish-700: #383838;
+    --blackish-600: #898f9c;
     --blackish-500: #686868;
     --blackish-200: #c4c4c4;
+    /* --blackish-175: #e1e1e1; */
     --blackish-100: #e7e7e7;
+    /* --blackish-150: #efefef; */
     --blackish-50: #f7f7f7;
     --blackish-a200: #6d8c98;
 
@@ -36,9 +39,13 @@
     --clr-fg-color-good: var(--green-a700);
     --clr-fg-color-bad: var(--red-900);
     --clr-fg-no-color: var(--blackish-500);
+    --clr-fg-no-color-2: var(--blackish-600);
     --clr-fg-no-color-bold: var(--blackish-700);
     --clr-fg-no-color-subtle: var(--blackish-a200);
     --clr-fg-no-color-alt: white;
+
+    --clr-brdr-no-color: var(--blackish-200);
+    --clr-brdr-no-color-subtle: var(--blackish-100);
     
     --clr-control-color: var(--green-500);
     --clr-control-no-color: var(--blackish-200);
@@ -117,11 +124,16 @@
 /********* Button *********/
 
 .button {
-    padding: 1em;
     font-size: 1.2em;
     border-radius: 4px;
     border: none;
     cursor: pointer;
+
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    padding-left: 1em;
+    padding-right: 1em;
+    min-width: 16em;
 }
 
 .button--disabled {
@@ -136,6 +148,18 @@
     cursor: pointer;
 }
 
+/*
+.material-icons {
+    Filler css rule for documentation...
+    For icon options, https://fonts.google.com/icons?selected=Material+Icons
+}
+
+.material-icons-outlined {
+    Filler css rule for documentation...
+    For icon options, https://fonts.google.com/icons?selected=Material+Icons
+}
+*/
+
 .icon-button {
     --button-bg-default: none;
     --button-bg-hover: var(--clr-control-no-color);
@@ -148,7 +172,8 @@
     cursor: pointer;
 }
 
-.material-icons.icon-button {
+.material-icons.icon-button,
+.material-icons-outlined.icon-button {
     font-size: 18px;
     height: var(--button-size);
     width: var(--button-size);
@@ -172,4 +197,12 @@
     width: 100%;
     display: block;
     margin-top: 1em;
+}
+
+.form-field-group {
+    display: inline-block;
+}
+
+.form-field-group__label {
+    display: block;
 }
