@@ -84,5 +84,10 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
 
       await this.OnPlannedAmountChanged.InvokeAsync(this.State);
     }
+
+    private Task ChangeSubBudgetPlannedAmount(IEditPlannedAmountFormValues values)
+    {
+      return this.OnPlannedAmountChanged.InvokeAsync(values);
+    }
   }
 }

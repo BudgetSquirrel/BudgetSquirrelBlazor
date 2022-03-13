@@ -27,8 +27,13 @@
     <div class="stat__box stat__box--row _root-budget-stats">
       <div class="stat">
         <div class="stat__label stat__label--prominent">Planned Income</div>
-        <EditableText CssClass="@this.PlannedIncomeCssClass" Value="@this.PlannedIncome.ToString()"
-        OnChange="@this.ChangePlannedIncome" Placeholder="(ex. 3000.00)" Type="currency" WidthEms=8 />
+        <EditableText
+          CssClass="@this.PlannedIncomeCssClass"
+          Value="@this.PlannedIncome.ToString()"
+          OnChange="@this.ChangePlannedIncome"
+          Placeholder="(ex. 3000.00)"
+          Type="currency"
+          WidthEms=8 />
       </div>
 
       @if (this.ShouldShowAmountLeftToBudget)

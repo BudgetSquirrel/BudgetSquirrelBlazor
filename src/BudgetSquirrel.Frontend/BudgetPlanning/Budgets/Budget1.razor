@@ -1,4 +1,5 @@
 @using BudgetSquirrel.Frontend.BudgetPlanning
+@using BudgetSquirrel.Frontend.Shared.Controls
 
 <div class="budget budget--1 budget__group _budget1">
   <div class="budget__details">
@@ -18,17 +19,13 @@
     <div class="_budget-stat__container">
       <div class="stat _budget-stat _budget-stat--first">
         <p class="stat__label">Amount In</p>
-        <p class="@this.AmountInStatValueCssClass">
-          @this.AmountInDisplay
-        </p>
-      </div>
-
-      <div class="stat _budget-stat _budget-stat--first">
-        <p class="stat__label">Amount In</p>
-        <input
-            type="number"
-            value="@this.State.PlannedAmount.ToString("C")"
-            @onchange="(ChangeEventArgs __e) => this.ChangePlannedAmount(__e.Value.ToString())" />
+        <EditableText
+          CssClass="@this.AmountInStatValueCssClass"
+          Value="@this.State.PlannedAmount.ToString()"
+          OnChange="@this.ChangePlannedAmount"
+          Placeholder="(ex. 3000.00)"
+          Type="currency"
+          WidthEms=8 />
       </div>
 
       <div class="stat _budget-stat">
@@ -63,7 +60,9 @@
       @foreach (BudgetPlanningContext.FundRelationships subBudget in this.Budget.SubFunds)
       {
         <div class="budget__sub-budget">
-          <Budget2 Budget=@subBudget />
+          <Budget2
+            Budget=@subBudget
+            OnPlannedAmountChanged="@this.ChangeSubBudgetPlannedAmount" />
         </div>
       }
     </div>
