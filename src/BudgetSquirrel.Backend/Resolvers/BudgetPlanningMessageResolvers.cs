@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BudgetSquirrel.Backend.Biz.BudgetPlanning;
@@ -10,15 +11,17 @@ namespace BudgetSquirrel.Backend.Resolvers
   {
     public static BudgetPlanningContextResponse ToApiMessage(GetBudgetPlanningContextQuery.BudgetPlanningContext context)
     {
+      List<FundBudget> budgets = context.Budgets.Select(b => ToApiMessage(b)).ToList();
       return new BudgetPlanningContextResponse(
         new TimeboxDetails(context.Timebox.Id, context.Timebox.StartDate, context.Timebox.EndDate),
         new UserProfile(context.Profile.ProfileId),
         ToApiMessage(context.FundTree),
-        context.Budgets.Select(b => ToApiMessage(b)));
+        budgets);
     }
 
     private static FundSubFunds ToApiMessage(BudgetSquirrel.Core.Funds.FundSubFunds fundSubFunds)
     {
+      List<FundSubFunds> subFunds = fundSubFunds.SubFunds.Select(fsf => ToApiMessage(fsf)).ToList();
       return new FundSubFunds(
         new Fund(
           fundSubFunds.Fund.Id,
@@ -27,7 +30,7 @@ namespace BudgetSquirrel.Backend.Resolvers
           fundSubFunds.Fund.IsRoot,
           fundSubFunds.Fund.ProfileId,
           fundSubFunds.Fund.ParentFundId),
-        fundSubFunds.SubFunds.Select(fsf => ToApiMessage(fsf)));
+        subFunds);
     }
 
     private static FundBudget ToApiMessage(BudgetSquirrel.Core.BudgetPlanning.FundBudget fundBudget)
