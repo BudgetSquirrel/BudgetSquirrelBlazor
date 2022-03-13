@@ -32,8 +32,6 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
 
     private string Name => this.State.Name;
 
-    private string AmountInDisplay => this.State.PlannedAmount.ToString("C");
-
     private string AmountInStatValueCssClass
     {
       get
