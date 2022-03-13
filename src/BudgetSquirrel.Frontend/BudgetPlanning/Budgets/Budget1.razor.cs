@@ -12,6 +12,9 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     
     [Parameter]
     public EventCallback<IBudget2AddFormValues> OnCreateSubBudget2 { get; set; } = new EventCallback<IBudget2AddFormValues>();
+    
+    [Parameter]
+    public EventCallback<IEditPlannedAmountFormValues> OnPlannedAmountChanged { get; set; } = new EventCallback<IEditPlannedAmountFormValues>();
 
     private bool IsAddingSubBudget { get; set; } = false;
 
@@ -20,9 +23,16 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     private bool IsSubBudgetPlannedAmountZeroedOut => this.Budget.SubBudgetsTotalPlannedAmount == this.Budget.Budget.PlannedAmount ||
                                                       this.Budget.SubFunds.Count() == 0;
 
-    private string Name => this.Budget.Fund.Name;
+    private EditBudgetFormValues State { get; set; }
 
-    private string AmountInDisplay => this.Budget.Budget.PlannedAmount.ToString("C");
+    protected override void OnInitialized()
+    {
+      this.State = new EditBudgetFormValues(this.Budget.Fund.Id, this.Budget.Fund.Name, this.Budget.Budget.PlannedAmount);
+    }
+
+    private string Name => this.State.Name;
+
+    private string AmountInDisplay => this.State.PlannedAmount.ToString("C");
 
     private string AmountInStatValueCssClass
     {
@@ -57,6 +67,22 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     public void CancelSubBudgetCreation()
     {
       this.IsAddingSubBudget = false;
+    }
+
+    private void OnNameChanged(string newName)
+    {
+      this.State.Name = newName;
+    }
+
+    private async Task ChangePlannedAmount(string newPlannedAmountRaw)
+    {
+      bool isValidFormat = decimal.TryParse(newPlannedAmountRaw, out decimal newPlannedAmount);
+      if (isValidFormat)
+      {
+        this.State.PlannedAmount = newPlannedAmount;
+      }
+
+      await this.OnPlannedAmountChanged.InvokeAsync(this.State);
     }
   }
 }

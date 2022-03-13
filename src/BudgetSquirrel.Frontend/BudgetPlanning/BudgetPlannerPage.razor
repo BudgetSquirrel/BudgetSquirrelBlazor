@@ -70,7 +70,10 @@
       @foreach (BudgetPlanningContext.FundRelationships subFundBudget in this.Level1Budgets)
       {
         <div class="_budget-container">
-          <Budget1 Budget=@subFundBudget OnCreateSubBudget2="@this.SubmitNewSubBudget" />
+          <Budget1
+            Budget=@subFundBudget
+            OnCreateSubBudget2="@this.SubmitNewSubBudget"
+            OnPlannedAmountChanged="@this.EditPlannedAmount" />
         </div>
       }
     </div>

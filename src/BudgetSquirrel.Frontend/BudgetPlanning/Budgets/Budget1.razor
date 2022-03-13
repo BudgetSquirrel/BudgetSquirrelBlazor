@@ -23,6 +23,21 @@
         </p>
       </div>
 
+      <div class="stat _budget-stat _budget-stat--first">
+        <p class="stat__label">Amount In</p>
+        <input
+            type="number"
+            value="@this.State.PlannedAmount.ToString("C")"
+            @onchange="(ChangeEventArgs __e) => this.ChangePlannedAmount(__e.Value.ToString())" />
+      </div>
+
+      <div class="stat _budget-stat">
+        <p class="stat__label">Balance</p>
+        <p class="stat__value">
+          @this.BalanceDisplay
+        </p>
+      </div>
+
       <div class="stat _budget-stat">
         <p class="stat__label">Balance</p>
         <p class="stat__value">

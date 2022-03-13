@@ -150,7 +150,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private async Task ChangePlannedIncome(string amount)
     {
       decimal newPlannedIncome = decimal.Parse(amount);
-      await this.budgetPlanningService.EditPlannedIncome(this.context.FundTree.Fund.Id, this.context.Timebox.Id, newPlannedIncome);
+      await this.budgetPlanningService.EditPlannedAmount(this.context.FundTree.Fund.Id, this.context.Timebox.Id, newPlannedIncome);
       await this.ReloadContext();
     }
 
@@ -197,6 +197,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         this.context.Timebox.Id,
         values.Name,
         values.PlannedAmount);
+      await this.ReloadContext();
+    }
+
+    private async Task EditPlannedAmount(IEditPlannedAmountFormValues values)
+    {
+      await this.budgetPlanningService.EditPlannedAmount(values.FundId, this.context.Timebox.Id, values.PlannedAmount);
       await this.ReloadContext();
     }
 

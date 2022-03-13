@@ -6,7 +6,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
   {
     Task<BudgetPlanningContext> GetBudgetTree(int? timeboxId=null);
 
-    Task EditPlannedIncome(int fundId, int timeboxId, decimal plannedIncome);
+    Task EditPlannedAmount(int fundId, int timeboxId, decimal plannedIncome);
 
     Task EditFundName(int fundId, string newName);
 
