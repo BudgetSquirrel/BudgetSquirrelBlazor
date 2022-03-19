@@ -18,7 +18,7 @@ namespace BudgetSquirrel.Frontend.BackendClient
     private BackendConfiguration backendConfiguration;
     private IBackendAuthenticator backendAuthenticator;
 
-    private HttpClient client;
+    private HttpClient? client;
 
     public BackendClient(
       BackendConfiguration backendConfiguration,

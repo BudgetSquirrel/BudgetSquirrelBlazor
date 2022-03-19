@@ -10,7 +10,7 @@
           id="budgetName"
           class="input"
           value="@this.nameDisplay"
-          @onchange="(ChangeEventArgs __e) => this.OnNameChanged(__e.Value.ToString())"
+          @onchange="(ChangeEventArgs __e) => this.OnNameChanged(__e.Value!.ToString()!)"
           placeholder="ex. Grocieries"
           name="budgetName" />
       </div>
@@ -24,7 +24,7 @@
           class="input"
           value="@this.plannedAmountDisplay"
           type="number"
-          @onchange="(ChangeEventArgs __e) => this.OnPlannedAmountChanged(__e.Value.ToString())"
+          @onchange="(ChangeEventArgs __e) => this.OnPlannedAmountChanged(__e.Value!.ToString()!)"
           placeholder="ex. $250"
           name="budgetPlannedAmount" />
       </div>

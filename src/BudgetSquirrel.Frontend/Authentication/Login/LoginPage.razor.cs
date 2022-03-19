@@ -10,17 +10,17 @@ namespace BudgetSquirrel.Frontend.Authentication.Login
     private class FormModel
     {
       [Required]
-      public string Email { get; set; }
+      public string Email { get; set; } = string.Empty;
 
       [Required]
-      public string Password { get; set; }
+      public string Password { get; set; } = string.Empty;
     }
 
     [Inject]
-    private ILoginService loginService { get; set; }
+    private ILoginService loginService { get; set; } = null!;
 
     [Inject]
-    NavigationManager navigationManager { get; set; }
+    NavigationManager navigationManager { get; set; } = null!;
 
     private FormModel Model { get; set; } = new FormModel();
 

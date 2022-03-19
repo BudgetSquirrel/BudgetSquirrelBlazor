@@ -33,7 +33,7 @@ namespace BudgetSquirrel.Frontend.Authentication.Login
 
     public async Task Login(string username, string password)
     {
-      this.loginContext = null;
+      this.loginContext = null!;
       string authToken = await this.backend.Authenticate(username, password);
       await this.cookieService.SetCookie(AuthBearerTokenCookieName, authToken, 1);
 

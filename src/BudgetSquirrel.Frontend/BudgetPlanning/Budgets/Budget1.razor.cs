@@ -8,7 +8,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
   public partial class Budget1 : ComponentBase
   {
     [Parameter]
-    public FundRelationships Budget { get; set; }
+    public FundRelationships Budget { get; set; } = null!;
     
     [Parameter]
     public EventCallback<IBudget2AddFormValues> OnCreateSubBudget2 { get; set; } = new EventCallback<IBudget2AddFormValues>();
@@ -28,7 +28,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     private bool IsSubBudgetPlannedAmountZeroedOut => this.Budget.SubBudgetsTotalPlannedAmount == this.Budget.Budget.PlannedAmount ||
                                                       this.Budget.SubFunds.Count() == 0;
 
-    private EditBudgetFormValues State { get; set; }
+    private EditBudgetFormValues State { get; set; } = null!;
 
     protected override void OnInitialized()
     {

@@ -10,7 +10,7 @@ namespace BudgetSquirrel.Frontend.BackendClient
       bool includeAmpersand = false;
       foreach (KeyValuePair<string, object> queryParam in queryParams)
       {
-        string queryParamValue = queryParam.Value.ToString();
+        string queryParamValue = queryParam.Value.ToString()!;
         if (includeAmpersand)
         {
           queryString += "&";
