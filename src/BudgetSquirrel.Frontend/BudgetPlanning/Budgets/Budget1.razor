@@ -4,9 +4,14 @@
 <div class="budget budget--1 budget__group _budget1">
   <div class="budget__details">
     <div class="_budget__heading">
-      <p class="_budget__name">
-        @this.Name
-      </p>
+      <div class="_budget__name">
+        <EditableText
+          Value="@this.Name"
+          Placeholder="Budget Name"
+          Name="@this.InputNameFundName"
+          OnChange="@this.ChangeName" />
+      </div>
+        
       <div class="_budget__actions">
         @if (!this.IsAddingSubBudget)
         {
