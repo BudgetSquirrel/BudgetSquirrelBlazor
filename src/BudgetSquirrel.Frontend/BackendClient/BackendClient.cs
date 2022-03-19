@@ -47,6 +47,23 @@ namespace BudgetSquirrel.Frontend.BackendClient
       
       return;
     }
+    
+    public async Task ExecuteCommand(string endpoint)
+    {
+      string url = $"{this.backendConfiguration.RootUrl}/backend/{endpoint}";
+      HttpClient client = this.GetClient();
+      
+      HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
+      
+      HttpResponseMessage response = await client.SendAsync(requestMessage);
+
+      if (response.StatusCode != HttpStatusCode.OK)
+      {
+        throw new BackendException();
+      }
+      
+      return;
+    }
 
     public async Task<T> Fetch<T>(string endpoint)
     {

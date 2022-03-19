@@ -68,7 +68,7 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
         timebox = await this.timeboxRepository.GetTimebox(this.profileId, DateTime.Now);
       }
       Profile profile = await this.fundRepository.GetProfile(this.profileId);
-      FundSubFunds fundTree = await this.fundRepository.GetFundTree(this.profileId);
+      FundSubFunds fundTree = await this.fundRepository.GetFundTree(this.profileId, timebox.Id);
       IEnumerable<FundBudget> fundBudgets = await this.GetBudgetsForFundTree(fundTree, timebox);
 
       return new BudgetPlanningContext(profile, fundTree, fundBudgets, timebox);

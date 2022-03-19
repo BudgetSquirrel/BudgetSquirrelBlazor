@@ -21,6 +21,7 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         { "CreateBudgetForFund", $"{ScriptsDir}/BudgetPlanning/CreateBudgetForFund.sql" },
         { "GetBudgetForFund", $"{ScriptsDir}/BudgetPlanning/GetBudgetForFund.sql" },
         { "EditBudget", $"{ScriptsDir}/BudgetPlanning/EditBudget.sql" },
+        { "DeleteBudget", $"{ScriptsDir}/BudgetPlanning/DeleteBudget.sql" },
 
         /* Funds */
         { "GetAllFundsInFundTree", $"{ScriptsDir}/Funds/GetAllFundsInFundTree.sql" },

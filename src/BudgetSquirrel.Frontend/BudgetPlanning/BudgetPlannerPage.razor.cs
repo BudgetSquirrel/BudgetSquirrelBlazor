@@ -206,6 +206,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       await this.ReloadContext();
     }
 
+    private async Task DeleteBudget(IDeleteBudgetFormValues values)
+    {
+      await this.budgetPlanningService.DeleteBudget(values.FundId, this.context.Timebox.Id);
+      await this.ReloadContext();
+    }
+
     #endregion
   }
 }

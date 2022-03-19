@@ -98,5 +98,20 @@ namespace BudgetSquirrel.Backend.Dal.LocalDb
         );
       }
     }
+
+    public async Task DeleteBudget(int fundId, int timeboxId)
+    {
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        await conn.ExecuteAsync(
+          $"EXEC {BudgetPlanningProcedures.DeleteBudget} @FundId, @TimeboxId",
+          new
+          {
+            FundId = fundId,
+            TimeboxId = timeboxId
+          }
+        );
+      }
+    }
   }
 }

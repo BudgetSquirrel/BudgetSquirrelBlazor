@@ -12,6 +12,9 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
 
     [Parameter]
     public EventCallback<IEditPlannedAmountFormValues> OnPlannedAmountChanged { get; set; } = new EventCallback<IEditPlannedAmountFormValues>();
+    
+    [Parameter]
+    public EventCallback<IDeleteBudgetFormValues> OnDeleteBudget { get; set; } = new EventCallback<IDeleteBudgetFormValues>();
 
     private bool IsSubBudgetPlannedAmountZeroedOut => this.Budget.SubBudgetsTotalPlannedAmount == this.Budget.Budget.PlannedAmount ||
                                                       this.Budget.SubFunds.Count() == 0;
@@ -44,6 +47,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
 
     public string BalanceDisplay => this.Budget.Fund.Balance.ToString("C");
 
+    private bool IsDeletingBudget { get; set; } = false;
+
     private async Task ChangePlannedAmount(string newPlannedAmountRaw)
     {
       bool isValidFormat = decimal.TryParse(newPlannedAmountRaw, out decimal newPlannedAmount);
@@ -53,6 +58,22 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
       }
 
       await this.OnPlannedAmountChanged.InvokeAsync(this.State);
+    }
+
+    public void OnDeleteBudgetClicked()
+    {
+      this.IsDeletingBudget = true;
+    }
+
+    public Task OnDeleteBudgetConfirmed()
+    {
+      this.IsDeletingBudget = false;
+      return this.OnDeleteBudget.InvokeAsync(new DeleteBudgetFormValues(this.Budget.Fund.Id));
+    }
+
+    public void OnDeleteBudgetCancelled()
+    {
+      this.IsDeletingBudget = false;
     }
   }
 }

@@ -15,8 +15,13 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     
     [Parameter]
     public EventCallback<IEditPlannedAmountFormValues> OnPlannedAmountChanged { get; set; } = new EventCallback<IEditPlannedAmountFormValues>();
+    
+    [Parameter]
+    public EventCallback<IDeleteBudgetFormValues> OnDeleteBudget { get; set; } = new EventCallback<IDeleteBudgetFormValues>();
 
     private bool IsAddingSubBudget { get; set; } = false;
+
+    private bool IsDeletingBudget { get; set; } = false;
 
     private bool ShouldShowSubBudgetArea => this.Budget.SubFunds.Any() || this.IsAddingSubBudget;
 
@@ -54,6 +59,22 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     public void OnAddSubBudgetClicked()
     {
       this.IsAddingSubBudget = true;
+    }
+
+    public void OnDeleteBudgetClicked()
+    {
+      this.IsDeletingBudget = true;
+    }
+
+    public Task OnDeleteBudgetConfirmed()
+    {
+      this.IsDeletingBudget = false;
+      return this.OnDeleteBudget.InvokeAsync(new DeleteBudgetFormValues(this.Budget.Fund.Id));
+    }
+
+    public void OnDeleteBudgetCancelled()
+    {
+      this.IsDeletingBudget = false;
     }
 
     public async Task CreateSubBudget2(IBudget2AddFormValues values)

@@ -15,5 +15,7 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
     Task<Budget> GetBudget(int fundId, int timeboxId);
 
     Task SaveBudget(int fundId, int timeboxId, Budget budget);
+
+    Task DeleteBudget(int fundId, int timeboxId);
   }
 }

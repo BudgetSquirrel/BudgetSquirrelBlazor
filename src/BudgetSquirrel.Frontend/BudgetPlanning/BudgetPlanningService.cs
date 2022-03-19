@@ -8,9 +8,13 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 {
   public class BudgetPlanningService : IBudgetPlanningService
   {
+    private const string EndpointFormatFundId = "{fundId}";
+    private const string EndpointFormatTimeboxId = "{timeboxId}";
+    
     private const string BudgetPlanningUri = "budget-planning";
     private const string ContextEndpoint = BudgetPlanningUri + "/context";
     private const string EditPlannedIncomeEndpoint = BudgetPlanningUri + "/edit-planned-income";
+    private const string DeleteBudgetEndpoint = BudgetPlanningUri + "/delete/" + EndpointFormatFundId + "/" + EndpointFormatTimeboxId;
     private const string EditFundNameEndpoint = BudgetPlanningUri + "/edit-fund-name";
     private const string CreateLevel1BudgetEndpoint = BudgetPlanningUri + "/create-level1-budget";
     private const string CreateSubBudgetEndpoint = BudgetPlanningUri + "/create-sub-budget";
@@ -80,6 +84,14 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
           ParentFundId = parentFundId,
           TimeboxId = timeboxId
         });
+    }
+
+    public Task DeleteBudget(int fundId, int timeboxId)
+    {
+      return this.backendClient.ExecuteCommand(
+        DeleteBudgetEndpoint
+          .Replace(EndpointFormatFundId, fundId.ToString())
+          .Replace(EndpointFormatTimeboxId, timeboxId.ToString()));
     }
   }
 }

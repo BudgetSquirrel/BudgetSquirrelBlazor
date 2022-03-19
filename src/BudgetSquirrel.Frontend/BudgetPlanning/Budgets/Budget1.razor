@@ -14,6 +14,21 @@
             add_box
           </button>
         }
+        @if (this.IsDeletingBudget)
+        {
+          <button @onclick="this.OnDeleteBudgetConfirmed">
+            Yes Delete
+          </button>
+          <button @onclick="this.OnDeleteBudgetCancelled">
+            Cancel
+          </button>
+        }
+        else
+        {
+          <button class="material-icons icon-button" @onclick="this.OnDeleteBudgetClicked">
+            delete
+          </button>
+        }
       </div>
     </div>
     <div class="_budget-stat__container">
@@ -62,7 +77,8 @@
         <div class="budget__sub-budget">
           <Budget2
             Budget=@subBudget
-            OnPlannedAmountChanged="@this.ChangeSubBudgetPlannedAmount" />
+            OnPlannedAmountChanged="@this.ChangeSubBudgetPlannedAmount"
+            OnDeleteBudget="@this.OnDeleteBudget" />
         </div>
       }
     </div>

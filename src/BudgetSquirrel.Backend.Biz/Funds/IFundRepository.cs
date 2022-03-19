@@ -7,7 +7,7 @@ namespace BudgetSquirrel.Backend.Biz.Funds
   {
     Task<Profile> GetProfile(int profileId);
     
-    Task<FundSubFunds> GetFundTree(int profileId);
+    Task<FundSubFunds> GetFundTree(int profileId, int timeBoxId);
     
     Task<Fund> GetFundById(int fundId);
     

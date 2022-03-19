@@ -1,5 +1,6 @@
 CREATE PROCEDURE [GetAllFundsInFundTree] (
-  @ProfileId INT
+  @ProfileId INT,
+  @TimeboxId INT
 )
 AS
 BEGIN
@@ -12,6 +13,10 @@ SELECT
   [dbo].[Funds].[ProfileId],
   [dbo].[Funds].[ParentFundId]
 FROM [dbo].[Funds]
-WHERE [dbo].[Funds].[ProfileId] = @ProfileId;
+LEFT JOIN [dbo].[Budgets]
+  ON [dbo].[Budgets].[FundId] = [dbo].[Funds].[Id]
+  AND [dbo].[Budgets].[TimeboxId] = @TimeboxId
+WHERE [dbo].[Funds].[ProfileId] = @ProfileId
+AND [dbo].[Budgets].[Id] IS NOT NULL;
 
 END

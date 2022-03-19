@@ -66,6 +66,18 @@ namespace BudgetSquirrel.Backend.Controllers
       return Ok();
     }
 
+    [HttpPost("delete/{fundId}/{timeboxId}")]
+    public async Task<IActionResult> DeleteBudget([FromRoute] DeleteBudgetRequest request)
+    {
+      DeleteBudgetCommand cmd = new DeleteBudgetCommand(
+        this.budgetRepository,
+        request.FundId,
+        request.TimeboxId);
+
+      await cmd.Execute();
+      return Ok();
+    }
+
     [HttpPost("create-level1-budget")]
     public async Task<IActionResult> CreateLevel1Budget([FromBody] CreateLevel1BudgetRequest request)
     {
