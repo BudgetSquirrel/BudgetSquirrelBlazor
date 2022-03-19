@@ -23,6 +23,8 @@
     --clr-fg-no-color-bold: var(--blackish-700);
     --clr-fg-no-color-subtle: var(--blackish-a200);
     --clr-fg-no-color-alt: white;
+
+    --clr-border-no-color: var(--blackish-100);
     
     --clr-control-color: var(--green-500);
     --clr-control-no-color: var(--blackish-200);

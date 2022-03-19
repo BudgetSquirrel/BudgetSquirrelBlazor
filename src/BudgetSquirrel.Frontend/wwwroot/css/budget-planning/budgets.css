@@ -26,3 +26,28 @@
   padding: 1em;
   padding-top: 0;
 }
+
+.budget.budget__delete-comfirm-modal {
+  padding: 2rem;
+}
+
+.budget .budget__delete-confirm-prompt {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.budget .budget__delete-confirm-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 1rem;
+}
+
+.budget .budget__delete-confirm-actions .button {
+  margin-left: 1rem;
+}
+
+.budget .budget__delete-confirm-actions .button:first-of-type {
+  margin-left: 0;
+}

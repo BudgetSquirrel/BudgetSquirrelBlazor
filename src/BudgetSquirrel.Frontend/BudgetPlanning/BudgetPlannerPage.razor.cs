@@ -15,16 +15,16 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     #region component arguments
 
     [Inject]
-    private ILoginService loginService { get; set; }
+    private ILoginService loginService { get; set; } = null!;
 
     [Inject]
-    private IBudgetPlanningService budgetPlanningService { get; set; }
+    private IBudgetPlanningService budgetPlanningService { get; set; } = null!;
 
     #endregion
 
     #region component state
 
-    private BudgetPlanningContext context;
+    private BudgetPlanningContext context = null!;
 
     private bool isLoading = true;
 

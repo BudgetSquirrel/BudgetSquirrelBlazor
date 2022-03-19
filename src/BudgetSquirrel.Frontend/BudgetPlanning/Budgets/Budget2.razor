@@ -9,16 +9,7 @@
         <button class="material-icons icon-button">
           add_box
         </button>
-        @if (this.IsDeletingBudget)
-        {
-          <button @onclick="this.OnDeleteBudgetConfirmed">
-            Yes Delete
-          </button>
-          <button @onclick="this.OnDeleteBudgetCancelled">
-            Cancel
-          </button>
-        }
-        else
+        @if (!this.IsDeletingBudget)
         {
           <button class="material-icons icon-button" @onclick="this.OnDeleteBudgetClicked">
             delete
@@ -47,3 +38,20 @@
     </div>
   </div>
 </div>
+
+@if (this.IsDeletingBudget)
+{
+  <Modal>
+    <div class="budget budget__delete-comfirm-modal">
+      <p class="budget__delete-confirm-prompt">Are you sure you want to delete @(this.Name)?</p>
+      <div class="budget__delete-confirm-actions">
+        <button class="button button--narrow button--discourage" @onclick="this.OnDeleteBudgetConfirmed">
+          Delete
+        </button>
+        <button class="button button--narrow" @onclick="this.OnDeleteBudgetCancelled">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </Modal>
+}

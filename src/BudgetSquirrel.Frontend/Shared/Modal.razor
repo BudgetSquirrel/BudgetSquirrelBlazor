@@ -1,0 +1,12 @@
+<div class="_modal__backdrop">
+  <div class="_modal__window">
+    <div class="_modal__content">
+      @this.ChildContent
+    </div>
+  </div>
+</div>
+
+@code {
+  [Parameter]
+  public RenderFragment ChildContent { get; set; } = null!;
+}

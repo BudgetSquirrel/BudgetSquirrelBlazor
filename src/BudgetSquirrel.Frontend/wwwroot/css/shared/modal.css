@@ -1,0 +1,19 @@
+._modal__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(1, 1, 1, 0.3);
+
+  display: flex;
+  justify-content: center;
+  padding-top: 10rem;
+}
+
+._modal__window {
+  position: absolute;
+  background-color: var(--clr-bg-no-color);
+  border-radius: 10px;
+  border: 1px solid var(--clr-border-no-color);
+}

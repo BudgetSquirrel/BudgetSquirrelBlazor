@@ -136,6 +136,10 @@
     min-width: 16em;
 }
 
+.button--narrow {
+    min-width: unset;
+}
+
 .button--disabled {
     background-color: var(--clr-control-no-color);
     color: var(--clr-fg-no-color);
@@ -143,7 +147,13 @@
 }
 
 .button--encourage {
-    background-color: var(--clr-control-color);
+    background-color: var(--clr-good-strong);
+    color: var(--clr-fg-no-color-alt);
+    cursor: pointer;
+}
+
+.button--discourage {
+    background-color: var(--clr-bad-strong);
     color: var(--clr-fg-no-color-alt);
     cursor: pointer;
 }

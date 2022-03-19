@@ -77,7 +77,7 @@
 @code {
 
 	[Inject]
-	NavigationManager navigationManager { get; set; }
+	NavigationManager navigationManager { get; set; } = null!;
 
 	private void NavigateToSignUp() { 
 		this.navigationManager.NavigateTo("/register");
