@@ -33,7 +33,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       return context;
     }
 
-    public Task EditPlannedIncome(int fundId, int timeboxId, decimal plannedIncome)
+    public Task EditPlannedAmount(int fundId, int timeboxId, decimal plannedIncome)
     {
       return this.backendClient.ExecuteCommand(
         EditPlannedIncomeEndpoint,

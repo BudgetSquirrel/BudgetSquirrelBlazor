@@ -1,3 +1,4 @@
+@using BudgetSquirrel.Frontend.Shared.Controls
 <div class="budget budget--2 budget__group _budget2">
   <div class="budget__details">
     <div class="_budget__heading">
@@ -13,9 +14,13 @@
     <div class="_budget-stat__container">
       <div class="stat _budget-stat _budget-stat--first">
         <p class="stat__label">Amount In</p>
-        <p class="@this.AmountInStatValueCssClass">
-          @this.AmountInDisplay
-        </p>
+        <EditableText
+          CssClass="@this.AmountInStatValueCssClass"
+          Value="@this.State.PlannedAmount.ToString()"
+          OnChange="@this.ChangePlannedAmount"
+          Placeholder="(ex. 3000.00)"
+          Type="currency"
+          WidthEms=8 />
       </div>
 
       <div class="stat _budget-stat">
