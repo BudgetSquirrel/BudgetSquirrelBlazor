@@ -78,24 +78,26 @@ namespace BudgetSquirrel.Backend.Biz.BudgetPlanning
     {
       List<FundBudget> budgetsInTree = new List<FundBudget>();
 
-      List<Task> budgetLoadTasks = new List<Task>();
-
       // Load the budget for the current fund in fundBranch.
-      budgetLoadTasks.Add(Task.Run(async () =>
-      {
-        budgetsInTree.Add(await this.GetBudgetForFund(fundBranch.Fund, timebox));
-      }));
+      Task<FundBudget> rootLoadTask = this.GetBudgetForFund(fundBranch.Fund, timebox);
 
       // Load budgets for each sub fund of the current fund branch.
+      List<Task<IEnumerable<FundBudget>>> childLoadTasks = new List<Task<IEnumerable<FundBudget>>>();
       foreach (FundSubFunds fundSubBranch in fundBranch.SubFunds)
       {
-        budgetLoadTasks.Add(Task.Run(async () =>
-        {
-          budgetsInTree.AddRange(await this.GetBudgetsForFundTree(fundSubBranch, timebox));
-        }));
+        childLoadTasks.Add(this.GetBudgetsForFundTree(fundSubBranch, timebox));
       }
 
-      await Task.WhenAll(budgetLoadTasks);
+      IEnumerable<Task> allLoads = childLoadTasks.Select(t => (Task)t)
+        .Append(rootLoadTask)
+        .ToList();
+      await Task.WhenAll(allLoads);
+
+      budgetsInTree.Add(await rootLoadTask);
+      foreach (Task<IEnumerable<FundBudget>> childLoad in childLoadTasks)
+      {
+        budgetsInTree.AddRange(await childLoad);
+      }
 
       return budgetsInTree;
     }
