@@ -1,9 +1,7 @@
 @import url("shared/app-header.css");
 @import url("shared/modal.css");
+@import url("shared/app-loading-cover.css");
 @import url("typogrophy.css");
-
-@import url("registration/register-page.css");
-@import url("registration/login-page.css");
 
 @import url("budget-planning/budgets.css");
 

@@ -1,0 +1,6 @@
+._logo {
+  background-color: var(--clr-bg-color-alt);
+
+  border-radius: 50%;
+  display: inline-block;
+}
