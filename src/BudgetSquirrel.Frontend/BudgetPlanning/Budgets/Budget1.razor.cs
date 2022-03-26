@@ -8,13 +8,16 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
   public partial class Budget1 : ComponentBase
   {
     [Parameter]
-    public FundRelationships Budget { get; set; }
+    public FundRelationships Budget { get; set; } = null!;
     
     [Parameter]
     public EventCallback<IBudget2AddFormValues> OnCreateSubBudget2 { get; set; } = new EventCallback<IBudget2AddFormValues>();
     
     [Parameter]
     public EventCallback<IEditPlannedAmountFormValues> OnPlannedAmountChanged { get; set; } = new EventCallback<IEditPlannedAmountFormValues>();
+    
+    [Parameter]
+    public EventCallback<IEditNameFormValues> OnNameChanged { get; set; } = new EventCallback<IEditNameFormValues>();
     
     [Parameter]
     public EventCallback<IDeleteBudgetFormValues> OnDeleteBudget { get; set; } = new EventCallback<IDeleteBudgetFormValues>();
@@ -28,7 +31,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     private bool IsSubBudgetPlannedAmountZeroedOut => this.Budget.SubBudgetsTotalPlannedAmount == this.Budget.Budget.PlannedAmount ||
                                                       this.Budget.SubFunds.Count() == 0;
 
-    private EditBudgetFormValues State { get; set; }
+    private EditBudgetFormValues State { get; set; } = null!;
 
     protected override void OnInitialized()
     {
@@ -36,6 +39,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     }
 
     private string Name => this.State.Name;
+
+    private string InputNameFundName => $"fundName{this.Budget.Fund.Id}";
 
     private string AmountInStatValueCssClass
     {
@@ -88,9 +93,10 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
       this.IsAddingSubBudget = false;
     }
 
-    private void OnNameChanged(string newName)
+    private void ChangeName(string newName)
     {
       this.State.Name = newName;
+      this.OnNameChanged.InvokeAsync(this.State);
     }
 
     private async Task ChangePlannedAmount(string newPlannedAmountRaw)

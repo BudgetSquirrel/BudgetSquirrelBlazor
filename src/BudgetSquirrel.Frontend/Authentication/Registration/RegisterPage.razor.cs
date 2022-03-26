@@ -10,11 +10,11 @@ namespace BudgetSquirrel.Frontend.Authentication.Registration
     private class FormModel
     {
       [Required(ErrorMessage = "Name is required")]
-      public string FullName { get; set; }
+      public string FullName { get; set; } = string.Empty;
 
       [Required(ErrorMessage = "Email is required")]
       [EmailAddress]
-      public string Email { get; set; }
+      public string Email { get; set; } = string.Empty;
 
       [Required(ErrorMessage = "Password is required")]
       [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
@@ -22,18 +22,18 @@ namespace BudgetSquirrel.Frontend.Authentication.Registration
       [RegularExpression(
         @"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=_-])(?=\S+$)([0-9]|[a-z]|[A-Z]|[!@#$%^&+=_-])+$",
         ErrorMessage = "Password must not contain spaces, must contain lowercase letters, uppercase letters, and at least one digit and special character (!@#$%^&+=_-)")]
-      public string Password { get; set; }
+      public string Password { get; set; } = string.Empty;
 
       [Required(ErrorMessage = "Confirm Password is required")]
       [Compare(nameof(Password), ErrorMessage = "Password doesn't match")]
-      public string ConfirmPassword { get; set; }
+      public string ConfirmPassword { get; set; } = string.Empty;
     }
 
     [Inject]
-    private IRegistrationService RegistrationService { get; set; }
+    private IRegistrationService RegistrationService { get; set; } = null!;
 
     [Inject]
-    NavigationManager navigationManager { get; set; }
+    private NavigationManager navigationManager { get; set; } = null!;
 
     private FormModel Model { get; } = new FormModel();
 

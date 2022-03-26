@@ -3,7 +3,7 @@
   {
     <input
       value="@this.valueState"
-      @onchange="@((ChangeEventArgs __e) => this.manualValue = __e.Value.ToString())"
+      @onchange="@((ChangeEventArgs __e) => this.manualValue = __e.Value!.ToString()!)"
       class="_input"
       placeholder="@this.Placeholder"
       type="@this.Type"
@@ -33,7 +33,7 @@
   private const string typeCurrency = "currency";
   
   [Parameter]
-  public string Value { get; set; }
+  public string Value { get; set; } = string.Empty;
   
   [Parameter]
   public string CssClass { get; set; } = "";
@@ -53,7 +53,7 @@
   [Parameter]
   public EventCallback<string> OnChange { get; set; } = new EventCallback<string>();
 
-  private string manualValue { get; set; } = null;
+  private string manualValue { get; set; } = null!;
 
   private string valueState => this.manualValue ?? this.Value ?? "";
 

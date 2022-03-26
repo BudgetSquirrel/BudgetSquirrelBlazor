@@ -6,7 +6,13 @@
     decimal PlannedAmount { get; set; }
   }
 
-  public class EditBudgetFormValues : IEditPlannedAmountFormValues
+  public interface IEditNameFormValues
+  {
+    int FundId { get; }
+    string Name { get; set; }
+  }
+
+  public class EditBudgetFormValues : IEditPlannedAmountFormValues, IEditNameFormValues
   {
     public EditBudgetFormValues(int fundId, string name, decimal plannedAmount)
     {

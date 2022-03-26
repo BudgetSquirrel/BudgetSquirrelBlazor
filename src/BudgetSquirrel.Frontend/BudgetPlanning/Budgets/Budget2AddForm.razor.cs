@@ -21,7 +21,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     public EventCallback OnCancel { get; set; } = new EventCallback();
 
     [Parameter]
-    public FundRelationships ParentBudget { get; set; }
+    public FundRelationships ParentBudget { get; set; } = null!;
 
     private class Budget2AddFormValues : IBudget2AddFormValues
     {
@@ -42,7 +42,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
       this.values = new Budget2AddFormValues(this.ParentBudget.Fund.Id);
     }
 
-    private Budget2AddFormValues values { get; set; }
+    private Budget2AddFormValues values { get; set; } = null!;
 
     private string nameDisplay => this.values.Name;
 

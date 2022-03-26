@@ -160,6 +160,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       await this.ReloadContext();
     }
 
+    private async Task ChangeSubFundName(IEditNameFormValues values)
+    {
+      await this.budgetPlanningService.EditFundName(values.FundId, values.Name);
+      await this.ReloadContext();
+    }
+
     /// <summary>
     /// "Add Budget" button was clicked. Budget detail form
     /// will pop up.

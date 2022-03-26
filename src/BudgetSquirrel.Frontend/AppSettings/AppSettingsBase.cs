@@ -4,6 +4,6 @@ namespace BudgetSquirrel.Frontend.AppSettings
 {
   public abstract class AppSettingsBase
   {
-    public virtual BackendConfiguration Backend { get; set; }
+    public virtual BackendConfiguration Backend { get; set; } = null!;
   }
 }
