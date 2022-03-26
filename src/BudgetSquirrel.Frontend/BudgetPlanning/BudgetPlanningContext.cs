@@ -47,6 +47,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
       public decimal SubBudgetsTotalPlannedAmount => this.SubFunds.Sum(f => f.Budget.PlannedAmount);
 
+      /// <summary>
+      /// Amount by which the total planned amount of the sub budgets differs from the
+      /// planned amount of this budget.
+      /// </summary>
+      public decimal SubBudgetsTotalPlannedAmountDifference => this.Budget.PlannedAmount - this.SubBudgetsTotalPlannedAmount;
+
       public IEnumerable<FundRelationships> SubFunds { get; private set; }
     }
 
