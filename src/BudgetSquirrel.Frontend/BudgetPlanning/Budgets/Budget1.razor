@@ -25,6 +25,12 @@
             delete
           </button>
         }
+        @if (this.Budget.SubBudgetsTotalPlannedAmountDifference != 0)
+        {
+          <button class="material-icons icon-button" @onclick="this.FixPlannedAmount">
+            build
+          </button>
+        }
       </div>
     </div>
     <div class="_budget-stat__container">
@@ -33,7 +39,7 @@
         <EditableText
           CssClass="@this.AmountInStatValueCssClass"
           Value="@this.State.PlannedAmount.ToString()"
-          OnChange="@this.ChangePlannedAmount"
+          OnChange="@this.ChangePlannedAmountRaw"
           Placeholder="(ex. 3000.00)"
           Type="currency"
           WidthEms=8 />

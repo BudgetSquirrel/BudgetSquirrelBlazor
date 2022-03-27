@@ -99,20 +99,33 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
       this.OnNameChanged.InvokeAsync(this.State);
     }
 
-    private async Task ChangePlannedAmount(string newPlannedAmountRaw)
+    private Task ChangePlannedAmountRaw(string newPlannedAmountRaw)
     {
       bool isValidFormat = decimal.TryParse(newPlannedAmountRaw, out decimal newPlannedAmount);
       if (isValidFormat)
       {
-        this.State.PlannedAmount = newPlannedAmount;
+        return this.ChangePlannedAmount(newPlannedAmount);
       }
-
-      await this.OnPlannedAmountChanged.InvokeAsync(this.State);
+      else
+      {
+        return Task.CompletedTask;
+      }
     }
 
     private Task ChangeSubBudgetPlannedAmount(IEditPlannedAmountFormValues values)
     {
       return this.OnPlannedAmountChanged.InvokeAsync(values);
+    }
+
+    private Task FixPlannedAmount()
+    {
+      return ChangePlannedAmount(this.Budget.SubBudgetsTotalPlannedAmount);
+    }
+
+    private Task ChangePlannedAmount(decimal amount)
+    {
+      this.State.PlannedAmount = amount;
+      return this.OnPlannedAmountChanged.InvokeAsync(this.State);
     }
   }
 }
