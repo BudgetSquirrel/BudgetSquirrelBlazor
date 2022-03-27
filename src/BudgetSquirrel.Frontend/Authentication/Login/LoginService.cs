@@ -13,7 +13,6 @@ namespace BudgetSquirrel.Frontend.Authentication.Login
     private IBackendClient backend;
     private NavigationManager navigationManager;
     private ICookieService cookieService;
-
     private LoginContext loginContext;
 
     public LoginService(

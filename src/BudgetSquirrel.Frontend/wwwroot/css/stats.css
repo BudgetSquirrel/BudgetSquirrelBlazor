@@ -44,6 +44,10 @@
   color: var(--clr-fg-color-good);
 }
 
+.stat__value--caution {
+  color: var(--clr-fg-color-caution);
+}
+
 .stat__value--bad {
   color: var(--clr-fg-color-bad);
 }
