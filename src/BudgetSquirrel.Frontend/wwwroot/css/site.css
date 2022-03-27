@@ -38,6 +38,7 @@
     --clr-fg-color: var(--tan-700);
     --clr-fg-color-good: var(--green-a700);
     --clr-fg-color-bad: var(--red-900);
+    --clr-fg-color-caution: var(--yellow-500);
     --clr-fg-no-color: var(--blackish-500);
     --clr-fg-no-color-2: var(--blackish-600);
     --clr-fg-no-color-bold: var(--blackish-700);

@@ -68,7 +68,7 @@ namespace BudgetSquirrel.Backend.Controllers
                     string token = this.tokenAuthenticator.GenerateToken(user.Email);
                     return Ok(token);
                 }
-                
+
                 return this.Unauthorized("Username or Password were incorrect");
             }
             catch (Exception ex) when (ex is AuthenticationException)
@@ -91,7 +91,7 @@ namespace BudgetSquirrel.Backend.Controllers
                 newUser.FirstName,
                 newUser.LastName));
             await cmd.Execute(await cmd.Validate(await cmd.Load()));
-            
+
             return Ok();
 
         }

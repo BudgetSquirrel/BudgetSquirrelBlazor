@@ -95,7 +95,10 @@ namespace BudgetSquirrel.Frontend.Authentication.Registration
         this.GotError = true;
       }
       
-      this.navigationManager.NavigateTo("/budget-planner");
+      if (this.GotError == false)
+      {
+        this.navigationManager.NavigateTo("/budget-planner");
+      }
     }
   }
 }
