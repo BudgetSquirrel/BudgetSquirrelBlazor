@@ -1,4 +1,4 @@
-using BudgetSquirrel.BudgetPlanning.Data.Infrastructure;
+using BudgetSquirrel.Common.Data.Infrastructure;
 
 namespace BudgetSquirrel.BudgetPlanning.Domain.Funds
 {

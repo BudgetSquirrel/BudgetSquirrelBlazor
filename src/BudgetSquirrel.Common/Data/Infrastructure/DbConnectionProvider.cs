@@ -1,7 +1,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace BudgetSquirrel.BudgetPlanning.Data.Infrastructure
+namespace BudgetSquirrel.Common.Data.Infrastructure
 {
   public class DbConnectionProvider
   {

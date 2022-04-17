@@ -1,4 +1,4 @@
-namespace BudgetSquirrel.BudgetPlanning.Data.Infrastructure
+namespace BudgetSquirrel.Common.Data.Infrastructure
 {
   public interface IDto<TDomain>
   {

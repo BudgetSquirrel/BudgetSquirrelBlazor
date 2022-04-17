@@ -1,4 +1,4 @@
-namespace BudgetSquirrel.BudgetPlanning.Data.Infrastructure
+namespace BudgetSquirrel.Common.Data.Infrastructure
 {
   /// <summary>
   /// Contains helpers which return fragments of SQL that can be used together to

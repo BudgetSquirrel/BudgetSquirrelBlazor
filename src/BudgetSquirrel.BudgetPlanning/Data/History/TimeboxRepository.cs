@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Threading.Tasks;
 using BudgetSquirrel.BudgetPlanning.Business.History;
-using BudgetSquirrel.BudgetPlanning.Data.Infrastructure;
+using BudgetSquirrel.Common.Data.Infrastructure;
 using BudgetSquirrel.BudgetPlanning.Data.Schema;
 using BudgetSquirrel.BudgetPlanning.Domain.History;
 using Dapper;

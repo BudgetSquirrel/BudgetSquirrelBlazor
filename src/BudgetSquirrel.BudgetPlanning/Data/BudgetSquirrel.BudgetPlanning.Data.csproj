@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BudgetSquirrel.Web.Common\BudgetSquirrel.Web.Common.csproj" />
     <ProjectReference Include="..\Domain\BudgetSquirrel.BudgetPlanning.Domain.csproj" />
     <ProjectReference Include="..\Business\BudgetSquirrel.BudgetPlanning.Business.csproj" />
+    <ProjectReference Include="..\..\BudgetSquirrel.Common\Data\BudgetSquirrel.Common.Data.csproj" />
     <ProjectReference Include="..\..\GateKeeper\GateKeeper.csproj" />
   </ItemGroup>
 

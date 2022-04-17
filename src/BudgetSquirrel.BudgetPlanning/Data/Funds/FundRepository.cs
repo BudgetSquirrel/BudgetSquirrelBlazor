@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.BudgetPlanning.Business.Funds;
-using BudgetSquirrel.BudgetPlanning.Data.Infrastructure;
+using BudgetSquirrel.Common.Data.Infrastructure;
 using BudgetSquirrel.BudgetPlanning.Data.Schema;
 using BudgetSquirrel.BudgetPlanning.Domain.Funds;
 using Dapper;

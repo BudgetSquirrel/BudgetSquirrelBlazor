@@ -3,7 +3,7 @@ using System.Data;
 using System.Threading.Tasks;
 using BudgetSquirrel.BudgetPlanning.Domain.Accounts;
 using BudgetSquirrel.BudgetPlanning.Business.Accounts;
-using BudgetSquirrel.BudgetPlanning.Data.Infrastructure;
+using BudgetSquirrel.Common.Data.Infrastructure;
 using Dapper;
 using GateKeeper.Configuration;
 using GateKeeper.Cryptogrophy;

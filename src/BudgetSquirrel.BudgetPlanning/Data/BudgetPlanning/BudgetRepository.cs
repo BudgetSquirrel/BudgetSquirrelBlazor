@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Threading.Tasks;
 using BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning;
-using BudgetSquirrel.BudgetPlanning.Data.Infrastructure;
+using BudgetSquirrel.Common.Data.Infrastructure;
 using BudgetSquirrel.BudgetPlanning.Domain.BudgetPlanning;
 using Dapper;
 using BudgetPlanningProcedures = BudgetSquirrel.BudgetPlanning.Data.Schema.StoredProcedures.BudgetPlanning;

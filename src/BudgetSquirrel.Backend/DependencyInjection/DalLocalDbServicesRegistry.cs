@@ -6,7 +6,7 @@ using BudgetSquirrel.BudgetPlanning.Data;
 using BudgetSquirrel.BudgetPlanning.Data.Accounts;
 using BudgetSquirrel.BudgetPlanning.Data.Funds;
 using BudgetSquirrel.BudgetPlanning.Data.History;
-using BudgetSquirrel.BudgetPlanning.Data.Infrastructure;
+using BudgetSquirrel.Common.Data.Infrastructure;
 using BudgetSquirrel.BudgetPlanning.Domain.History;
 using Microsoft.Extensions.DependencyInjection;
 
