@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using BudgetSquirrel.Backend.Biz.BudgetPlanning;
-using BudgetSquirrel.Backend.Biz.Funds;
-using BudgetSquirrel.Backend.Biz.History;
+using BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning;
+using BudgetSquirrel.BudgetPlanning.Business.Funds;
+using BudgetSquirrel.BudgetPlanning.Business.History;
 using BudgetSquirrel.Backend.Resolvers;
 using BudgetSquirrel.Web.Common.Messages.BudgetPlanning;
 using Microsoft.AspNetCore.Mvc;

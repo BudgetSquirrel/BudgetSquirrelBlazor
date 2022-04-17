@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BudgetSquirrel.Backend.Biz.BudgetPlanning;
+using BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning;
 using BudgetSquirrel.Web.Common.Messages.BudgetPlanning;
 using static BudgetSquirrel.Web.Common.Messages.BudgetPlanning.BudgetPlanningContextResponse;
 
@@ -19,7 +19,7 @@ namespace BudgetSquirrel.Backend.Resolvers
         budgets);
     }
 
-    private static FundSubFunds ToApiMessage(BudgetSquirrel.Core.Funds.FundSubFunds fundSubFunds)
+    private static FundSubFunds ToApiMessage(BudgetSquirrel.BudgetPlanning.Domain.Funds.FundSubFunds fundSubFunds)
     {
       List<FundSubFunds> subFunds = fundSubFunds.SubFunds.Select(fsf => ToApiMessage(fsf)).ToList();
       return new FundSubFunds(
@@ -33,7 +33,7 @@ namespace BudgetSquirrel.Backend.Resolvers
         subFunds);
     }
 
-    private static FundBudget ToApiMessage(BudgetSquirrel.Core.BudgetPlanning.FundBudget fundBudget)
+    private static FundBudget ToApiMessage(BudgetSquirrel.BudgetPlanning.Domain.BudgetPlanning.FundBudget fundBudget)
     {
       decimal plannedAmount = fundBudget.Budget.PlannedAmount;
       int fundId = fundBudget.Fund.Id;

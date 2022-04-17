@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetSquirrel.Core", "BudgetSquirrel.Core\BudgetSquirrel.Core.csproj", "{48CDAA33-801C-479D-A8A5-7DF09A3AD436}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetSquirrel.BudgetPlanning.Domain", "BudgetSquirrel.BudgetPlanning\Domain\BudgetSquirrel.BudgetPlanning.Domain.csproj", "{48CDAA33-801C-479D-A8A5-7DF09A3AD436}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetSquirrel.Frontend", "BudgetSquirrel.Frontend\BudgetSquirrel.Frontend.csproj", "{060B8BC3-F9DC-44B5-A7DF-966FD8302BBF}"
 EndProject
@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetSquirrel.Web.Common",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GateKeeper", "GateKeeper\GateKeeper.csproj", "{3885CA1E-82DF-4A21-B83B-66D9E7499762}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetSquirrel.Backend.Dal.LocalDb", "BudgetSquirrel.Backend.Dal.LocalDb\BudgetSquirrel.Backend.Dal.LocalDb.csproj", "{A149C8AC-14DF-4CC5-806B-9A1C7F717DE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetSquirrel.BudgetPlanning.Data", "BudgetSquirrel.BudgetPlanning\Data\BudgetSquirrel.BudgetPlanning.Data.csproj", "{A149C8AC-14DF-4CC5-806B-9A1C7F717DE3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetSquirrel.Backend.Biz", "BudgetSquirrel.Backend.Biz\BudgetSquirrel.Backend.Biz.csproj", "{EBC4D075-EFF3-4D5D-B21B-817D53BCB64D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetSquirrel.BudgetPlanning.Business", "BudgetSquirrel.BudgetPlanning\Business\BudgetSquirrel.BudgetPlanning.Business.csproj", "{EBC4D075-EFF3-4D5D-B21B-817D53BCB64D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
