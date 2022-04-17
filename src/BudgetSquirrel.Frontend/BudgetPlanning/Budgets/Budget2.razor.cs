@@ -46,6 +46,27 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     }
 
     public string BalanceDisplay => this.Budget.Fund.Balance.ToString("C");
+    
+    public string BalanceDiscrepencyLabelDisplay
+    {
+      get
+      {
+        if (this.Budget.SubBudgetsTotalPlannedAmountDifference > 0)
+        {
+          return "Left to Budget";
+        }
+        else if (this.Budget.SubBudgetsTotalPlannedAmountDifference < 0)
+        {
+          return "Over Budget";
+        }
+        else
+        {
+          return "";
+        }
+      }
+    }
+    
+    public string BalanceDiscrepencyValueDisplay => this.Budget.SubBudgetsTotalPlannedAmountDifference.ToString("C");
 
     private bool IsDeletingBudget { get; set; } = false;
 

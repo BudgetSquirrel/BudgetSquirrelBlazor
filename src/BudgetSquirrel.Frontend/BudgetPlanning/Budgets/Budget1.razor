@@ -45,19 +45,15 @@
           WidthEms=8 />
       </div>
 
-      <div class="stat _budget-stat">
-        <p class="stat__label">Balance</p>
-        <p class="stat__value">
-          @this.BalanceDisplay
-        </p>
-      </div>
-
-      <div class="stat _budget-stat">
-        <p class="stat__label">Balance</p>
-        <p class="stat__value">
-          @this.BalanceDisplay
-        </p>
-      </div>
+      @if (!this.IsSubBudgetPlannedAmountZeroedOut)
+      {
+        <div class="stat _budget-stat">
+          <p class="stat__label">@this.BalanceDiscrepencyLabelDisplay</p>
+          <p class="stat__value stat__value--bad">
+            @this.BalanceDiscrepencyValueDisplay
+          </p>
+        </div>
+      }
     </div>
   </div>
 

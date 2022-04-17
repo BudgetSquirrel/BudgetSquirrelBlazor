@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -60,6 +61,27 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     }
 
     public string BalanceDisplay => this.Budget.Fund.Balance.ToString("C");
+    
+    public string BalanceDiscrepencyLabelDisplay
+    {
+      get
+      {
+        if (this.Budget.SubBudgetsTotalPlannedAmountDifference > 0)
+        {
+          return "Left to Budget";
+        }
+        else if (this.Budget.SubBudgetsTotalPlannedAmountDifference < 0)
+        {
+          return "Over Budget";
+        }
+        else
+        {
+          return "";
+        }
+      }
+    }
+
+    public string BalanceDiscrepencyValueDisplay => Math.Abs(this.Budget.SubBudgetsTotalPlannedAmountDifference).ToString("C");
 
     public void OnAddSubBudgetClicked()
     {
