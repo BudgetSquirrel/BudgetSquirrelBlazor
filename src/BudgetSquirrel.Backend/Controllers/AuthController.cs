@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BudgetSquirrel.Core.Accounts;
+using BudgetSquirrel.BudgetPlanning.Domain.Accounts;
 using BudgetSquirrel.Backend.Auth;
-using BudgetSquirrel.Backend.Biz.Accounts;
-using BudgetSquirrel.Backend.Dal.LocalDb.Accounts;
+using BudgetSquirrel.BudgetPlanning.Business.Accounts;
+using BudgetSquirrel.BudgetPlanning.Data.Accounts;
 using BudgetSquirrel.Web.Common.Messages.Auth;
 using GateKeeper.Exceptions;
 using Microsoft.AspNetCore.Authentication;
@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using BudgetSquirrel.Backend.Biz.BudgetPlanning;
-using BudgetSquirrel.Core.History;
-using BudgetSquirrel.Backend.Biz.History;
+using BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning;
+using BudgetSquirrel.BudgetPlanning.Domain.History;
+using BudgetSquirrel.BudgetPlanning.Business.History;
 using Microsoft.AspNetCore.Http;
 using BudgetSquirrel.Backend.Resolvers;
 

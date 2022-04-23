@@ -1,4 +1,4 @@
-using BudgetSquirrel.Core.Accounts;
+using BudgetSquirrel.BudgetPlanning.Domain.Accounts;
 using BudgetSquirrel.Web.Common.Messages.Auth;
 
 namespace BudgetSquirrel.Backend.Resolvers

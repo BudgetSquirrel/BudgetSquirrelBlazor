@@ -1,13 +1,13 @@
-using BudgetSquirrel.Backend.Biz.Accounts;
-using BudgetSquirrel.Backend.Biz.BudgetPlanning;
-using BudgetSquirrel.Backend.Biz.Funds;
-using BudgetSquirrel.Backend.Biz.History;
-using BudgetSquirrel.Backend.Dal.LocalDb;
-using BudgetSquirrel.Backend.Dal.LocalDb.Accounts;
-using BudgetSquirrel.Backend.Dal.LocalDb.Funds;
-using BudgetSquirrel.Backend.Dal.LocalDb.History;
-using BudgetSquirrel.Backend.Dal.LocalDb.Infrastructure;
-using BudgetSquirrel.Core.History;
+using BudgetSquirrel.BudgetPlanning.Business.Accounts;
+using BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning;
+using BudgetSquirrel.BudgetPlanning.Business.Funds;
+using BudgetSquirrel.BudgetPlanning.Business.History;
+using BudgetSquirrel.BudgetPlanning.Data;
+using BudgetSquirrel.BudgetPlanning.Data.Accounts;
+using BudgetSquirrel.BudgetPlanning.Data.Funds;
+using BudgetSquirrel.BudgetPlanning.Data.History;
+using BudgetSquirrel.Common.Data.Infrastructure;
+using BudgetSquirrel.BudgetPlanning.Domain.History;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BudgetSquirrel.Backend.DependencyInjection
