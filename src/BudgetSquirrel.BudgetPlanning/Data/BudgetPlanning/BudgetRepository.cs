@@ -113,5 +113,21 @@ namespace BudgetSquirrel.BudgetPlanning.Data
         );
       }
     }
+
+    public async Task SetBudgetIsFinalized(int profileId, int timeboxId, bool isFinalized)
+    {
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        await conn.ExecuteAsync(
+          $"EXEC {BudgetPlanningProcedures.SetBudgetIsFinalized} @ProfileId, @TimeboxId, @IsFinalized",
+          new
+          {
+            ProfileId = profileId,
+            TimeboxId = timeboxId,
+            IsFinalized = isFinalized
+          }
+        );
+      }
+    }
   }
 }

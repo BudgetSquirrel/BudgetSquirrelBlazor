@@ -27,6 +27,7 @@ namespace BudgetSquirrel.BudgetPlanning.Data.Schema
       public static readonly string GetBudgetForFund = _("GetBudgetForFund");
       public static readonly string EditBudget = _("EditBudget");
       public static readonly string DeleteBudget = _("DeleteBudget");
+      public static readonly string SetBudgetIsFinalized = _("SetBudgetIsFinalized");
     }
 
     public static class Funds
