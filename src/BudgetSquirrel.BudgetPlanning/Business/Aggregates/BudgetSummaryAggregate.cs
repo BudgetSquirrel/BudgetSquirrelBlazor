@@ -37,10 +37,16 @@ namespace BudgetSquirrel.BudgetPlanning.Business.Aggregates
     {
       get
       {
+        if (!this.SubBudgets.Any())
+        {
+          return true;
+        }
+
         if (this.FundBudget.Budget.PlannedAmount != this.AmountAllocatedInSubBudgets)
         {
           return false;
         }
+        
         if (this.SubBudgets.Any(child => !child.IsFullyAllocated))
         {
           return false;
