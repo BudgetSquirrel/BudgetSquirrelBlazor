@@ -6,11 +6,13 @@ using BudgetSquirrel.Backend.Resolvers;
 using BudgetSquirrel.Web.Common.Messages.BudgetPlanning;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BudgetSquirrel.Backend.Controllers
 {
   [ApiController]
   [Route("backend/budget-planning")]
+  [Authorize]
   public class BudgetPlanningController : Controller
   {
     private IFundRepository fundRepository;
@@ -25,6 +27,19 @@ namespace BudgetSquirrel.Backend.Controllers
       this.fundRepository = fundRepository;
       this.budgetRepository = budgetRepository;
       this.timeboxRepository = timeboxRepository;
+    }
+
+    [HttpPost("finalize")]
+    public async Task<IActionResult> FinalizeBudget([FromBody] FinalizeBudgetRequest request)
+    {
+      FinalizeBudgetCommand cmd = new FinalizeBudgetCommand(
+        this.fundRepository,
+        this.budgetRepository,
+        request.ProfileId,
+        request.TimeboxId);
+
+      await cmd.Execute();
+      return Ok();
     }
 
     [HttpGet("context")]

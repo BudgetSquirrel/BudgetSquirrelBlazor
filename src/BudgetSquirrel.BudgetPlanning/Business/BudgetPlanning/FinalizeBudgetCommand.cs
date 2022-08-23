@@ -36,7 +36,7 @@ namespace BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning
       BudgetSummaryAggregate budgetSummaryAggregate = new BudgetSummaryAggregate(queryResult.FundTree, queryResult.FundBudgets);
       if (!budgetSummaryAggregate.IsFullyAllocated)
       {
-        throw new InvalidCommandOperationException("All budgets must be fully allocated to finalize the budget plan.");
+        throw new InvalidCommandOperationException("All budgets must be fully allocated to finalize the budget.");
       }
 
       await this.budgetRepository.SetBudgetIsFinalized(this.profileId, this.timeboxId, true);

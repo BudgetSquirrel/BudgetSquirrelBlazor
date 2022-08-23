@@ -15,5 +15,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     Task CreateSubBudget(int parentFundId, int timeboxId, string name, decimal plannedAmount);
 
     Task DeleteBudget(int fundId, int timeboxId);
+    
+    Task FinalizeBudget(int profileId, int timeboxId);
   }
 }

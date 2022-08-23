@@ -30,6 +30,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     private bool isCreatingBudget = false;
 
+    private bool isFinalizingBudget = false;
+
     protected override Task OnInitializedAsync()
     {
       return this.ReloadContext();
@@ -215,6 +217,23 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private async Task DeleteBudget(IDeleteBudgetFormValues values)
     {
       await this.budgetPlanningService.DeleteBudget(values.FundId, this.context.Timebox.Id);
+      await this.ReloadContext();
+    }
+
+    private void StartFinalizingBudgetClicked()
+    {
+      this.isFinalizingBudget = true;
+    }
+
+    private void CancelFinalizingBudgetClicked()
+    {
+      this.isFinalizingBudget = false;
+    }
+
+    private async Task ConfirmFinalizingBudgetClicked()
+    {
+      this.isFinalizingBudget = false;
+      await this.budgetPlanningService.FinalizeBudget(this.rootBudget.Fund.ProfileId, this.context.Timebox.Id);
       await this.ReloadContext();
     }
 
