@@ -12,11 +12,14 @@ namespace BudgetSquirrel.Backend.Resolvers
     public static BudgetPlanningContextResponse ToApiMessage(GetBudgetPlanningContextQuery.BudgetPlanningContext context)
     {
       List<FundBudget> budgets = context.Budgets.Select(b => ToApiMessage(b)).ToList();
+      FundSubFunds fundSubFundsTree = ToApiMessage(context.FundTree);
+      BudgetPlanning.Domain.BudgetPlanning.FundBudget rootFundBudget = context.Budgets.Single(b => b.Fund.IsRoot);
       return new BudgetPlanningContextResponse(
         new TimeboxDetails(context.Timebox.Id, context.Timebox.StartDate, context.Timebox.EndDate),
         new UserProfile(context.Profile.ProfileId),
-        ToApiMessage(context.FundTree),
-        budgets);
+        fundSubFundsTree,
+        budgets,
+        rootFundBudget.Budget.IsFinalized);
     }
 
     private static FundSubFunds ToApiMessage(BudgetSquirrel.BudgetPlanning.Domain.Funds.FundSubFunds fundSubFunds)

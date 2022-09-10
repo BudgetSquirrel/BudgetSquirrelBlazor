@@ -1,0 +1,30 @@
+@page "/budget-tracker"
+@using BudgetSquirrel.Frontend.Shared.Controls
+
+<div class="_budget-tracking-page page-margins__apply">
+  @if (this.isLoading)
+  {
+    <LoadingCover />
+  }
+  else
+  {
+    @* ========================== *@
+    @* Page title *@
+    @* ========================== *@
+    <h1 class="_root-budget-title__container">
+      @* <div class="_root-budget-title">
+        <EditableText Value="@this.RootFundName" OnChange="@this.ChangeRootFundName" Placeholder="(ex. My Main Budget)"
+        Type="text" />
+      </div>
+      <span class="foreground-default--subtle subtle-detail">@this.timeboxDisplay</span> *@
+      <div class="_root-budget-title">
+        <EditableText
+          Value="My Budget"
+          OnChange="() => {}"
+          Placeholder="(ex. My Main Budget)"
+          Type="text" />
+      </div>
+      <span class="foreground-default--subtle subtle-detail">(9/1 - 9/30)</span>
+    </h1>
+  }
+</div>

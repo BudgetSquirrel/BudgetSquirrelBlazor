@@ -20,6 +20,9 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     [Inject]
     private IBudgetPlanningService budgetPlanningService { get; set; } = null!;
 
+    [Inject]
+    private NavigationManager navigationManager { get; set; } = null!;
+
     #endregion
 
     #region component state
@@ -42,6 +45,11 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       this.isLoading = true;
       await this.loginService.PromptLoginIfNecessary();
       this.context = await this.budgetPlanningService.GetBudgetTree();
+      
+      if (this.context.isFinalized)
+      {
+        this.navigationManager.NavigateTo("/budget-tracker");
+      }
       this.isLoading = false;
     }
 

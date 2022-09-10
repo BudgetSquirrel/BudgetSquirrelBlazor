@@ -10,10 +10,13 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     
     public FundRelationships FundTree { get; private set; }
 
-    public BudgetPlanningContext(FundRelationships fundTree, TimeboxDetails timebox)
+    public bool isFinalized { get; private set; }
+
+    public BudgetPlanningContext(FundRelationships fundTree, TimeboxDetails timebox, bool isFinalized)
     {
       this.FundTree = fundTree;
       this.Timebox = timebox;
+      this.isFinalized = isFinalized;
     }
     
     public class TimeboxDetails
