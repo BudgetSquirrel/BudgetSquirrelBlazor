@@ -217,3 +217,23 @@
 .form-field-group__label {
     display: block;
 }
+
+.form-action-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-action-group--align-left {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.form-action-group > .form-action {
+    margin-left: 1rem;
+}
+
+.form-action-group > .form-action:first-of-type {
+    margin-left: 0;
+}

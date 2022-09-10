@@ -10,11 +10,14 @@ namespace BudgetSquirrel.BudgetPlanning.Domain.BudgetPlanning
   /// </summary>
   public class Budget
   {
-    public Budget(decimal plannedAmount)
+    public Budget(decimal plannedAmount, bool isFinalized)
     {
       this.PlannedAmount = plannedAmount;
+      this.IsFinalized = isFinalized;
     }
 
     public decimal PlannedAmount { get; set; }
+
+    public bool IsFinalized { get; private set; }
   }
 }

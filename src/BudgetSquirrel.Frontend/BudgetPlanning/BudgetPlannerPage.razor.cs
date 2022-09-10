@@ -20,6 +20,9 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     [Inject]
     private IBudgetPlanningService budgetPlanningService { get; set; } = null!;
 
+    [Inject]
+    private NavigationManager navigationManager { get; set; } = null!;
+
     #endregion
 
     #region component state
@@ -29,6 +32,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private bool isLoading = true;
 
     private bool isCreatingBudget = false;
+
+    private bool isFinalizingBudget = false;
 
     protected override Task OnInitializedAsync()
     {
@@ -40,6 +45,11 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       this.isLoading = true;
       await this.loginService.PromptLoginIfNecessary();
       this.context = await this.budgetPlanningService.GetBudgetTree();
+      
+      if (this.context.isFinalized)
+      {
+        this.navigationManager.NavigateTo("/budget-tracker");
+      }
       this.isLoading = false;
     }
 
@@ -215,6 +225,23 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private async Task DeleteBudget(IDeleteBudgetFormValues values)
     {
       await this.budgetPlanningService.DeleteBudget(values.FundId, this.context.Timebox.Id);
+      await this.ReloadContext();
+    }
+
+    private void StartFinalizingBudgetClicked()
+    {
+      this.isFinalizingBudget = true;
+    }
+
+    private void CancelFinalizingBudgetClicked()
+    {
+      this.isFinalizingBudget = false;
+    }
+
+    private async Task ConfirmFinalizingBudgetClicked()
+    {
+      this.isFinalizingBudget = false;
+      await this.budgetPlanningService.FinalizeBudget(this.rootBudget.Fund.ProfileId, this.context.Timebox.Id);
       await this.ReloadContext();
     }
 

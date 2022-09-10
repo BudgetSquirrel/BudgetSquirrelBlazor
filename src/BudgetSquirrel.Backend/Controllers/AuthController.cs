@@ -31,14 +31,15 @@ namespace BudgetSquirrel.Backend.Controllers
         private readonly ITimeboxRepository timeboxRepository;
         private readonly IJwtTokenAuthenticator tokenAuthenticator;
 
-        public AuthController(/*ILogger<AuthController> logger,*/
+        public AuthController(
+            ILoggerFactory loggerFactory,
             IAuthService authenticationService,
             IAccountRepository userRepository,
             ITimeboxRepository timeboxRepository,
             IJwtTokenAuthenticator tokenAuthenticator,
             IBudgetRepository budgetRepository)
         {
-            // this.logger = logger;
+            this.logger = loggerFactory.CreateLogger<AuthController>();
             this.authenticationService = authenticationService;
             this.accountRepository = userRepository;
             this.budgetRepository = budgetRepository;

@@ -15,3 +15,8 @@
 ._budget-planner-page ._budget-container {
   margin-top: 1rem;
 }
+
+._budget-planner-page ._finalize-confirmation {
+  padding: 2rem;
+  width: 50rem;
+}

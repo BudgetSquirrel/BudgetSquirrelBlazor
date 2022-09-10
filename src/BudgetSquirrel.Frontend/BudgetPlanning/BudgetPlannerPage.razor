@@ -49,23 +49,30 @@
     @* ========================== *@
     @* Page level actions *@
     @* ========================== *@
-    <div class="_page-actions">
+    <div class="_page-actions form-action-group form-action-group--align-left">
     @if (this.isCreatingBudget)
       {
-        <button class="button" @onclick="@this.CancelCreateBudgetClicked">
+        <button class="button form-action" @onclick="@this.CancelCreateBudgetClicked">
           Stop Adding Budget
         </button>
       }
       else
       {
-        <button class="button button--encourage" @onclick="@this.StartCreateBudgetClicked">
+        <button class="button button--encourage form-action" @onclick="@this.StartCreateBudgetClicked">
           Add Budget
         </button>
+        
+        if (!this.isFinalizingBudget)
+        {
+          <button class="button form-action" @onclick="@this.StartFinalizingBudgetClicked">
+            Finalize Budget
+          </button>
+        }
       }
     </div>
 
     @* ========================== *@
-    @* Budget display section *@
+    @* Budget display section     *@
     @* ========================== *@
     <div class="_budget-section">
     @if (this.isCreatingBudget)
@@ -85,5 +92,26 @@
         </div>
       }
     </div>
+  }
+
+  @if (this.isFinalizingBudget)
+  {
+    <Modal>
+      <div class="_finalize-confirmation">
+        <p>
+          You are about to finalize this budget and move on to transaction tracking.
+          You will not be able to modify the plan for the rest of this budget period
+          unless you close out the period early. Are you sure you would like to do this?
+        </p>
+        <div class="form-action-group _finalize-confirmation__actions">
+          <button class="button button--narrow form-action" @onclick="@this.ConfirmFinalizingBudgetClicked">
+            Yes Finalize
+          </button>
+          <button class="button button--narrow button--discourage form-action" @onclick="@this.CancelFinalizingBudgetClicked">
+            Stay in Planning Phase
+          </button>
+        </div>
+      </div>
+    </Modal>
   }
 </div>

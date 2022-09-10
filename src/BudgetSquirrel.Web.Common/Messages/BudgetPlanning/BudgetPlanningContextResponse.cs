@@ -9,12 +9,18 @@ namespace BudgetSquirrel.Web.Common.Messages.BudgetPlanning
     {
     }
 
-    public BudgetPlanningContextResponse(TimeboxDetails timebox, UserProfile profile, FundSubFunds fundTree, IEnumerable<FundBudget> budgets)
+    public BudgetPlanningContextResponse(
+      TimeboxDetails timebox,
+      UserProfile profile,
+      FundSubFunds fundTree,
+      IEnumerable<FundBudget> budgets,
+      bool isFinalized)
     {
       Timebox = timebox;
       Profile = profile;
       FundTree = fundTree;
       Budgets = budgets;
+      IsFinalized = isFinalized;
     }
 
     public TimeboxDetails Timebox { get; set; }
@@ -24,6 +30,8 @@ namespace BudgetSquirrel.Web.Common.Messages.BudgetPlanning
     public FundSubFunds FundTree { get; set; }
 
     public IEnumerable<FundBudget> Budgets { get; set; }
+
+    public bool IsFinalized { get; set; }
 
     public class TimeboxDetails
     {

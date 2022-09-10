@@ -12,7 +12,8 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       IEnumerable<FundBudget> allAvailableFundBudgets = contextResponse.Budgets.Select(b => ToFrontendDto(b));
       return new BudgetPlanningContext(
         ToFrontendDto(contextResponse.FundTree, allAvailableFundBudgets),
-        new TimeboxDetails(contextResponse.Timebox.Id, contextResponse.Timebox.StartDate, contextResponse.Timebox.EndDate));
+        new TimeboxDetails(contextResponse.Timebox.Id, contextResponse.Timebox.StartDate, contextResponse.Timebox.EndDate),
+        contextResponse.IsFinalized);
     }
 
     private static FundRelationships ToFrontendDto(

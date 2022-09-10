@@ -8,10 +8,11 @@ namespace BudgetSquirrel.BudgetPlanning.Domain.BudgetPlanning
   public class BudgetDto : IDto<Budget>
   {
     public decimal PlannedAmount { get; set; }
+    public bool IsFinalized { get; set; }
 
     public Budget ToDomain()
     {
-      return new Budget(this.PlannedAmount);
+      return new Budget(this.PlannedAmount, this.IsFinalized);
     }
   }
 }

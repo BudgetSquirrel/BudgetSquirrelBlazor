@@ -18,6 +18,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private const string EditFundNameEndpoint = BudgetPlanningUri + "/edit-fund-name";
     private const string CreateLevel1BudgetEndpoint = BudgetPlanningUri + "/create-level1-budget";
     private const string CreateSubBudgetEndpoint = BudgetPlanningUri + "/create-sub-budget";
+    private const string FinalizeBudgetEndpoint = BudgetPlanningUri + "/finalize";
 
     private ILoginService loginService;
     private IBackendClient backendClient;
@@ -92,6 +93,17 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         DeleteBudgetEndpoint
           .Replace(EndpointFormatFundId, fundId.ToString())
           .Replace(EndpointFormatTimeboxId, timeboxId.ToString()));
+    }
+
+    public Task FinalizeBudget(int profileId, int timeboxId)
+    {
+      return this.backendClient.ExecuteCommand(
+        FinalizeBudgetEndpoint,
+        new FinalizeBudgetRequest()
+        {
+          ProfileId = profileId,
+          TimeboxId = timeboxId
+        });
     }
   }
 }
