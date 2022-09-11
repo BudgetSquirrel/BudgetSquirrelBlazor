@@ -1,0 +1,21 @@
+@page "/budget-tracker"
+@using BudgetSquirrel.Frontend.Shared.Controls
+
+<div class="_budget-tracking-page page-margins__apply">
+  @if (this.isLoading)
+  {
+    <LoadingCover />
+  }
+  else
+  {
+    @* ========================== *@
+    @* Page title *@
+    @* ========================== *@
+    <h1 class="_root-budget-title__container">
+      <div class="_root-budget-title">
+        <h1>@this.RootFundName</h1>
+      </div>
+      <span class="foreground-default--subtle subtle-detail">@this.timeboxDisplay</span>
+    </h1>
+  }
+</div>
