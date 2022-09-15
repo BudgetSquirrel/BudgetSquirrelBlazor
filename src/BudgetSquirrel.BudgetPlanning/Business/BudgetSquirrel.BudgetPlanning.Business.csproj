@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\BudgetSquirrel.BudgetPlanning.Domain.csproj" />
+    <ProjectReference Include="..\..\BudgetSquirrel.Common\AggregationUtils\BudgetSquirrel.Common.AggregationUtils.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

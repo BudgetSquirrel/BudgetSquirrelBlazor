@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.BudgetTracki
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.BudgetTracking.Data", "BudgetSquirrel.BudgetTracking\Data\BudgetSquirrel.BudgetTracking.Data.csproj", "{6018CA5D-4AA7-4C59-A9D2-E4B7E485A139}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BudgetSquirrel.Common", "BudgetSquirrel.Common", "{C4FCBA26-3730-486A-828D-934C3EC4913D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Common.AggregationUtils", "BudgetSquirrel.Common\AggregationUtils\BudgetSquirrel.Common.AggregationUtils.csproj", "{41A934D9-3306-476C-B6D9-D8432C5DB577}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -155,6 +159,18 @@ Global
 		{6018CA5D-4AA7-4C59-A9D2-E4B7E485A139}.Release|x64.Build.0 = Release|Any CPU
 		{6018CA5D-4AA7-4C59-A9D2-E4B7E485A139}.Release|x86.ActiveCfg = Release|Any CPU
 		{6018CA5D-4AA7-4C59-A9D2-E4B7E485A139}.Release|x86.Build.0 = Release|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Debug|x64.Build.0 = Debug|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Debug|x86.Build.0 = Debug|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Release|x64.ActiveCfg = Release|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Release|x64.Build.0 = Release|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Release|x86.ActiveCfg = Release|Any CPU
+		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -166,5 +182,6 @@ Global
 		{A91E7187-C6A6-42AE-A8A7-5B51EF254C37} = {C8509E65-73E3-414A-8FDA-9A1DF990278D}
 		{F8A76AA5-9155-489A-9E7F-4D2B5B88C2E7} = {C8509E65-73E3-414A-8FDA-9A1DF990278D}
 		{6018CA5D-4AA7-4C59-A9D2-E4B7E485A139} = {C8509E65-73E3-414A-8FDA-9A1DF990278D}
+		{41A934D9-3306-476C-B6D9-D8432C5DB577} = {C4FCBA26-3730-486A-828D-934C3EC4913D}
 	EndGlobalSection
 EndGlobal

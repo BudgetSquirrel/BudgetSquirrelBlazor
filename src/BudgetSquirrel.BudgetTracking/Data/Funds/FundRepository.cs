@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using BudgetSquirrel.BudgetPlanning.Business.Funds;
 using BudgetSquirrel.Common.Data.Infrastructure;
-using BudgetSquirrel.Common.Data.Schema;
-using BudgetSquirrel.BudgetPlanning.Domain.Funds;
+using BudgetSquirrel.BudgetTracking.Domain.Funds;
+using BudgetSquirrel.BudgetTracking.Business.Ports;
 using Dapper;
+using BudgetSquirrel.Common.Data.Schema;
 using BudgetSquirrel.Common.Data.Schema.Funds;
-using BudgetSquirrel.BudgetPlanning.Data.DtoConversions.Funds;
+using BudgetSquirrel.BudgetTracking.Data.Funds;
 
 namespace BudgetSquirrel.BudgetPlanning.Data.Funds
 {

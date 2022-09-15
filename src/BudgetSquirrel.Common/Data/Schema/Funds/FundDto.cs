@@ -1,11 +1,11 @@
 using BudgetSquirrel.Common.Data.Infrastructure;
 
-namespace BudgetSquirrel.BudgetPlanning.Domain.Funds
+namespace BudgetSquirrel.Common.Data.Schema.Funds
 {
   /// <summary>
   /// DTO for <see cref="Fund"/>
   /// </summary>
-  public class FundDto : IDto<Fund>
+  public class FundDto
   {
     public int Id { get; set; }
 
@@ -18,10 +18,5 @@ namespace BudgetSquirrel.BudgetPlanning.Domain.Funds
     public int ProfileId { get; set; }
 
     public int ParentFundId { get; set; }
-
-    public Fund ToDomain()
-    {
-      return new Fund(this.Name, this.Balance, this.IsRoot, this.ProfileId, this.Id, this.ParentFundId);
-    }
   }
 }

@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BudgetSquirrel.BudgetPlanning.Business.Funds;
-using BudgetSquirrel.BudgetPlanning.Domain.BudgetPlanning;
-using BudgetSquirrel.BudgetPlanning.Domain.Funds;
-using BudgetSquirrel.BudgetPlanning.Domain.History;
+using BudgetSquirrel.BudgetTracking.Business.Ports;
+using BudgetSquirrel.BudgetTracking.Domain.BudgetPlanning;
+using BudgetSquirrel.BudgetTracking.Domain.BudgetTracking;
+using BudgetSquirrel.BudgetTracking.Domain.Funds;
 using BudgetSquirrel.Common.AggregationUtils;
 
-namespace BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning
+namespace BudgetSquirrel.BudgetTracking.Business.Queries
 {
   public class GetAllFundsAndBudgetsQuery
   {

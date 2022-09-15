@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.BudgetPlanning.Business.Funds;
 using BudgetSquirrel.BudgetPlanning.Business.History;
-using BudgetSquirrel.BudgetPlanning.Domain;
 using BudgetSquirrel.BudgetPlanning.Domain.BudgetPlanning;
 using BudgetSquirrel.BudgetPlanning.Domain.Funds;
 using BudgetSquirrel.BudgetPlanning.Domain.History;
@@ -78,41 +76,6 @@ namespace BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning
       FundsAndBudgetsQueryResult queryResult = await fundsAndBudgetsQuery.Query();
 
       return new BudgetPlanningContext(profile, queryResult.FundTree, queryResult.FundBudgets, timebox);
-    }
-
-    private async Task<IEnumerable<FundBudget>> GetBudgetsForFundTree(FundSubFunds fundBranch, Timebox timebox)
-    {
-      List<FundBudget> budgetsInTree = new List<FundBudget>();
-
-      // Load the budget for the current fund in fundBranch.
-      Task<FundBudget> rootLoadTask = this.GetBudgetForFund(fundBranch.Fund, timebox);
-
-      // Load budgets for each sub fund of the current fund branch.
-      List<Task<IEnumerable<FundBudget>>> childLoadTasks = new List<Task<IEnumerable<FundBudget>>>();
-      foreach (FundSubFunds fundSubBranch in fundBranch.SubFunds)
-      {
-        childLoadTasks.Add(this.GetBudgetsForFundTree(fundSubBranch, timebox));
-      }
-
-      IEnumerable<Task> allLoads = childLoadTasks.Select(t => (Task)t)
-        .Append(rootLoadTask)
-        .ToList();
-      await Task.WhenAll(allLoads);
-
-      budgetsInTree.Add(await rootLoadTask);
-      foreach (Task<IEnumerable<FundBudget>> childLoad in childLoadTasks)
-      {
-        budgetsInTree.AddRange(await childLoad);
-      }
-
-      return budgetsInTree;
-    }
-
-    private async Task<FundBudget> GetBudgetForFund(Fund fund, Timebox timebox)
-    {
-      Budget budget = await this.budgetRepository.GetBudget(fund.Id, timebox.Id);
-      FundBudget fundBudgetRelationship = new FundBudget(budget, fund);
-      return fundBudgetRelationship;
     }
   }
 }

@@ -1,13 +1,13 @@
 using System;
 using System.Data;
 using System.Threading.Tasks;
-using BudgetSquirrel.BudgetPlanning.Business.History;
+using BudgetSquirrel.BudgetTracking.Business.Ports;
 using BudgetSquirrel.Common.Data.Infrastructure;
 using BudgetSquirrel.Common.Data.Schema;
-using BudgetSquirrel.BudgetPlanning.Domain.History;
-using Dapper;
+using BudgetSquirrel.BudgetTracking.Domain.History;
 using BudgetSquirrel.Common.Data.Schema.History;
-using BudgetSquirrel.BudgetPlanning.Data.DtoConversions.History;
+using Dapper;
+using BudgetSquirrel.BudgetTracking.Data.History;
 
 namespace BudgetSquirrel.BudgetPlanning.Data.History
 {
@@ -18,21 +18,6 @@ namespace BudgetSquirrel.BudgetPlanning.Data.History
     public TimeboxRepository(DbConnectionProvider dbConnectionProvider)
     {
       this.dbConnectionProvider = dbConnectionProvider;
-    }
-
-    public async Task CreateTimebox(int profileId, DateTime startDate, DateTime endDate)
-    {
-      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
-      {
-        await conn.ExecuteAsync(
-          $"EXEC {StoredProcedures.History.CreateTimebox} @ProfileId, @StartDate, @EndDate",
-          new
-          {
-            ProfileId = profileId,
-            StartDate = startDate,
-            EndDate = endDate
-          });
-      }
     }
 
     public async Task<Timebox> GetTimebox(int timeboxId)

@@ -1,14 +1,7 @@
-using BudgetSquirrel.BudgetPlanning.Business.Accounts;
-using BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning;
-using BudgetSquirrel.BudgetPlanning.Business.Funds;
-using BudgetSquirrel.BudgetPlanning.Business.History;
-using BudgetSquirrel.BudgetPlanning.Data;
-using BudgetSquirrel.BudgetPlanning.Data.Accounts;
-using BudgetSquirrel.BudgetPlanning.Data.Funds;
-using BudgetSquirrel.BudgetPlanning.Data.History;
 using BudgetSquirrel.Common.Data.Infrastructure;
-using BudgetSquirrel.BudgetPlanning.Domain.History;
 using Microsoft.Extensions.DependencyInjection;
+using BudgetSquirrel.BudgetPlanning.Data.DependencyInjection;
+using BudgetSquirrel.BudgetTracking.Data.DependencyInjection;
 
 namespace BudgetSquirrel.Backend.DependencyInjection
 {
@@ -19,10 +12,8 @@ namespace BudgetSquirrel.Backend.DependencyInjection
       string connectionString = "Server=127.0.0.1;Database=BudgetSquirrel;User Id=sa;password=yourStrong(!)Password";
       services.AddTransient<DbConnectionProvider>(serviceProvider => new DbConnectionProvider(connectionString));
 
-      services.AddTransient<IAccountRepository, AccountRepository>();
-      services.AddTransient<IBudgetRepository, BudgetRepository>();
-      services.AddTransient<ITimeboxRepository, TimeboxRepository>();
-      services.AddTransient<IFundRepository, FundRepository>();
+      services.AddBudgetPlanningDataLayer();
+      services.AddBudgetTrackingDataLayer();
     }
   }
 }

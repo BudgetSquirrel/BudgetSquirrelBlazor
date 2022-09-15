@@ -1,18 +1,13 @@
 using BudgetSquirrel.Common.Data.Infrastructure;
 
-namespace BudgetSquirrel.BudgetPlanning.Domain.BudgetPlanning
+namespace BudgetSquirrel.Common.Data.Schema.Budgets
 {
   /// <summary>
   /// DTO for <see cref="Budget"/>
   /// </summary>
-  public class BudgetDto : IDto<Budget>
+  public class BudgetDto
   {
     public decimal PlannedAmount { get; set; }
     public bool IsFinalized { get; set; }
-
-    public Budget ToDomain()
-    {
-      return new Budget(this.PlannedAmount, this.IsFinalized);
-    }
   }
 }
