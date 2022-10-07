@@ -5,7 +5,6 @@ using BudgetSquirrel.BudgetPlanning.Business.History;
 using BudgetSquirrel.Backend.Resolvers;
 using BudgetSquirrel.Web.Common.Messages.BudgetPlanning;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BudgetSquirrel.Backend.Controllers
