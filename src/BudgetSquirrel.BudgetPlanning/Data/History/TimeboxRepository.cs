@@ -3,9 +3,11 @@ using System.Data;
 using System.Threading.Tasks;
 using BudgetSquirrel.BudgetPlanning.Business.History;
 using BudgetSquirrel.Common.Data.Infrastructure;
-using BudgetSquirrel.BudgetPlanning.Data.Schema;
+using BudgetSquirrel.Common.Data.Schema;
 using BudgetSquirrel.BudgetPlanning.Domain.History;
 using Dapper;
+using BudgetSquirrel.Common.Data.Schema.History;
+using BudgetSquirrel.BudgetPlanning.Data.DtoConversions.History;
 
 namespace BudgetSquirrel.BudgetPlanning.Data.History
 {
@@ -46,7 +48,7 @@ namespace BudgetSquirrel.BudgetPlanning.Data.History
           }
         );
       }
-      return timebox.ToDomain();
+      return TimeboxConversions.ToDomain(timebox);
     }
 
     public async Task<Timebox> GetTimebox(int profileId, DateTime date)
@@ -63,7 +65,7 @@ namespace BudgetSquirrel.BudgetPlanning.Data.History
           }
         );
       }
-      return timebox.ToDomain();
+      return TimeboxConversions.ToDomain(timebox);
     }
   }
 }

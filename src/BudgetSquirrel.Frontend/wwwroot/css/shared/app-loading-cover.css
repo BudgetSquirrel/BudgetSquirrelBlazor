@@ -19,76 +19,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  -webkit-animation: loadingPageFadeOutAndBackIn 2s infinite;
-  -moz-animation: loadingPageFadeOutAndBackIn 2s infinite;
-  -o-animation: loadingPageFadeOutAndBackIn 2s infinite;
-  animation: loadingPageFadeOutAndBackIn 2s infinite;
 }
 
-.app-loading-cover__title {
+.app-loading-cover__custom-content {
   color: white;
   text-align: center;
-}
-
-.app-loading-cover__logo {
-  background: none !important;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-@-webkit-keyframes loadingPageFadeOutAndBackIn {
-  0% {
-      opacity: 1;
-  }
-
-  50% {
-      opacity: 0.5;
-  }
-
-  100% {
-      opacity: 1;
-  }
-}
-
-@-moz-keyframes loadingPageFadeOutAndBackIn {
-  0% {
-      opacity: 1;
-  }
-
-  50% {
-      opacity: 0.5;
-  }
-
-  100% {
-      opacity: 1;
-  }
-}
-
-@-o-keyframes loadingPageFadeOutAndBackIn {
-  0% {
-      opacity: 1;
-  }
-
-  50% {
-      opacity: 0.5;
-  }
-
-  100% {
-      opacity: 1;
-  }
-}
-
-@keyframes loadingPageFadeOutAndBackIn {
-  0% {
-      opacity: 1;
-  }
-
-  50% {
-      opacity: 0.5;
-  }
-
-  100% {
-      opacity: 1;
-  }
 }

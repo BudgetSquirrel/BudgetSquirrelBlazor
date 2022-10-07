@@ -1,0 +1,20 @@
+@using BudgetSquirrel.Frontend.Shared.Iconogrophy
+
+<div class="page-wide-cover">
+  <div class="page-wide-cover__content">
+    <PageWideLogo ShouldBlink=false />
+
+    @if (this.ChildContent != null)
+    {
+      <div class="page-wide-cover__custom-content">
+        @this.ChildContent
+      </div>
+    }
+  </div>
+</div>
+
+@code
+{
+  [Parameter]
+  public RenderFragment? ChildContent { get; set; } = null;
+}

@@ -7,7 +7,7 @@ using BudgetSquirrel.Common.Data.Infrastructure;
 using Dapper;
 using GateKeeper.Configuration;
 using GateKeeper.Cryptogrophy;
-using AuthProcedures = BudgetSquirrel.BudgetPlanning.Data.Schema.StoredProcedures.Auth;
+using AuthProcedures = BudgetSquirrel.Common.Data.Schema.StoredProcedures.Auth;
 
 namespace BudgetSquirrel.BudgetPlanning.Data.Accounts
 {

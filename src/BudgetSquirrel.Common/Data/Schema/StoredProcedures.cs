@@ -1,6 +1,6 @@
 using BudgetSquirrel.Common.Data.Infrastructure;
 
-namespace BudgetSquirrel.BudgetPlanning.Data.Schema
+namespace BudgetSquirrel.Common.Data.Schema
 {
   /// <summary>
   /// Contains SQL fragments which reference each stored procedure in the database schema.

@@ -5,7 +5,9 @@ using BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning;
 using BudgetSquirrel.Common.Data.Infrastructure;
 using BudgetSquirrel.BudgetPlanning.Domain.BudgetPlanning;
 using Dapper;
-using BudgetPlanningProcedures = BudgetSquirrel.BudgetPlanning.Data.Schema.StoredProcedures.BudgetPlanning;
+using BudgetPlanningProcedures = BudgetSquirrel.Common.Data.Schema.StoredProcedures.BudgetPlanning;
+using BudgetSquirrel.Common.Data.Schema.Budgets;
+using BudgetSquirrel.BudgetPlanning.Data.DtoConversions.Budgets;
 
 namespace BudgetSquirrel.BudgetPlanning.Data
 {
@@ -80,7 +82,7 @@ namespace BudgetSquirrel.BudgetPlanning.Data
           }
         );
       }
-      return budget.ToDomain();
+      return BudgetConversions.ToDomain(budget);
     }
 
     public async Task SaveBudget(int fundId, int timeboxId, Budget budget)

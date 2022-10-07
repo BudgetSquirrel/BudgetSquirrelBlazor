@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\BudgetSquirrel.BudgetTracking.Domain.csproj" />
+    <ProjectReference Include="..\Business\BudgetSquirrel.BudgetTracking.Business.csproj" />
+    <ProjectReference Include="..\..\BudgetSquirrel.Common\Data\BudgetSquirrel.Common.Data.csproj" />
+    <ProjectReference Include="..\..\GateKeeper\GateKeeper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+</Project>

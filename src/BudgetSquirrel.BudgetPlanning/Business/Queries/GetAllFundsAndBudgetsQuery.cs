@@ -6,6 +6,7 @@ using BudgetSquirrel.BudgetPlanning.Business.Funds;
 using BudgetSquirrel.BudgetPlanning.Domain.BudgetPlanning;
 using BudgetSquirrel.BudgetPlanning.Domain.Funds;
 using BudgetSquirrel.BudgetPlanning.Domain.History;
+using BudgetSquirrel.Common.AggregationUtils;
 
 namespace BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning
 {
@@ -28,43 +29,18 @@ namespace BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning
     public async Task<FundsAndBudgetsQueryResult> Query()
     {
       FundSubFunds fundTree = await this.fundRepository.GetFundTree(this.profileId, this.timeBoxId);
-      IEnumerable<FundBudget> fundBudgets = await this.GetBudgetsForFundTree(fundTree, this.timeBoxId);
+      IEnumerable<FundBudget> fundBudgets = await TreeAggregationUtils.SelectAsync(
+        fundTree,
+        fund => fund.SubFunds,
+        fund => FetchBudgetForFund(fund, this.timeBoxId));
 
       return new FundsAndBudgetsQueryResult(fundTree, fundBudgets);
     }
 
-    private async Task<IEnumerable<FundBudget>> GetBudgetsForFundTree(FundSubFunds fundBranch, int timeboxId)
+    private async Task<FundBudget> FetchBudgetForFund(FundSubFunds fund, int timeboxId)
     {
-      List<FundBudget> budgetsInTree = new List<FundBudget>();
-
-      // Load the budget for the current fund in fundBranch.
-      Task<FundBudget> rootLoadTask = this.GetBudgetForFund(fundBranch.Fund, timeBoxId);
-
-      // Load budgets for each sub fund of the current fund branch.
-      List<Task<IEnumerable<FundBudget>>> childLoadTasks = new List<Task<IEnumerable<FundBudget>>>();
-      foreach (FundSubFunds fundSubBranch in fundBranch.SubFunds)
-      {
-        childLoadTasks.Add(this.GetBudgetsForFundTree(fundSubBranch, timeboxId));
-      }
-
-      IEnumerable<Task> allLoads = childLoadTasks.Select(t => (Task)t)
-        .Append(rootLoadTask)
-        .ToList();
-      await Task.WhenAll(allLoads);
-
-      budgetsInTree.Add(await rootLoadTask);
-      foreach (Task<IEnumerable<FundBudget>> childLoad in childLoadTasks)
-      {
-        budgetsInTree.AddRange(await childLoad);
-      }
-
-      return budgetsInTree;
-    }
-
-    private async Task<FundBudget> GetBudgetForFund(Fund fund, int timeboxId)
-    {
-      Budget budget = await this.budgetRepository.GetBudget(fund.Id, this.timeBoxId);
-      FundBudget fundBudgetRelationship = new FundBudget(budget, fund);
+      Budget budget = await this.budgetRepository.GetBudget(fund.Fund.Id, this.timeBoxId);
+      FundBudget fundBudgetRelationship = new FundBudget(budget, fund.Fund);
       return fundBudgetRelationship;
     }
   }

@@ -1,18 +1,13 @@
 using System.Collections.Generic;
 using BudgetSquirrel.Common.Data.Infrastructure;
 
-namespace BudgetSquirrel.BudgetPlanning.Domain.Funds
+namespace BudgetSquirrel.Common.Data.Schema.Funds
 {
   /// <summary>
   /// DTO for <see cref="Profile"/>
   /// </summary>
-  public class ProfileDto : IDto<Profile>
+  public class ProfileDto
   {
     public int ProfileId { get; set; }
-
-    public Profile ToDomain()
-    {
-      return new Profile(this.ProfileId);
-    }
   }
 }

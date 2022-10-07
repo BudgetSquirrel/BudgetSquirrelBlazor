@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using BudgetSquirrel.BudgetPlanning.Business.Funds;
 using BudgetSquirrel.Common.Data.Infrastructure;
-using BudgetSquirrel.BudgetPlanning.Data.Schema;
+using BudgetSquirrel.Common.Data.Schema;
 using BudgetSquirrel.BudgetPlanning.Domain.Funds;
 using Dapper;
+using BudgetSquirrel.Common.Data.Schema.Funds;
+using BudgetSquirrel.BudgetPlanning.Data.DtoConversions.Funds;
 
 namespace BudgetSquirrel.BudgetPlanning.Data.Funds
 {
@@ -32,7 +34,7 @@ namespace BudgetSquirrel.BudgetPlanning.Data.Funds
           }
         );
       }
-      return profile.ToDomain();
+      return ProfileConversions.ToDomain(profile);
     }
 
     public async Task<FundSubFunds> GetFundTree(int profileId, int timeboxId)
@@ -50,8 +52,8 @@ namespace BudgetSquirrel.BudgetPlanning.Data.Funds
         );
       }
 
-      Fund rootFund = flatFundTree.Single(f => f.IsRoot).ToDomain();
-      FundSubFunds rootFundNode = this.BuildFundTree(rootFund, flatFundTree.Select(f => f.ToDomain()));
+      Fund rootFund = FundConversions.ToDomain(flatFundTree.Single(f => f.IsRoot));
+      FundSubFunds rootFundNode = this.BuildFundTree(rootFund, flatFundTree.Select(f => FundConversions.ToDomain(f)));
 
       return rootFundNode;
     }
@@ -69,7 +71,7 @@ namespace BudgetSquirrel.BudgetPlanning.Data.Funds
           }
         );
       }
-      return fundDto.ToDomain();
+      return FundConversions.ToDomain(fundDto);
     }
 
     public async Task<Fund> GetRootFundForProfile(int profileId)
@@ -85,7 +87,7 @@ namespace BudgetSquirrel.BudgetPlanning.Data.Funds
           }
         );
       }
-      return fundDto.ToDomain();
+      return FundConversions.ToDomain(fundDto);
     }
 
     public async Task UpdateFund(int fundId, FundDetails fundDetails)

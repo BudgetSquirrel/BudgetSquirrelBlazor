@@ -1,6 +1,8 @@
 @import url("shared/app-header.css");
 @import url("shared/modal.css");
 @import url("shared/app-loading-cover.css");
+@import url("shared/page-wide-cover.css");
+@import url("shared/page-wide-logo.css");
 @import url("typogrophy.css");
 
 @import url("budget-planning/budgets.css");
