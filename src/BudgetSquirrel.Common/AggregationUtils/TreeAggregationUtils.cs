@@ -25,7 +25,7 @@ namespace BudgetSquirrel.Common.AggregationUtils
 
       IEnumerable<TRelationship> allRelationships = allRelationshipsInBranches.Prepend(await rootLoadTask);
 
-      return allRelationshipsInBranches;
+      return allRelationships;
     }
 
     private static async Task<IEnumerable<TRelationship>> FetchRelationshipsForChildren<TRelationship, TTreeNode>(TTreeNode treeRoot, Func<TTreeNode, IEnumerable<TTreeNode>> childrenSelector, Func<TTreeNode, Task<TRelationship>> fetchRelationship)
