@@ -1,9 +1,33 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="theme-default page-margins--var app">
-    <AppHeader />
 
-    <main>
-        @Body
-    </main>
+    <ErrorBoundary @ref="errorBoundary">
+        <ChildContent>
+            <AppHeader />
+
+            <main>
+                @Body
+            </main>
+        </ChildContent>
+
+        <ErrorContent>
+            <PageWideCover>
+                <p>Sorry, we've encountered a problem.</p>
+                <a class="page-error-action button" href="/">To Home Page</a>
+            </PageWideCover>
+        </ErrorContent>
+    </ErrorBoundary>
+
 </div>
+
+@code
+{
+    private ErrorBoundary? errorBoundary;
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("Recovering");
+        errorBoundary?.Recover();
+    }
+}
