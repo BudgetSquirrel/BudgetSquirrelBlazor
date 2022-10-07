@@ -19,7 +19,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
 #region initial state
     
-    private bool isLoading = false;
+    private bool isLoading = true;
 
     private BudgetTrackingContext? context;
 

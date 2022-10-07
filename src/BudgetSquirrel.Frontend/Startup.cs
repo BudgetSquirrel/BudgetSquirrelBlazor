@@ -3,6 +3,7 @@ using BudgetSquirrel.Frontend.AppSettings;
 using BudgetSquirrel.Frontend.Authentication;
 using BudgetSquirrel.Frontend.BackendClient;
 using BudgetSquirrel.Frontend.BudgetPlanning;
+using BudgetSquirrel.Frontend.BudgetTracking;
 using BudgetSquirrel.Frontend.Infrastructure;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,7 @@ namespace BudgetSquirrel.Frontend
       BackendDependencyInjection.AddBackendClient(services);
       AuthenticationDependencyInjection.AddServices(services);
       BudgetPlanningDependencyInjection.AddServices(services);
+      BudgetTrackingDependencyInjection.AddServices(services);
     }
 
     private AppSettingsBase GetAppSettings(string currentEnv)

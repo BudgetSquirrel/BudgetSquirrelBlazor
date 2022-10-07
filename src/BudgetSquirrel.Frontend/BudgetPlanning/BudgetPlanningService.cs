@@ -20,13 +20,11 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private const string CreateSubBudgetEndpoint = BudgetPlanningUri + "/create-sub-budget";
     private const string FinalizeBudgetEndpoint = BudgetPlanningUri + "/finalize";
 
-    private ILoginService loginService;
     private IBackendClient backendClient;
 
-    public BudgetPlanningService(IBackendClient backendClient, ILoginService loginService)
+    public BudgetPlanningService(IBackendClient backendClient)
     {
       this.backendClient = backendClient;
-      this.loginService = loginService;
     }
 
     public async Task<BudgetPlanningContext> GetBudgetTree(int? timeboxId = null)
