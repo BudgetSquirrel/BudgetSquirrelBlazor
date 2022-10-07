@@ -1,0 +1,17 @@
+._budget-tracking-page ._root-fund-title {
+  display: inline-flex;
+}
+
+._budget-tracking-page ._root-fund-title__container {
+  margin-top: 2rem;
+}
+
+._budget-tracking-page ._timebox-title-display {
+  font-size: 1.4em;
+  display: inline-block;
+  margin-left: 0.7em;
+}
+
+._budget-tracking-page ._root-fund-stats {
+  margin-top: 2rem;
+}

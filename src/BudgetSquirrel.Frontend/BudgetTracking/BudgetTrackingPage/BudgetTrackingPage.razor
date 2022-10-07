@@ -11,11 +11,21 @@
     @* ========================== *@
     @* Page title *@
     @* ========================== *@
-    <h1 class="_root-budget-title__container">
-      <div class="_root-budget-title">
+    <div class="_root-fund-title__container">
+      <div class="_root-fund-title">
         <h1>@this.RootFundName</h1>
       </div>
-      <span class="foreground-default--subtle subtle-detail">@this.timeboxDisplay</span>
-    </h1>
+      <h1 class="foreground-default--subtle _timebox-title-display">@this.timeboxDisplay</h1>
+    </div>
+
+    @* ========================== *@
+    @* Root budget summary box *@
+    @* ========================== *@
+    <div class="stat__box stat__box--row _root-fund-stats">
+      <div class="stat">
+        <div class="stat__label stat__label--prominent">Planned Income</div>
+        <div>@this.plannedIncomeDisplay</div>
+      </div>
+    </div>
   }
 </div>

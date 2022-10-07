@@ -65,6 +65,8 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
     private string RootFundName => this.context?.FundTree.Fund.Name ?? string.Empty;
 
+    private string plannedIncomeDisplay => this.context?.FundTree.Budget.PlannedAmount.ToString("C") ?? string.Empty;
+
 #endregion template accessors
   }
 }
