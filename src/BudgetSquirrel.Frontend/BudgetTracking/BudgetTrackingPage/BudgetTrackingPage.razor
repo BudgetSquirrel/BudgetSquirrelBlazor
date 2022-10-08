@@ -1,5 +1,7 @@
 @page "/budget-tracker"
+@using BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 @using BudgetSquirrel.Frontend.Shared.Controls
+@using Domain
 
 <div class="_budget-tracking-page page-margins__apply">
   @if (this.isLoading)
@@ -19,13 +21,27 @@
     </div>
 
     @* ========================== *@
-    @* Root budget summary box *@
+    @* Root fund summary box *@
     @* ========================== *@
     <div class="stat__box stat__box--row _root-fund-stats">
       <div class="stat">
         <div class="stat__label stat__label--prominent">Planned Income</div>
         <div>@this.plannedIncomeDisplay</div>
       </div>
+    </div>
+
+    @* ========================== *@
+    @* Fund display section     *@
+    @* ========================== *@
+    <div class="_fund-section">
+      @foreach (BudgetTrackingContext.FundRelationships subFund in this.Level1Budgets)
+      {
+        <div class="_fund-container">
+          <Fund1
+            Fund=@subFund
+            OnNameChanged="@this.ChangeSubFundName" />
+        </div>
+      }
     </div>
   }
 </div>

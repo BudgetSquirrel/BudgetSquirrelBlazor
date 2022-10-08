@@ -46,10 +46,10 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
       await this.loginService.PromptLoginIfNecessary();
       this.context = await this.budgetPlanningService.GetBudgetTree();
       
-      if (this.context.isFinalized)
-      {
-        this.navigationManager.NavigateTo("/budget-tracker");
-      }
+      // if (this.context.isFinalized) // TODO: Uncomment this.
+      // {
+      //   this.navigationManager.NavigateTo("/budget-tracker");
+      // }
       this.isLoading = false;
     }
 

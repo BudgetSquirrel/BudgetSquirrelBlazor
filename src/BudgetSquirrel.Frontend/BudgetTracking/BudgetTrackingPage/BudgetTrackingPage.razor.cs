@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BudgetSquirrel.Frontend.Authentication.Login;
+using BudgetSquirrel.Frontend.BudgetPlanning;
+using BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds;
 using BudgetSquirrel.Frontend.BudgetTracking.Domain;
 using Microsoft.AspNetCore.Components;
 using static BudgetSquirrel.Frontend.BudgetTracking.Domain.BudgetTrackingContext;
@@ -10,6 +14,9 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
   {
     [Inject]
     private ILoginService loginService { get; set; } = null!;
+
+    [Inject]
+    private IBudgetPlanningService budgetPlanningService { get; set; } = null!;
 
     [Inject]
     private IBudgetTrackingPageService pageService { get; set; } = null!;
@@ -67,6 +74,28 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
     private string plannedIncomeDisplay => this.context?.FundTree.Budget.PlannedAmount.ToString("C") ?? string.Empty;
 
+    public IEnumerable<FundRelationships> Level1Budgets
+    {
+      get
+      {
+        if (this.isLoading)
+        {
+          return Array.Empty<FundRelationships>();
+        }
+        return this.rootBudget.SubFunds;
+      }
+    }
+
 #endregion template accessors
+
+#region event handlers
+
+    private async Task ChangeSubFundName(IEditNameFormValues values)
+    {
+      await this.budgetPlanningService.EditFundName(values.FundId, values.Name);
+      await this.ReloadContext();
+    }
+
+#endregion event handlers
   }
 }
