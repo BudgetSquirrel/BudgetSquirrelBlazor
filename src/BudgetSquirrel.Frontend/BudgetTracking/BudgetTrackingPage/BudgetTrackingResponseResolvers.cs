@@ -10,7 +10,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking
   {
     public static BudgetTrackingContext ToFrontendDto(BudgetTrackingContextResponse contextResponse)
     {
-      IEnumerable<FundBudget> allAvailableFundBudgets = contextResponse.Budgets.Select(b => ToFrontendDto(b));
+      IEnumerable<FundBudget> allAvailableFundBudgets = contextResponse.FundRelationships.Select(b => ToFrontendDto(b));
       return new BudgetTrackingContext(
         ToFrontendDto(contextResponse.FundTree, allAvailableFundBudgets),
         new TimeboxDetails(contextResponse.Timebox.Id, contextResponse.Timebox.StartDate, contextResponse.Timebox.EndDate),
@@ -36,7 +36,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking
         fundSubFunds.SubFunds.Select(fsf => ToFrontendDto(fsf, allAvailableFundBudgets)));
     }
 
-    private static FundBudget ToFrontendDto(BudgetTrackingContextResponse.FundBudget fundBudget)
+    private static FundBudget ToFrontendDto(BudgetTrackingContextResponse.FundRelationshipDtos fundBudget)
     {
       return new FundBudget(
         new Budget(fundBudget.Budget.PlannedAmount),

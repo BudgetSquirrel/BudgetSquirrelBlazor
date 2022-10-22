@@ -16,15 +16,18 @@ namespace BudgetSquirrel.Backend.Controllers
     private IFundRepository fundRepository;
     private IBudgetRepository budgetRepository;
     private ITimeboxRepository timeboxRepository;
+    private ITransactionRepository transactionRepository;
 
     public BudgetTrackingController(
       IFundRepository fundRepository,
       IBudgetRepository budgetRepository,
-      ITimeboxRepository timeboxRepository)
+      ITimeboxRepository timeboxRepository,
+      ITransactionRepository transactionRepository)
     {
       this.fundRepository = fundRepository;
       this.budgetRepository = budgetRepository;
       this.timeboxRepository = timeboxRepository;
+      this.transactionRepository = transactionRepository;
     }
     
     [HttpGet("context")]
@@ -34,6 +37,7 @@ namespace BudgetSquirrel.Backend.Controllers
         this.fundRepository,
         this.budgetRepository,
         this.timeboxRepository,
+        this.transactionRepository,
         timeboxId,
         profileId);
 
