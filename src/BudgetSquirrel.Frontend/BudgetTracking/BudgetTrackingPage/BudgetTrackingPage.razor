@@ -30,17 +30,24 @@
       </div>
     </div>
 
-    @* ========================== *@
-    @* Fund display section     *@
-    @* ========================== *@
-    <div class="_fund-section">
-      @foreach (BudgetTrackingContext.FundRelationships subFund in this.Level1Budgets)
+    <div>
+      @* ========================== *@
+      @* Fund display section     *@
+      @* ========================== *@
+      <div class="_fund-section">
+        @foreach (BudgetTrackingContext.FundRelationships subFund in this.Level1Budgets)
+        {
+          <div class="_fund-container">
+            <Fund1
+              Fund=@subFund
+              OnNameChanged="@this.ChangeSubFundName" />
+          </div>
+        }
+      </div>
+
+      @if (this.isViewingFund)
       {
-        <div class="_fund-container">
-          <Fund1
-            Fund=@subFund
-            OnNameChanged="@this.ChangeSubFundName" />
-        </div>
+        <FundDetailView Fund=this.viewingFund />
       }
     </div>
   }

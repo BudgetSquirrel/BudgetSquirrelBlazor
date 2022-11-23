@@ -50,9 +50,18 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
 #endregion initial state
 
+#region actions state
+
+    private FundRelationships? viewingFund { get; set; }
+
+
+#endregion actions state
+
 #region convenience accessors
 
     private FundRelationships rootBudget => this.context?.FundTree ?? null!;
+
+    private bool isViewingFund => this.viewingFund != null;
 
 #endregion convenience accessors
 
@@ -94,6 +103,16 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
     {
       await this.budgetPlanningService.EditFundName(values.FundId, values.Name);
       await this.ReloadContext();
+    }
+
+    private void ViewFund(FundRelationships fund)
+    {
+      this.viewingFund = fund;
+    }
+
+    private void CloseFundView()
+    {
+      this.viewingFund = null;
     }
 
 #endregion event handlers
