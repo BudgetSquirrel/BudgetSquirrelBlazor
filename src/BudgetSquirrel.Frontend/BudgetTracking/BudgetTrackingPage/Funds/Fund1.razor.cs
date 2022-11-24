@@ -11,15 +11,20 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
     
     [Parameter]
     public EventCallback<IEditNameFormValues> OnNameChanged { get; set; } = new EventCallback<IEditNameFormValues>();
+    
+    [Parameter]
+    public EventCallback<FundRelationships> OnView { get; set; } = new EventCallback<FundRelationships>();
 
     private FundComponentBase baseInstance = null!;
 
-    private EditBudgetFormValues State { get; set; } = null!;
+    private EditBudgetFormValues State => this.baseInstance.State;
 
     protected override Task OnInitializedAsync()
     {
-      this.baseInstance = new FundComponentBase(this.Fund);
-      this.State = new EditBudgetFormValues(this.Fund.Fund.Id, this.Fund.Fund.Name);
+      this.baseInstance = new FundComponentBase(
+        this.Fund,
+        this.OnNameChanged,
+        this.OnView);
       return base.OnInitializedAsync();
     }
 
@@ -33,10 +38,14 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 
     private string InputNameFundName => this.baseInstance.InputNameFundName;
 
-    private void ChangeName(string newName)
+    private Task ChangeName(string newName)
     {
-      this.State.Name = newName;
-      this.OnNameChanged.InvokeAsync(this.State);
+      return this.baseInstance.ChangeName(newName);
+    }
+
+    private Task View()
+    {
+      return this.baseInstance.View();
     }
   }
 }

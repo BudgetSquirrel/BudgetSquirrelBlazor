@@ -12,6 +12,12 @@
           Name="@this.InputNameFundName"
           OnChange="@this.ChangeName" />
       </div>
+        
+      <div class="_budget__actions">
+        <button class="material-icons icon-button" @onclick="this.View">
+          list
+        </button>
+      </div>
     </div>
     <div class="_fund-stat__container">
       <div class="stat _fund-stat _fund-stat--first">
@@ -34,7 +40,8 @@
         <div class="budget__sub-budget">
           <Fund2
             Fund=@subBudget
-            OnNameChanged=@this.OnNameChanged />
+            OnNameChanged=@this.OnNameChanged
+            OnView=@this.OnView />
         </div>
       }
     </div>

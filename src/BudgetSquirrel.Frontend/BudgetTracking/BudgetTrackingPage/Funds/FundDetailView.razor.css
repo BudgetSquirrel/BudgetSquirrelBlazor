@@ -1,0 +1,57 @@
+._fund-detail-view {
+  border: 1px solid var(--clr-brdr-no-color);
+  border-radius: 4px;
+  color: var(--clr-fg-no-color);
+}
+
+._fund-detail-view ._heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  background-color: var(--clr-bg-color-alt);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+._fund-detail-view ._transaction__container {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+._fund-detail-view ._transaction__list {
+  height: 40vh;
+}
+
+._fund-detail-view ._transaction {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+._fund-detail-view ._transaction--column-headers {
+  color: var(--clr-fg-no-color-subtle-2);
+  border-bottom: 1px solid var(--clr-brdr-no-color-subtle);
+}
+
+._fund-detail-view ._transaction__title {
+  display: inline-block;
+  width: 10em;
+}
+
+._fund-detail-view ._transaction--column-headers ._transaction__title {
+  color: var(--clr-fg-no-color-subtle-2);
+}
+
+._fund-detail-view ._transaction__amount,
+._fund-detail-view ._transaction__date {
+  display: inline-block;
+  width: 5em;
+  text-align: right;
+  color: var(--clr-fg-no-color-subtle);
+}
+
+._fund-detail-view ._transaction--column-headers ._transaction__amount,
+._fund-detail-view ._transaction--column-headers ._transaction__date {
+  color: var(--clr-fg-no-color-subtle-2);
+}

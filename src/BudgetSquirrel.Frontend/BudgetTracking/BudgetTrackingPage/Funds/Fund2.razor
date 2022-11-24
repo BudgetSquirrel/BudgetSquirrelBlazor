@@ -3,13 +3,19 @@
 <div class="budget budget--2 budget__group _fund2">
   <div class="budget__details">
     <div class="_fund__heading">
-      <p class="_fund__name">
+      <div class="_fund__name">
         <EditableText
           Value="@this.Name"
           Placeholder="Budget Name"
           Name="@this.InputNameFundName"
           OnChange="@this.ChangeName" />
-      </p>
+      </div>
+        
+      <div class="_budget__actions">
+        <button class="material-icons icon-button" @onclick="this.View">
+          list
+        </button>
+      </div>
     </div>
     <div class="_fund-stat__container">
       <div class="stat _fund-stat _fund-stat--first">

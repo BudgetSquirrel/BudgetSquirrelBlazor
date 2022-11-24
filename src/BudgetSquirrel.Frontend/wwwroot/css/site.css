@@ -21,6 +21,7 @@
     --blackish-700: #383838;
     --blackish-600: #898f9c;
     --blackish-500: #686868;
+    --blackish-300: #969696;
     --blackish-200: #c4c4c4;
     /* --blackish-175: #e1e1e1; */
     --blackish-100: #e7e7e7;
@@ -43,6 +44,7 @@
     --clr-fg-no-color-2: var(--blackish-600);
     --clr-fg-no-color-bold: var(--blackish-700);
     --clr-fg-no-color-subtle: var(--blackish-a200);
+    --clr-fg-no-color-subtle-2: var(--blackish-300);
     --clr-fg-no-color-alt: white;
 
     --clr-brdr-no-color: var(--blackish-200);

@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="_fund-section__container">
       @* ========================== *@
       @* Fund display section     *@
       @* ========================== *@
@@ -40,14 +40,19 @@
           <div class="_fund-container">
             <Fund1
               Fund=@subFund
-              OnNameChanged="@this.ChangeSubFundName" />
+              OnNameChanged=@this.ChangeSubFundName
+              OnView=@this.ViewFund />
           </div>
         }
       </div>
 
       @if (this.isViewingFund)
       {
-        <FundDetailView Fund=this.viewingFund />
+        <div class="_fund-detail-view__container">
+          <FundDetailView
+            Fund=this.viewingFund
+            OnClose=this.CloseFundView />
+        </div>
       }
     </div>
   }

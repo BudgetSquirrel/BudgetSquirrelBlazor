@@ -1,3 +1,28 @@
-<div>
-  @this.fundName
+@using BudgetSquirrel.Frontend.BudgetTracking.Domain
+<div class="_fund-detail-view">
+  <div class="_heading">
+    <h2 class="_title">@this.fundName</h2>
+    <button class="material-icons icon-button" @onclick="this.Close">
+      close
+    </button>
+  </div>
+
+  <div class="_transaction__container">
+    <div class="_transaction _transaction--column-headers">
+      <span class="_transaction__title">Vendor Name</span>
+      <span class="_transaction__amount">Amount</span>
+      <span class="_transaction__date">Date</span>
+    </div>
+
+    <div class="_transaction__list">
+      @foreach (Transaction transaction in this.transactions)
+      {
+        <div class="_transaction">
+          <span class="_transaction__title">@transaction.VendorName</span>
+          <span class="_transaction__amount">@transaction.Amount.ToString("C")</span>
+          <span class="_transaction__date">@transaction.DateOfTransaction.ToString("%M/%d")</span>
+        </div>
+      }
+    </div>
+  </div>
 </div>
