@@ -18,9 +18,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 
     private string fundName => this.Fund.Fund.Name;
 
-    private IEnumerable<Transaction> transactions => this.Fund.Transactions
-      .Append(new Transaction(Guid.NewGuid(), "Meijer", "Grocieries", (decimal) 105.24, DateTime.Now.AddDays(-7), string.Empty))
-      .Append(new Transaction(Guid.NewGuid(), "Walmart", "Quick food", (decimal) 24.46, DateTime.Now.AddDays(-1), string.Empty));
+    private IEnumerable<Transaction> transactions => this.Fund.Transactions;
 
     private Task Close()
     {

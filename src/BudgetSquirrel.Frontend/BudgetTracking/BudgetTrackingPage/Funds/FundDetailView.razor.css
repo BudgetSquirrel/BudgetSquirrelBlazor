@@ -21,7 +21,7 @@
 }
 
 ._fund-detail-view ._transaction__list {
-  height: 40vh;
+  min-height: 55vh;
 }
 
 ._fund-detail-view ._transaction {
@@ -49,6 +49,10 @@
   width: 5em;
   text-align: right;
   color: var(--clr-fg-no-color-subtle);
+}
+
+._fund-detail-view ._transaction__date {
+  margin-right: 1em;
 }
 
 ._fund-detail-view ._transaction--column-headers ._transaction__amount,

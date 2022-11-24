@@ -63,6 +63,8 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
     private bool isViewingFund => this.viewingFund != null;
 
+    private string rootBalanceDisplay => this.rootBudget.Fund.Balance.ToString("C");
+
 #endregion convenience accessors
 
 #region template accessors
