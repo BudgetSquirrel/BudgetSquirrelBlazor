@@ -17,14 +17,16 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
     private void Initialize()
     {
       this.Name = this.Fund.Fund.Name;
-      this._amountIn = this.Fund.Budget.PlannedAmount;
     }
 
     public string Name { get; private set; } = string.Empty;
 
 
-    private decimal _amountIn;
+    private decimal _amountIn => this.Fund.Budget.PlannedAmount;
     public string AmountIn => this._amountIn.ToString("C");
+    
+    private decimal _balance => this.Fund.Fund.Balance;
+    public string Balance => this._balance.ToString("C");
 
     public bool ShouldShowSubBudgetArea => this.Fund.SubFunds.Any();
 

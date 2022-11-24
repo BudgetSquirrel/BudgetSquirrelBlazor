@@ -27,6 +27,8 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 
     private string AmountIn => this.baseInstance.AmountIn;
 
+    private string Balance => this.baseInstance.Balance;
+
     private bool ShouldShowSubBudgetArea => this.baseInstance.ShouldShowSubBudgetArea;
 
     private string InputNameFundName => this.baseInstance.InputNameFundName;

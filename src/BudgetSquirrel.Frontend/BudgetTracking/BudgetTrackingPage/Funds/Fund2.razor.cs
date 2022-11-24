@@ -27,6 +27,8 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 
     public string AmountIn => this.baseInstance.AmountIn;
 
+    public string Balance => this.baseInstance.Balance;
+
     private string InputNameFundName => this.baseInstance.InputNameFundName;
 
     private void ChangeName(string newName)
