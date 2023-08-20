@@ -15,6 +15,9 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
     [Parameter]
     public EventCallback<FundRelationships> OnView { get; set; } = new EventCallback<FundRelationships>();
 
+    [Parameter]
+    public EventCallback<FundRelationships> OnStartAddingTransactionClicked { get; set; } = new EventCallback<FundRelationships>();
+
     private FundComponentBase baseInstance = null!;
 
     private EditBudgetFormValues State => this.baseInstance.State;
@@ -24,7 +27,8 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
       this.baseInstance = new FundComponentBase(
         this.Fund,
         this.OnNameChanged,
-        this.OnView);
+        this.OnView,
+        this.OnStartAddingTransactionClicked);
       return base.OnInitializedAsync();
     }
 
@@ -46,6 +50,11 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
     private Task View()
     {
       return this.baseInstance.View();
+    }
+
+    private Task StartAddingTransaction()
+    {
+      return this.baseInstance.StartAddingTransaction();
     }
   }
 }
