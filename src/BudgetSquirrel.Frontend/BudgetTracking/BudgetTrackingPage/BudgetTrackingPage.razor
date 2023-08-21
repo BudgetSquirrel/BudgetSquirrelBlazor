@@ -1,5 +1,7 @@
 @page "/budget-tracker"
 @using BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
+@using BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Transactions
+@using BudgetSquirrel.Frontend.Shared
 @using BudgetSquirrel.Frontend.Shared.Controls
 @using Domain
 
@@ -46,7 +48,8 @@
             <Fund1
               Fund=@subFund
               OnNameChanged=@this.ChangeSubFundName
-              OnView=@this.ViewFund />
+              OnView=@this.ViewFund
+              OnStartAddingTransactionClicked=@this.StartAddingTransaction />
           </div>
         }
       </div>
@@ -58,6 +61,13 @@
             Fund=this.viewingFund
             OnClose=this.CloseFundView />
         </div>
+      }
+
+      @if (this.IsAddingTransaction)
+      {
+        <Modal>
+          <AddTransactionForm />
+        </Modal>
       }
     </div>
   }

@@ -1,0 +1,42 @@
+<input
+    value="@this.ValueDisplay"
+    @onchange="@this.HandleChange"
+    class="input @this.CssClass"
+    placeholder="@this.Placeholder"
+    type="@this.Type"
+    name="@this.Name"
+    style="@this.widthCss" />
+
+@code {
+  [Parameter]
+  public decimal Value { get; set; } = 0;
+  
+  [Parameter]
+  public string CssClass { get; set; } = "";
+
+  [Parameter]
+  public string Placeholder { get; set; } = "";
+
+  [Parameter]
+  public string Name { get; set; } = "";
+
+  [Parameter]
+  public double? WidthEms { get; set; } = null;
+
+  private string widthCss => this.WidthEms.HasValue ? $"width: {this.WidthEms}em;" : string.Empty;
+
+  [Parameter]
+  public EventCallback<decimal> OnChange { get; set; }
+
+  public string Type { get; set; } = "currency";
+
+  private string ValueDisplay => this.Value.ToString("C");
+
+  private async Task HandleChange(ChangeEventArgs e)
+  {
+    if (decimal.TryParse(e.Value.ToString(), out decimal result))
+    {
+      await this.OnChange.InvokeAsync(result);
+    }
+  }
+}

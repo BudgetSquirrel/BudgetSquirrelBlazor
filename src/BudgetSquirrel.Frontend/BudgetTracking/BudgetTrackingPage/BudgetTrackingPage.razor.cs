@@ -54,6 +54,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
     private FundRelationships? viewingFund { get; set; }
 
+    private bool IsAddingTransaction { get; set; } = false;
 
 #endregion actions state
 
@@ -115,6 +116,16 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
     private void CloseFundView()
     {
       this.viewingFund = null;
+    }
+
+    private void StartAddingTransaction()
+    {
+      this.IsAddingTransaction = true;
+    }
+
+    private void StopAddingTransaction()
+    {
+      this.IsAddingTransaction = false;
     }
 
 #endregion event handlers
