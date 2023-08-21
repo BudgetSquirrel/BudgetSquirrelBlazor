@@ -1,47 +1,76 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using static BudgetSquirrel.Frontend.BudgetTracking.Domain.BudgetTrackingContext;
 
 namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Transactions
 {
   public partial class AddTransactionForm : ComponentBase
   {
-    private string VendorName { get; set; } = string.Empty;
+    [Parameter]
+    public EventCallback<AddTransactionFormState> OnTransactionAdded { get; set; }
 
-    private string Description { get; set; } = string.Empty;
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
 
-    private decimal Amount { get; set; } = 0;
+    [Parameter]
+    public FundRelationships Fund { get; set; }
 
-    private DateTime DateOfTransaction { get; set; } = DateTime.Now;
+    protected override void OnInitialized()
+    {
+      Console.WriteLine("Initialized AddTransactionForm");
+      Console.WriteLine(Fund?.Fund?.Name);
+      State = new AddTransactionFormState(Fund.Fund.Id);
+    }
 
-    private string CheckNumber { get; set; } = string.Empty;
+    public AddTransactionFormState State { get; private set; }
+    
+    private string VendorName => State.VendorName;
+
+    private string Description => State.Description;
+
+    private decimal Amount => State.Amount;
+
+    private DateTime DateOfTransaction => State.DateOfTransaction;
+
+    private string CheckNumber => State.CheckNumber;
 
     private void ChangeVendorName(string vendorName)
     {
-      VendorName = vendorName;
+      State.VendorName = vendorName;
     }
 
     private void ChangeDescription(string description)
     {
-      Description = description;
+      State.Description = description;
     }
 
     private void ChangeAmount(decimal amount)
     {
-      Amount = amount;
+      State.Amount = amount;
     }
 
     private void ChangeDateOfTransaction(DateTime? dateOfTransaction)
     {
       if (dateOfTransaction.HasValue)
       {
-        DateOfTransaction = dateOfTransaction.Value;
+        State.DateOfTransaction = dateOfTransaction.Value;
       }
     }
 
     private void ChangeCheckNumber(string checkNumber)
     {
-      CheckNumber = checkNumber;
+      State.CheckNumber = checkNumber;
+    }
+
+    private async Task Cancel()
+    {
+      OnCancel.InvokeAsync();
+    }
+
+    private async Task Submit()
+    {
+      await OnTransactionAdded.InvokeAsync(State);
     }
   }
 }

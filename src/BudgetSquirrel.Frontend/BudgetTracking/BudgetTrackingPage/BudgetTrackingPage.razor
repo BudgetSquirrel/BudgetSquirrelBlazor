@@ -63,10 +63,13 @@
         </div>
       }
 
-      @if (this.IsAddingTransaction)
+      @if (this.isAddingTransaction)
       {
         <Modal>
-          <AddTransactionForm />
+          <AddTransactionForm
+            OnCancel=this.StopAddingTransaction
+            OnTransactionAdded=this.SubmitAddTransaction
+            Fund=this.addTransactionFund />
         </Modal>
       }
     </div>

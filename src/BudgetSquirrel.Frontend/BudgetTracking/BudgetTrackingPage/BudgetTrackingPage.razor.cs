@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BudgetSquirrel.Frontend.Authentication.Login;
 using BudgetSquirrel.Frontend.BudgetPlanning;
 using BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds;
+using BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Transactions;
 using BudgetSquirrel.Frontend.BudgetTracking.Domain;
 using Microsoft.AspNetCore.Components;
 using static BudgetSquirrel.Frontend.BudgetTracking.Domain.BudgetTrackingContext;
@@ -54,7 +55,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
     private FundRelationships? viewingFund { get; set; }
 
-    private bool IsAddingTransaction { get; set; } = false;
+    private FundRelationships? addTransactionFund { get; set; }
 
 #endregion actions state
 
@@ -63,6 +64,8 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
     private FundRelationships rootBudget => this.context?.FundTree ?? null!;
 
     private bool isViewingFund => this.viewingFund != null;
+
+    private bool isAddingTransaction => this.addTransactionFund != null;
 
     private string rootBalanceDisplay => this.rootBudget.Fund.Balance.ToString("C");
 
@@ -118,14 +121,21 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
       this.viewingFund = null;
     }
 
-    private void StartAddingTransaction()
+    private void StartAddingTransaction(FundRelationships fund)
     {
-      this.IsAddingTransaction = true;
+      this.addTransactionFund = fund;
     }
 
     private void StopAddingTransaction()
     {
-      this.IsAddingTransaction = false;
+      this.addTransactionFund = null;
+    }
+
+    private async Task SubmitAddTransaction(AddTransactionFormState state)
+    {
+      Console.WriteLine(state.VendorName);
+      await this.ReloadContext();
+      this.StopAddingTransaction();
     }
 
 #endregion event handlers
