@@ -12,8 +12,8 @@ SELECT
   [dbo].[Transactions].[Amount],
   [dbo].[Transactions].[DateOfTransaction],
   [dbo].[Transactions].[CheckNumber]
-FROM [dbo].[TransactionAllocations]
-RIGHT OUTER JOIN [dbo].[Transactions]
+FROM [dbo].[Transactions]
+LEFT OUTER JOIN [dbo].[TransactionAllocations]
   ON [dbo].[TransactionAllocations].[TransactionId] = [dbo].[Transactions].[Id]
 WHERE [dbo].[Transactions].[Id] = @TransactionId;
 

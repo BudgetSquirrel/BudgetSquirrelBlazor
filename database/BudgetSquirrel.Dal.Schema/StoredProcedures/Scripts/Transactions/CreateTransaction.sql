@@ -1,4 +1,5 @@
 CREATE PROCEDURE [CreateTransaction] (
+  @TransactionId NVARCHAR(36),
   @VendorName NVARCHAR(100),
   @Description NVARCHAR(200),
   @Amount DECIMAL(18, 2),
@@ -9,6 +10,7 @@ AS
 BEGIN
 
 INSERT INTO Transactions (
+  Id,
   VendorName,
   Description,
   Amount,
@@ -16,6 +18,7 @@ INSERT INTO Transactions (
   CheckNumber
 )
 VALUES (
+  @TransactionId,
   @VendorName,
   @Description,
   @Amount,
@@ -23,7 +26,4 @@ VALUES (
   @CheckNumber
 );
 
--- Get the id of the transaction we just created
-SELECT CAST(SCOPE_IDENTITY() AS NVARCHAR(36));
-RETURN
 END

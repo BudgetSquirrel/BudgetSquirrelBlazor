@@ -25,10 +25,11 @@ namespace BudgetSquirrel.BudgetTracking.Data.Transactions
     {
       using IDbConnection conn = this.dbConnectionProvider.GetConnection();
 
-      Guid transactionId = await conn.ExecuteScalarAsync<Guid>(
-        $"EXEC {StoredProcedures.Transactions.CreateTransaction} @VendorName, @Description, @Amount, @DateOfTransaction, @CheckNumber",
+      await conn.ExecuteAsync(
+        $"EXEC {StoredProcedures.Transactions.CreateTransaction} @TransactionId, @VendorName, @Description, @Amount, @DateOfTransaction, @CheckNumber",
         new
         {
+          TransactionId = transaction.Id,
           transaction.VendorName,
           transaction.Description,
           transaction.Amount,
@@ -37,7 +38,7 @@ namespace BudgetSquirrel.BudgetTracking.Data.Transactions
         }
       );
 
-      return transactionId;
+      return transaction.Id;
     }
 
     public async Task<Transaction> GetTransaction(Guid transactionId)
@@ -77,7 +78,7 @@ namespace BudgetSquirrel.BudgetTracking.Data.Transactions
       using IDbConnection conn = this.dbConnectionProvider.GetConnection();
 
       await conn.ExecuteAsync(
-        $"EXEC {StoredProcedures.Transactions.CreateTransaction} @TransactionId @FundId, @TimeboxId, @Amount",
+        $"EXEC {StoredProcedures.Transactions.CreateTransactionAllocation} @TransactionId, @FundId, @TimeboxId, @Amount",
         new
         {
           TransactionId = transaction.Id,

@@ -14,8 +14,8 @@ SELECT
   [dbo].[Transactions].[Amount],
   [dbo].[Transactions].[DateOfTransaction],
   [dbo].[Transactions].[CheckNumber]
-FROM [dbo].[TransactionAllocations]
-INNER JOIN [dbo].[Transactions]
+FROM [dbo].[Transactions]
+INNER JOIN [dbo].[TransactionAllocations]
   ON [dbo].[TransactionAllocations].[TransactionId] = [dbo].[Transactions].[Id]
 WHERE [dbo].[TransactionAllocations].[FundId] = @FundId
   AND [dbo].[Transactions].[DateOfTransaction] >= @StartDate

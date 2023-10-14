@@ -40,7 +40,7 @@ namespace BudgetSquirrel.BudgetTracking.Business.BudgetTrackingPage
     public async Task Execute()
     {
       Transaction transaction = new Transaction(
-        Guid.Empty,
+        Guid.NewGuid(),
         this.vendorName,
         this.description,
         this.amount,

@@ -9,7 +9,7 @@ namespace BudgetSquirrel.Dal.Schema.Migrations
     public override void Up()
     {
       Create.Table("Transactions")
-        .WithColumn("Id").AsGuid().PrimaryKey().WithDefaultValue(SystemMethods.NewGuid)
+        .WithColumn("Id").AsGuid().PrimaryKey()
         .WithColumn("VendorName").AsString(100).NotNullable()
         .WithColumn("Description").AsString(200).NotNullable()
         .WithColumn("Amount").AsDecimal(18, 2).NotNullable()
