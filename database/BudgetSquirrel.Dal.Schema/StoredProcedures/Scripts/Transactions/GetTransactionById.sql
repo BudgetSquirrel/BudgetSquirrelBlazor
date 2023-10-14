@@ -1,7 +1,5 @@
-CREATE PROCEDURE [GetTransactionsByFundAndDateRange] (
-  @FundId INT,
-  @StartDate DATE, -- Inclusive
-  @EndDate DATE -- Exclusive
+CREATE PROCEDURE [GetTransactionById] (
+  @TransactionId NVARCHAR(36)
 )
 AS
 BEGIN
@@ -15,10 +13,8 @@ SELECT
   [dbo].[Transactions].[DateOfTransaction],
   [dbo].[Transactions].[CheckNumber]
 FROM [dbo].[TransactionAllocations]
-INNER JOIN [dbo].[Transactions]
+RIGHT OUTER JOIN [dbo].[Transactions]
   ON [dbo].[TransactionAllocations].[TransactionId] = [dbo].[Transactions].[Id]
-WHERE [dbo].[TransactionAllocations].[FundId] = @FundId
-  AND [dbo].[Transactions].[DateOfTransaction] >= @StartDate
-  AND [dbo].[Transactions].[DateOfTransaction] <= @EndDate;
+WHERE [dbo].[Transactions].[Id] = @TransactionId;
 
 END

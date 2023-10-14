@@ -134,6 +134,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
     private async Task SubmitAddTransaction(AddTransactionFormState state)
     {
       Console.WriteLine(state.VendorName);
+      await this.pageService.CreateTransaction(state);
       await this.ReloadContext();
       this.StopAddingTransaction();
     }

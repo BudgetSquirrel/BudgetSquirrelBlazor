@@ -29,9 +29,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     public async Task<BudgetPlanningContext> GetBudgetTree(int? timeboxId = null)
     {
-      BudgetPlanningContextResponse contextResponse = await this.backendClient.Fetch<BudgetPlanningContextResponse>(
-        ContextEndpoint,
-        new Dictionary<string, object>() { { "profileId", 1 } });
+      BudgetPlanningContextResponse contextResponse = await this.backendClient.Fetch<BudgetPlanningContextResponse>(ContextEndpoint);
       BudgetPlanningContext context = BudgetPlanningResponseResolvers.ToFrontendDto(contextResponse);
       return context;
     }
@@ -59,7 +57,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         });
     }
 
-    public Task CreateLevel1Budget(int profileId, int timeboxId, string name, decimal plannedAmount)
+    public Task CreateLevel1Budget(int timeboxId, string name, decimal plannedAmount)
     {
       return this.backendClient.ExecuteCommand(
         CreateLevel1BudgetEndpoint,
@@ -67,7 +65,6 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
         {
           Name = name,
           PlannedAmount = plannedAmount,
-          ProfileId = profileId,
           TimeboxId = timeboxId
         });
     }
@@ -93,13 +90,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
           .Replace(EndpointFormatTimeboxId, timeboxId.ToString()));
     }
 
-    public Task FinalizeBudget(int profileId, int timeboxId)
+    public Task FinalizeBudget(int timeboxId)
     {
       return this.backendClient.ExecuteCommand(
         FinalizeBudgetEndpoint,
         new FinalizeBudgetRequest()
         {
-          ProfileId = profileId,
           TimeboxId = timeboxId
         });
     }

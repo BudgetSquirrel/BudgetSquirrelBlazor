@@ -197,7 +197,6 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private async Task SubmitNewBudget1(IBudget1AddFormValues values)
     {
       await this.budgetPlanningService.CreateLevel1Budget(
-        this.rootBudget.Fund.ProfileId,
         this.context.Timebox.Id,
         values.Name,
         values.PlannedAmount);
@@ -241,7 +240,7 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
     private async Task ConfirmFinalizingBudgetClicked()
     {
       this.isFinalizingBudget = false;
-      await this.budgetPlanningService.FinalizeBudget(this.rootBudget.Fund.ProfileId, this.context.Timebox.Id);
+      await this.budgetPlanningService.FinalizeBudget(this.context.Timebox.Id);
       await this.ReloadContext();
     }
 

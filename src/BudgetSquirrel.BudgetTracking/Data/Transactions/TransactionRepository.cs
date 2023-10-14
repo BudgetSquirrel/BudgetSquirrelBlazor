@@ -21,22 +21,71 @@ namespace BudgetSquirrel.BudgetTracking.Data.Transactions
       this.dbConnectionProvider = dbConnectionProvider;
     }
 
+    public async Task<Guid> CreateTransaction(Transaction transaction)
+    {
+      using IDbConnection conn = this.dbConnectionProvider.GetConnection();
+
+      Guid transactionId = await conn.ExecuteScalarAsync<Guid>(
+        $"EXEC {StoredProcedures.Transactions.CreateTransaction} @VendorName, @Description, @Amount, @DateOfTransaction, @CheckNumber",
+        new
+        {
+          transaction.VendorName,
+          transaction.Description,
+          transaction.Amount,
+          transaction.DateOfTransaction,
+          transaction.CheckNumber
+        }
+      );
+
+      return transactionId;
+    }
+
+    public async Task<Transaction> GetTransaction(Guid transactionId)
+    {
+      using IDbConnection conn = this.dbConnectionProvider.GetConnection();
+      
+      TransactionDto transaction = await conn.QuerySingleAsync<TransactionDto>(
+        $"EXEC {StoredProcedures.Transactions.GetTransactionById} @TransactionId",
+        new
+        {
+          TransactionId = transactionId
+        }
+      );
+
+      return TransactionConversions.ToDomain(transaction);
+    }
+
     public async Task<IEnumerable<Transaction>> GetTransactionsInDates(int fundId, DateTime startDate, DateTime endDate)
     {
-      IEnumerable<TransactionDto> transactions;
-      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
-      {
-        transactions = await conn.QueryAsync<TransactionDto>(
-          $"EXEC {StoredProcedures.Transactions.GetTransactionsByFundAndDateRange} @FundId, @StartDate, @EndDate",
-          new
-          {
-            FundId = fundId,
-            StartDate = startDate,
-            EndDate = endDate
-          }
-        );
-      }
+      using IDbConnection conn = this.dbConnectionProvider.GetConnection();
+      
+      IEnumerable<TransactionDto> transactions = await conn.QueryAsync<TransactionDto>(
+        $"EXEC {StoredProcedures.Transactions.GetTransactionsByFundAndDateRange} @FundId, @StartDate, @EndDate",
+        new
+        {
+          FundId = fundId,
+          StartDate = startDate,
+          EndDate = endDate
+        }
+      );
+
       return transactions.Select(t => TransactionConversions.ToDomain(t));
+    }
+
+    public async Task RecordTransactionAllocation(Transaction transaction, int fundId, decimal amount, int timeboxId)
+    {
+      using IDbConnection conn = this.dbConnectionProvider.GetConnection();
+
+      await conn.ExecuteAsync(
+        $"EXEC {StoredProcedures.Transactions.CreateTransaction} @TransactionId @FundId, @TimeboxId, @Amount",
+        new
+        {
+          TransactionId = transaction.Id,
+          FundId = fundId,
+          Amount = amount,
+          TimeboxId = timeboxId
+        }
+      );
     }
   }
 }

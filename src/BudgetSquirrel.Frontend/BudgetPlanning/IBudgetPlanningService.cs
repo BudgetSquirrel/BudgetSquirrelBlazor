@@ -10,12 +10,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning
 
     Task EditFundName(int fundId, string newName);
 
-    Task CreateLevel1Budget(int profileId, int timeboxId, string name, decimal plannedAmount);
+    Task CreateLevel1Budget(int timeboxId, string name, decimal plannedAmount);
 
     Task CreateSubBudget(int parentFundId, int timeboxId, string name, decimal plannedAmount);
 
     Task DeleteBudget(int fundId, int timeboxId);
     
-    Task FinalizeBudget(int profileId, int timeboxId);
+    Task FinalizeBudget(int timeboxId);
   }
 }

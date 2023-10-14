@@ -12,6 +12,7 @@ INSERT INTO [dbo].[Funds]
   VALUES
   ( @ProfileId, @ParentFundId, @Name, @IsRoot );
 
+-- Get the id of the fund we just created
 SELECT CAST(SCOPE_IDENTITY() AS INT);
 RETURN
 END

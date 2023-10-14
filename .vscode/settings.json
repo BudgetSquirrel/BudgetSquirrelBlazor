@@ -1,0 +1,3 @@
+{
+  "dotnet.defaultSolution": "database/BudgetSquirrel.Dal.Schema.sln"
+}
