@@ -18,11 +18,28 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 
     private string fundName => this.Fund.Fund.Name;
 
+    private Transaction? transactionToDelete = null;
+
     private IEnumerable<Transaction> transactions => this.Fund.Transactions;
 
     private Task Close()
     {
       return this.OnClose.InvokeAsync();
+    }
+
+    private void OnDeleteTransactionClicked(Transaction transaction)
+    {
+      this.transactionToDelete = transaction;
+    }
+
+    private void OnCancelDeleteTransactionClicked()
+    {
+      this.transactionToDelete = null;
+    }
+
+    private async Task DeleteTransaction(Transaction transaction)
+    {
+      
     }
   }
 }
