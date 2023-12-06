@@ -76,21 +76,11 @@ namespace BudgetSquirrel.Backend.Controllers
     }
 
     [HttpDelete("transactions")]
-    public async Task DeleteTransaction([FromBody] AddTransactionRequest request)
+    public async Task DeleteTransaction([FromBody] DeleteTransactionRequest request)
     {
-      Account account = await this.authService.GetCurrentUser();
-
-      Timebox timebox = await this.timeboxRepository.GetTimebox(account.ProfileId, DateTime.Now);
-      
-      CreateTransactionCommand command = new CreateTransactionCommand(
+      DeleteTransactionCommand command = new DeleteTransactionCommand(
         this.transactionRepository,
-        request.VendorName,
-        request.Description,
-        request.Amount,
-        request.DateOfTransaction,
-        request.CheckNumber,
-        request.FundId,
-        timebox.Id);
+        request.TransactionId);
 
       await command.Execute();
     }
