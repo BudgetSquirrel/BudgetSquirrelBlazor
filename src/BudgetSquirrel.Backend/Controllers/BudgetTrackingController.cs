@@ -74,5 +74,25 @@ namespace BudgetSquirrel.Backend.Controllers
 
       await command.Execute();
     }
+
+    [HttpDelete("transactions")]
+    public async Task DeleteTransaction([FromBody] AddTransactionRequest request)
+    {
+      Account account = await this.authService.GetCurrentUser();
+
+      Timebox timebox = await this.timeboxRepository.GetTimebox(account.ProfileId, DateTime.Now);
+      
+      CreateTransactionCommand command = new CreateTransactionCommand(
+        this.transactionRepository,
+        request.VendorName,
+        request.Description,
+        request.Amount,
+        request.DateOfTransaction,
+        request.CheckNumber,
+        request.FundId,
+        timebox.Id);
+
+      await command.Execute();
+    }
   }
 }
