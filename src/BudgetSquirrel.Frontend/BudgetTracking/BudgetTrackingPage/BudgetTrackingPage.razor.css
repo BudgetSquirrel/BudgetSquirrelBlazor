@@ -15,3 +15,23 @@
 ._budget-tracking-page ._root-fund-stats {
   margin-top: 2rem;
 }
+
+._budget-tracking-page ._fund-section__container,
+._budget-tracking-page ._fund-container,
+._budget-tracking-page ._fund-detail-view__container {
+  margin-top: 1rem;
+}
+
+._budget-tracking-page ._fund-section {
+  flex-grow: 1;
+}
+
+._budget-tracking-page ._fund-section__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+._budget-tracking-page ._fund-detail-view__container {
+  margin-left: 2em;
+}

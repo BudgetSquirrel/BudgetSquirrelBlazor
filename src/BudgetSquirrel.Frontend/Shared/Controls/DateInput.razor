@@ -1,0 +1,49 @@
+@using System
+
+<input
+    value="@this.ValueDisplay"
+    @onchange="@this.HandleChange"
+    class="input @this.CssClass"
+    placeholder="@this.Placeholder"
+    type="@this.Type"
+    name="@this.Name"
+    style="@this.widthCss" />
+
+@code {
+  [Parameter]
+  public DateTime? Value { get; set; }
+  
+  [Parameter]
+  public string CssClass { get; set; } = "";
+
+  [Parameter]
+  public string Placeholder { get; set; } = "";
+
+  [Parameter]
+  public string Name { get; set; } = "";
+
+  [Parameter]
+  public double? WidthEms { get; set; } = null;
+
+  private string widthCss => this.WidthEms.HasValue ? $"width: {this.WidthEms}em;" : string.Empty;
+
+  [Parameter]
+  public EventCallback<DateTime?> OnChange { get; set; }
+
+  public string Type { get; set; } = "date";
+
+  private string? ValueDisplay => this.Value?.ToString("MM/dd/yyyy");
+
+  private async Task HandleChange(ChangeEventArgs e)
+  {
+    if (string.IsNullOrWhiteSpace(e.Value?.ToString()))
+    {
+      await this.OnChange.InvokeAsync(null);
+    }
+    else
+    {
+      DateTime result = DateTime.Parse(e.Value.ToString());
+      await this.OnChange.InvokeAsync(result);
+    }
+  }
+}

@@ -21,6 +21,7 @@
     --blackish-700: #383838;
     --blackish-600: #898f9c;
     --blackish-500: #686868;
+    --blackish-300: #969696;
     --blackish-200: #c4c4c4;
     /* --blackish-175: #e1e1e1; */
     --blackish-100: #e7e7e7;
@@ -43,6 +44,7 @@
     --clr-fg-no-color-2: var(--blackish-600);
     --clr-fg-no-color-bold: var(--blackish-700);
     --clr-fg-no-color-subtle: var(--blackish-a200);
+    --clr-fg-no-color-subtle-2: var(--blackish-300);
     --clr-fg-no-color-alt: white;
 
     --clr-brdr-no-color: var(--blackish-200);
@@ -92,6 +94,10 @@
     color: var(--clr-input-stroke);
     caret-color: var(--clr-input-stroke);
     background-color: var(--clr-input-bg);
+}
+
+.input--centered {
+    text-align: center;
 }
 
 .input--valid {
@@ -218,18 +224,58 @@
 }
 
 /********* Forms *********/
+.modal-form {
+    padding: 1em;
+}
+
 .form-input {
     width: 100%;
     display: block;
     margin-top: 1em;
 }
 
-.form-field-group {
+.form-input:first-of-type {
+    margin-top: 0;
+}
+
+.form-input--inline {
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 1em;
+}
+
+.form-input--inline:first-of-type {
+    margin-left: 0;
+}
+
+/* A form label group is a combo component of an input field with a label.
+   Usually, this is a div containing the label and input element. */
+.form-label-group {
     display: inline-block;
 }
 
-.form-field-group__label {
+.form-label-group__label {
     display: block;
+}
+
+/* A form block is a sub-section of a form (usually contained in a div) with
+   multiple fields in it. These sub-sections are usually just ways to organize
+   fields together. */
+
+.form-block {
+    margin-top: 1em;
+}
+
+.form-block--no-margin {
+    margin-top: 0;
+}
+   
+.form-block--horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .form-action-group {
@@ -244,10 +290,10 @@
     align-items: center;
 }
 
-.form-action-group > .form-action {
+.form-action-group .form-action {
     margin-left: 1rem;
 }
 
-.form-action-group > .form-action:first-of-type {
+.form-action-group .form-action:first-of-type {
     margin-left: 0;
 }

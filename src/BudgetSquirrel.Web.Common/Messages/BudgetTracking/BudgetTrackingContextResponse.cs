@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BudgetSquirrel.Web.Common.Messages.BudgetTracking.Transactions;
 
 namespace BudgetSquirrel.Web.Common.Messages.BudgetTracking
 {
@@ -13,13 +14,13 @@ namespace BudgetSquirrel.Web.Common.Messages.BudgetTracking
       TimeboxDetails timebox,
       UserProfile profile,
       FundSubFunds fundTree,
-      IEnumerable<FundBudget> budgets,
+      IEnumerable<FundRelationshipDtos> fundRelationships,
       bool isFinalized)
     {
       Timebox = timebox;
       Profile = profile;
       FundTree = fundTree;
-      Budgets = budgets;
+      FundRelationships = fundRelationships;
       IsFinalized = isFinalized;
     }
 
@@ -29,7 +30,7 @@ namespace BudgetSquirrel.Web.Common.Messages.BudgetTracking
     
     public FundSubFunds FundTree { get; set; }
 
-    public IEnumerable<FundBudget> Budgets { get; set; }
+    public IEnumerable<FundRelationshipDtos> FundRelationships { get; set; }
 
     public bool IsFinalized { get; set; }
 
@@ -99,19 +100,22 @@ namespace BudgetSquirrel.Web.Common.Messages.BudgetTracking
       public int ParentFundId { get; set; }
     }
 
-    public class FundBudget
+    public class FundRelationshipDtos
     {
-      public FundBudget()
+      public FundRelationshipDtos()
       {
       }
 
-      public FundBudget(Budget budget, int fundId)
+      public FundRelationshipDtos(Budget budget, IEnumerable<TransactionResponse> transactions, int fundId)
       {
         this.Budget = budget;
+        this.Transactions = transactions;
         this.FundId = fundId;
       }
 
       public Budget Budget { get; set; }
+
+      public IEnumerable<TransactionResponse> Transactions { get; set; }
 
       public int FundId { get; set; }
     }

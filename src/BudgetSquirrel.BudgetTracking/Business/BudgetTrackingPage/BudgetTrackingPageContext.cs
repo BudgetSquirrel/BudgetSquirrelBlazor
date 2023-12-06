@@ -16,9 +16,9 @@ namespace BudgetSquirrel.BudgetTracking.Business.BudgetTrackingPage
     
     public FundSubFunds FundTree { get; private set; }
 
-    public IEnumerable<FundBudget> Funds { get; private set; }
+    public IEnumerable<FundRelationships> Funds { get; private set; }
 
-    public BudgetTrackingPageContext(Profile profile, FundSubFunds fundTree, IEnumerable<FundBudget> budgets, Timebox timebox)
+    public BudgetTrackingPageContext(Profile profile, FundSubFunds fundTree, IEnumerable<FundRelationships> budgets, Timebox timebox)
     {
       this.Profile = profile;
       this.FundTree = fundTree;

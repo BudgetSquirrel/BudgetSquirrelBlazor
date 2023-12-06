@@ -1,0 +1,11 @@
+._actions {
+  margin-top: 1em;
+}
+
+._field-couples {
+  flex-wrap: nowrap;
+}
+
+._field-couples > .form-input {
+  /* width: ; */
+}

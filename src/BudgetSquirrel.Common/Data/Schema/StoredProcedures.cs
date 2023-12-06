@@ -45,5 +45,13 @@ namespace BudgetSquirrel.Common.Data.Schema
       public static readonly string GetTimeboxByDate = _("GetTimeboxByDate");
       public static readonly string CreateTimebox = _("CreateTimebox");
     }
+
+    public static class Transactions
+    {
+      public static readonly string GetTransactionsByFundAndDateRange = _("GetTransactionsByFundAndDateRange");
+      public static readonly string GetTransactionById = _("GetTransactionById");
+      public static readonly string CreateTransaction = _("CreateTransaction");
+      public static readonly string CreateTransactionAllocation = _("CreateTransactionAllocation");
+    }
   }
 }

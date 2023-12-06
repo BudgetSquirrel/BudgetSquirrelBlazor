@@ -17,3 +17,27 @@
   border-radius: 10px;
   border: 1px solid var(--clr-border-no-color);
 }
+
+._modal__top-banner {
+  display: flex;
+  justify-content: stretch;
+
+  position: relative;
+  padding-top: 1em;
+}
+
+._modal__title-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+._modal__x-container {
+  position: absolute;
+  right: 1em;
+  top: 0.8em;
+  
+  display: flex;
+  justify-content: flex-end;
+}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BudgetSquirrel.BudgetTracking.Business.BudgetTrackingPage;
 using BudgetSquirrel.Web.Common.Messages.BudgetTracking;
+using BudgetSquirrel.Web.Common.Messages.BudgetTracking.Transactions;
 using static BudgetSquirrel.Web.Common.Messages.BudgetTracking.BudgetTrackingContextResponse;
 
 namespace BudgetSquirrel.Backend.Resolvers
@@ -11,14 +12,14 @@ namespace BudgetSquirrel.Backend.Resolvers
   {
     public static BudgetTrackingContextResponse ToApiMessage(BudgetTrackingPageContext context)
     {
-      List<FundBudget> budgets = context.Funds.Select(b => ToApiMessage(b)).ToList();
+      List<FundRelationshipDtos> fundRelationships = context.Funds.Select(b => ToApiMessage(b)).ToList();
       FundSubFunds fundSubFundsTree = ToApiMessage(context.FundTree);
-      BudgetTracking.Domain.BudgetTracking.FundBudget rootFundBudget = context.Funds.Single(b => b.Fund.IsRoot);
+      BudgetTracking.Domain.BudgetTracking.FundRelationships rootFundBudget = context.Funds.Single(b => b.Fund.IsRoot);
       return new BudgetTrackingContextResponse(
         new TimeboxDetails(context.Timebox.Id, context.Timebox.StartDate, context.Timebox.EndDate),
         new UserProfile(context.Profile.ProfileId),
         fundSubFundsTree,
-        budgets,
+        fundRelationships,
         rootFundBudget.Budget.IsFinalized);
     }
 
@@ -36,14 +37,28 @@ namespace BudgetSquirrel.Backend.Resolvers
         subFunds);
     }
 
-    private static FundBudget ToApiMessage(BudgetSquirrel.BudgetTracking.Domain.BudgetTracking.FundBudget fundBudget)
+    private static FundRelationshipDtos ToApiMessage(BudgetSquirrel.BudgetTracking.Domain.BudgetTracking.FundRelationships fundBudget)
     {
       decimal plannedAmount = fundBudget.Budget.PlannedAmount;
       int fundId = fundBudget.Fund.Id;
-      return new FundBudget(
+      TransactionResponse[] transactions = fundBudget.Transactions.Select(t => ToApiMessage(t)).ToArray();
+
+      return new FundRelationshipDtos(
         new Budget(
           plannedAmount),
+        transactions,
         fundId);
+    }
+
+    private static TransactionResponse ToApiMessage(BudgetTracking.Domain.BudgetTracking.Transaction t)
+    {
+      return new TransactionResponse(
+        t.Id,
+        t.VendorName,
+        t.Description,
+        t.Amount,
+        t.DateOfTransaction,
+        t.CheckNumber);
     }
   }
 }

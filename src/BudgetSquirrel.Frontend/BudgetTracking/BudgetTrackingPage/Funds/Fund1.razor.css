@@ -1,0 +1,32 @@
+._fund1 ._fund__heading {
+  display: flex;
+  align-items: center;
+}
+
+._fund1 ._fund__name {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: var(--clr-fg-no-color);
+}
+
+._fund1 ._fund__actions {
+  display: none;
+  margin-left: 1.5em;
+}
+
+._fund1:hover ._fund__actions {
+  display: block;
+}
+
+._fund1 ._fund-stat__container {
+  margin-top: 1em;
+}
+
+._fund1 ._fund-stat {
+  margin-left: 2em;
+  display: inline-block;
+}
+
+._fund1 ._fund-stat--first {
+  margin-left: 0;
+}

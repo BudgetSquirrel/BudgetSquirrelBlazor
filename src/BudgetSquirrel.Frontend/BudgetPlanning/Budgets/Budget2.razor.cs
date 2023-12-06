@@ -14,12 +14,17 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     public EventCallback<IEditPlannedAmountFormValues> OnPlannedAmountChanged { get; set; } = new EventCallback<IEditPlannedAmountFormValues>();
     
     [Parameter]
+    public EventCallback<IEditNameFormValues> OnNameChanged { get; set; } = new EventCallback<IEditNameFormValues>();
+    
+    [Parameter]
     public EventCallback<IDeleteBudgetFormValues> OnDeleteBudget { get; set; } = new EventCallback<IDeleteBudgetFormValues>();
 
     private bool IsSubBudgetPlannedAmountZeroedOut => this.Budget.SubBudgetsTotalPlannedAmount == this.Budget.Budget.PlannedAmount ||
                                                       this.Budget.SubFunds.Count() == 0;
 
     private EditBudgetFormValues State { get; set; } = null!;
+
+    private string InputNameFundName => $"fundName{this.Budget.Fund.Id}";
 
     protected override void OnInitialized()
     {
@@ -95,6 +100,12 @@ namespace BudgetSquirrel.Frontend.BudgetPlanning.Budgets
     public void OnDeleteBudgetCancelled()
     {
       this.IsDeletingBudget = false;
+    }
+
+    private void ChangeName(string newName)
+    {
+      this.State.Name = newName;
+      this.OnNameChanged.InvokeAsync(this.State);
     }
   }
 }

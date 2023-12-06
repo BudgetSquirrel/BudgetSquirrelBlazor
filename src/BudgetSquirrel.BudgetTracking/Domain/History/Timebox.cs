@@ -21,8 +21,14 @@ namespace BudgetSquirrel.BudgetTracking.Domain.History
 
     public int Id { get; private set; }
 
+    /// <summary>
+    /// The first day represented by this timebox (inclusive)
+    /// </summary>
     public DateTime StartDate { get; private set; }
 
+    /// <summary>
+    /// The last day represented by this timebox (inclusive)
+    /// </summary>
     public DateTime EndDate { get; private set; }
   }
 }

@@ -12,6 +12,7 @@ namespace BudgetSquirrel.BudgetTracking.Business.BudgetTrackingPage
     private IFundRepository fundRepository;
     private IBudgetRepository budgetRepository;
     private ITimeboxRepository timeboxRepository;
+    private ITransactionRepository transactionRepository;
 
     private int? timeBoxId;
     private int profileId;
@@ -20,14 +21,16 @@ namespace BudgetSquirrel.BudgetTracking.Business.BudgetTrackingPage
       IFundRepository fundRepository,
       IBudgetRepository budgetRepository,
       ITimeboxRepository timeboxRepository,
+      ITransactionRepository transactionRepository,
       int? timeBoxId,
       int profileId)
     {
+      this.fundRepository = fundRepository;
       this.budgetRepository = budgetRepository;
       this.timeboxRepository = timeboxRepository;
+      this.transactionRepository = transactionRepository;
       this.timeBoxId = timeBoxId;
       this.profileId = profileId;
-      this.fundRepository = fundRepository;
     }
 
     public async Task<BudgetTrackingPageContext> Query()
@@ -45,13 +48,14 @@ namespace BudgetSquirrel.BudgetTracking.Business.BudgetTrackingPage
       Profile profile = await this.fundRepository.GetProfile(this.profileId);
 
       GetAllFundsAndBudgetsQuery fundsAndBudgetsQuery = new GetAllFundsAndBudgetsQuery(
-        timebox.Id,
+        timebox,
         this.profileId,
         this.fundRepository,
-        this.budgetRepository);
+        this.budgetRepository,
+        this.transactionRepository);
       FundsAndBudgetsQueryResult queryResult = await fundsAndBudgetsQuery.Query();
 
-      return new BudgetTrackingPageContext(profile, queryResult.FundTree, queryResult.FundBudgets, timebox);
+      return new BudgetTrackingPageContext(profile, queryResult.FundTree, queryResult.FundRelationships, timebox);
     }
   }
 }

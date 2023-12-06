@@ -1,9 +1,14 @@
 @using BudgetSquirrel.Frontend.Shared.Controls
+
 <div class="budget budget--2 budget__group _budget2">
   <div class="budget__details">
     <div class="_budget__heading">
       <p class="_budget__name">
-        @this.Name
+        <EditableText
+          Value="@this.Name"
+          Placeholder="Budget Name"
+          Name="@this.InputNameFundName"
+          OnChange="@this.ChangeName" />
       </p>
       <div class="_budget__actions">
         <button class="material-icons icon-button">

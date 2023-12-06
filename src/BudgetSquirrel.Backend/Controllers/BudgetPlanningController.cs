@@ -6,6 +6,8 @@ using BudgetSquirrel.Backend.Resolvers;
 using BudgetSquirrel.Web.Common.Messages.BudgetPlanning;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using BudgetSquirrel.BudgetPlanning.Domain.Accounts;
+using BudgetSquirrel.Backend.Auth;
 
 namespace BudgetSquirrel.Backend.Controllers
 {
@@ -14,15 +16,18 @@ namespace BudgetSquirrel.Backend.Controllers
   [Authorize]
   public class BudgetPlanningController : Controller
   {
+    private IAuthService authService;
     private IFundRepository fundRepository;
     private IBudgetRepository budgetRepository;
     private ITimeboxRepository timeboxRepository;
 
     public BudgetPlanningController(
+      IAuthService authService,
       IFundRepository fundRepository,
       IBudgetRepository budgetRepository,
       ITimeboxRepository timeboxRepository)
     {
+      this.authService = authService;
       this.fundRepository = fundRepository;
       this.budgetRepository = budgetRepository;
       this.timeboxRepository = timeboxRepository;
@@ -31,10 +36,12 @@ namespace BudgetSquirrel.Backend.Controllers
     [HttpPost("finalize")]
     public async Task<IActionResult> FinalizeBudget([FromBody] FinalizeBudgetRequest request)
     {
+      Account account = await this.authService.GetCurrentUser();
+      
       FinalizeBudgetCommand cmd = new FinalizeBudgetCommand(
         this.fundRepository,
         this.budgetRepository,
-        request.ProfileId,
+        account.ProfileId,
         request.TimeboxId);
 
       await cmd.Execute();
@@ -42,14 +49,16 @@ namespace BudgetSquirrel.Backend.Controllers
     }
 
     [HttpGet("context")]
-    public async Task<BudgetPlanningContextResponse> GetContext(int? timeboxId, int profileId)
+    public async Task<BudgetPlanningContextResponse> GetContext(int? timeboxId)
     {
+      Account account = await this.authService.GetCurrentUser();
+      
       GetBudgetPlanningContextQuery query = new GetBudgetPlanningContextQuery(
         this.fundRepository,
         this.budgetRepository,
         this.timeboxRepository,
         timeboxId,
-        profileId);
+        account.ProfileId);
 
       GetBudgetPlanningContextQuery.BudgetPlanningContext response = await query.Query();
       return BudgetPlanningMessageResolvers.ToApiMessage(response);
@@ -95,11 +104,13 @@ namespace BudgetSquirrel.Backend.Controllers
     [HttpPost("create-level1-budget")]
     public async Task<IActionResult> CreateLevel1Budget([FromBody] CreateLevel1BudgetRequest request)
     {
+      Account account = await this.authService.GetCurrentUser();
+      
       CreateLevel1BudgetCommand cmd = new CreateLevel1BudgetCommand(
         this.budgetRepository,
         this.fundRepository,
         this.timeboxRepository,
-        request.ProfileId,
+        account.ProfileId,
         request.TimeboxId,
         request.Name,
         request.PlannedAmount);

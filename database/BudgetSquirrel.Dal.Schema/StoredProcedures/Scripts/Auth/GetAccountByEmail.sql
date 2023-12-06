@@ -4,6 +4,16 @@ CREATE PROCEDURE [GetAccountByEmail] (
 AS
 BEGIN
 
-SELECT * FROM [dbo].[Accounts] INNER JOIN [dbo].[Users] ON [dbo].[Users].[Id] = [dbo].[Accounts].[UserId] WHERE [dbo].[Accounts].[Email] = @Email
+SELECT
+    [dbo].[Accounts].[Email],
+    [dbo].[Users].[FirstName],
+    [dbo].[Users].[LastName],
+    [dbo].[Profiles].[Id] AS ProfileId
+    FROM [dbo].[Accounts]
+    INNER JOIN [dbo].[Users]
+        ON [dbo].[Users].[Id] = [dbo].[Accounts].[UserId]
+    INNER JOIN [dbo].[Profiles]
+        ON [dbo].[Profiles].[UserId] = [dbo].[Users].[Id]
+    WHERE [dbo].[Accounts].[Email] = @Email
 
 END

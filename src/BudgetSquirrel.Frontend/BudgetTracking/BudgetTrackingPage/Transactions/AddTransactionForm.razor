@@ -1,0 +1,57 @@
+@using BudgetSquirrel.Frontend.Shared
+@using BudgetSquirrel.Frontend.Shared.Controls
+
+<div>
+  <div class="_modal__top-banner">
+    <div class="_modal__title-container">
+      <h2>Add Transaction</h2>
+    </div>
+    <div class="_modal__x-container">
+      <button type="button" class="material-icons icon-button" @onclick="@this.Cancel">close</button>
+    </div>
+  </div>
+  
+  <div class="modal-form">
+    <CurrencyInput
+      Value="@this.Amount"
+      Placeholder="Amount (ex $34.67)"
+      Name="amount"
+      CssClass="input--centered form-input"
+      OnChange="@this.ChangeAmount" />
+
+    <div class="form-block form-block--horizontal _field-couples">
+      <DateInput
+        Value="@this.DateOfTransaction"
+        Placeholder="Transaction Date"
+        Name="transactionDate"
+        CssClass="form-input form-input--inline"
+        OnChange="@this.ChangeDateOfTransaction" />
+
+      <input
+        value="@this.VendorName"
+        placeholder="Vendor Name"
+        name="vendorName"
+        class="input form-input form-input--inline"
+        @onchange="@((ChangeEventArgs __e) => this.ChangeVendorName(__e.Value!.ToString()!))" />
+    </div>
+
+    <input
+      value="@this.Description"
+      placeholder="Description"
+      name="description"
+      class="input form-input"
+      @onchange="@((ChangeEventArgs __e) => this.ChangeDescription(__e.Value!.ToString()!))" />
+
+    <input
+      value="@this.CheckNumber"
+      placeholder="Check Number"
+      name="checkNumber"
+      class="input form-input"
+      @onchange="@((ChangeEventArgs __e) => this.ChangeCheckNumber(__e.Value!.ToString()!))" />
+
+    <div class="form-action-group _actions">
+      <button type="button" class="form-action button" @onclick="@this.Cancel">Cancel</button>
+      <button type="button" class="form-action button button--encourage" @onclick="@this.Submit">Add</button>
+    </div>
+  </div>
+</div>

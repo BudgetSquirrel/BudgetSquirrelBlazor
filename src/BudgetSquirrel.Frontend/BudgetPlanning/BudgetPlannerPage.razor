@@ -50,7 +50,7 @@
     @* Page level actions *@
     @* ========================== *@
     <div class="_page-actions form-action-group form-action-group--align-left">
-    @if (this.isCreatingBudget)
+      @if (this.isCreatingBudget)
       {
         <button class="button form-action" @onclick="@this.CancelCreateBudgetClicked">
           Stop Adding Budget
@@ -75,7 +75,7 @@
     @* Budget display section     *@
     @* ========================== *@
     <div class="_budget-section">
-    @if (this.isCreatingBudget)
+      @if (this.isCreatingBudget)
       {
         <Budget1AddForm OnSubmit="@this.SubmitNewBudget1" />
       }

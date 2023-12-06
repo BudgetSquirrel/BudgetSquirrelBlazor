@@ -1,5 +1,9 @@
 @page "/budget-tracker"
+@using BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
+@using BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Transactions
+@using BudgetSquirrel.Frontend.Shared
 @using BudgetSquirrel.Frontend.Shared.Controls
+@using Domain
 
 <div class="_budget-tracking-page page-margins__apply">
   @if (this.isLoading)
@@ -19,13 +23,55 @@
     </div>
 
     @* ========================== *@
-    @* Root budget summary box *@
+    @* Root fund summary box *@
     @* ========================== *@
     <div class="stat__box stat__box--row _root-fund-stats">
       <div class="stat">
         <div class="stat__label stat__label--prominent">Planned Income</div>
         <div>@this.plannedIncomeDisplay</div>
       </div>
+
+      <div class="stat">
+        <div class="stat__label stat__label--prominent">Total Balance</div>
+        <div>@this.rootBalanceDisplay</div>
+      </div>
+    </div>
+
+    <div class="_fund-section__container">
+      @* ========================== *@
+      @* Fund display section     *@
+      @* ========================== *@
+      <div class="_fund-section">
+        @foreach (BudgetTrackingContext.FundRelationships subFund in this.Level1Budgets)
+        {
+          <div class="_fund-container">
+            <Fund1
+              Fund=@subFund
+              OnNameChanged=@this.ChangeSubFundName
+              OnView=@this.ViewFund
+              OnStartAddingTransactionClicked=@this.StartAddingTransaction />
+          </div>
+        }
+      </div>
+
+      @if (this.isViewingFund)
+      {
+        <div class="_fund-detail-view__container">
+          <FundDetailView
+            Fund=this.viewingFund
+            OnClose=this.CloseFundView />
+        </div>
+      }
+
+      @if (this.isAddingTransaction)
+      {
+        <Modal>
+          <AddTransactionForm
+            OnCancel=this.StopAddingTransaction
+            OnTransactionAdded=this.SubmitAddTransaction
+            Fund=this.addTransactionFund />
+        </Modal>
+      }
     </div>
   }
 </div>
