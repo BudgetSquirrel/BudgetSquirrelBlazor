@@ -22,6 +22,28 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.Domain
       public IEnumerable<Transaction> Transactions { get; private set; }
 
       public IEnumerable<FundRelationships> SubFunds { get; private set; }
+
+      /// <summary>
+      /// Finds the fund with the given id in the tree of funds.
+      /// </summary>
+      public FundRelationships? FindFund(int fundId)
+      {
+        if (this.Fund.Id == fundId)
+        {
+          return this;
+        }
+
+        foreach (FundRelationships subFund in this.SubFunds)
+        {
+          FundRelationships? foundFund = subFund.FindFund(fundId);
+          if (foundFund != null)
+          {
+            return foundFund;
+          }
+        }
+
+        return null;
+      }
     }
   }
 }

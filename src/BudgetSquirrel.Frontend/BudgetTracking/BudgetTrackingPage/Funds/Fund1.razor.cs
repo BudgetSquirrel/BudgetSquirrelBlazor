@@ -34,6 +34,8 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 
     private string Name => this.baseInstance.Name;
 
+    private bool ShouldShowAddTransactionButton => this.baseInstance.ShouldShowAddTransactionButton;
+
     private string AmountIn => this.baseInstance.AmountIn;
 
     private string Balance => this.baseInstance.Balance;

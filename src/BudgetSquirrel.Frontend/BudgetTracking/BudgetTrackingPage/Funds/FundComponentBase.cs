@@ -36,6 +36,9 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 
     public string Name { get; private set; } = string.Empty;
 
+    private bool hasSubFunds => this.Fund.SubFunds.Any();
+    
+    public bool ShouldShowAddTransactionButton => !this.hasSubFunds;
 
     private decimal _amountIn => this.Fund.Budget.PlannedAmount;
     public string AmountIn => this._amountIn.ToString("C");

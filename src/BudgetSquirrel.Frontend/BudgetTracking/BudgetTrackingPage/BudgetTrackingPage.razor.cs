@@ -53,7 +53,22 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
 #region actions state
 
-    private FundRelationships? viewingFund { get; set; }
+    private int? viewingFundId { get; set; }
+
+    private FundRelationships? viewingFund
+    {
+      get
+      {
+        if (!this.viewingFundId.HasValue)
+        {
+          return null;
+        }
+        else
+        {
+          return this.context?.FundTree.FindFund(this.viewingFundId.Value);
+        }
+      }
+    }
 
     private FundRelationships? addTransactionFund { get; set; }
 
@@ -113,12 +128,12 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
     private void ViewFund(FundRelationships fund)
     {
-      this.viewingFund = fund;
+      this.viewingFundId = fund.Fund.Id;
     }
 
     private void CloseFundView()
     {
-      this.viewingFund = null;
+      this.viewingFundId = null;
     }
 
     private void StartAddingTransaction(FundRelationships fund)
