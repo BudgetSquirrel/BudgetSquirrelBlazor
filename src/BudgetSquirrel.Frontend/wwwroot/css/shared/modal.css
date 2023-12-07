@@ -41,3 +41,10 @@
   display: flex;
   justify-content: flex-end;
 }
+
+/* Confirmation Modals */
+
+.modal__content--confirmation {
+  padding: 2rem;
+  width: 50rem;
+}

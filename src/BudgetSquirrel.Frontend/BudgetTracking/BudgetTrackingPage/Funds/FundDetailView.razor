@@ -18,18 +18,46 @@
       @foreach (Transaction transaction in this.transactions)
       {
         <div class="_transaction">
-          <div class="_transaction__content">
-            <span class="_transaction__title">@transaction.VendorName</span>
-            <span class="_transaction__amount">@transaction.Amount.ToString("C")</span>
-            <span class="_transaction__date">@transaction.DateOfTransaction.ToString("%M/%d")</span>
+          <div class="_transaction__title">
+            <div class="_transaction__actions">
+              <button class="material-icons icon-button button--discourage" @onclick="() => this.OnDeleteTransactionClicked(transaction)">
+                delete
+              </button>
+              <button class="material-icons icon-button" @onclick="() => this.OnDeleteTransactionClicked(transaction)">
+                mode_edit
+              </button>
+            </div>
+            <span>@transaction.VendorName</span>
           </div>
-          <div class="_transaction__actions">
-            <button class="material-icons icon-button" @onclick="() => this.OnDeleteTransactionClicked(transaction)">
-              delete
-            </button>
-          </div>
+          <span class="_transaction__amount">@transaction.Amount.ToString("C")</span>
+          <span class="_transaction__date">@transaction.DateOfTransaction.ToString("%M/%d")</span>
         </div>
       }
     </div>
   </div>
+
+  @if (this.isDeletingTransaction)
+  {
+    <Modal>
+      <div class="modal__content--confirmation">
+        <p class="modal__text--confirmation">
+          Are you sure you would like to delete this transaction?
+        </p>
+        <p class="modal__text--confirmation">
+          Transaction Amount: <em>@(this.transactionToDelete.Amount.ToString("C"))</em>
+        </p>
+        <p class="modal__text--confirmation">
+          Transaction Description: <em>@(this.transactionToDelete.Description)</em>
+        </p>
+        <div class="form-action-group form-block">
+          <button class="button button--narrow button--discourage form-action" @onclick="@this.OnConfirmDeleteTransactionClicked">
+            Yes, Delete
+          </button>
+          <button class="button button--narrow form-action" @onclick="@this.OnCancelDeleteTransactionClicked">
+            No, Keep Transaction
+          </button>
+        </div>
+      </div>
+    </Modal>
+  }
 </div>

@@ -17,6 +17,7 @@
     --green-500: #5a8a4eff;
     --green-a700: #2fc215;
     --red-500: #d26565ff;
+    --red-600: #cb4d4d;
     --red-900: #9b1616;
     --blackish-700: #383838;
     --blackish-600: #898f9c;
@@ -33,6 +34,7 @@
     --clr-bg-color-alt: var(--tan-a500);
     --clr-bg-no-color: white;
     --clr-bg-no-color-subtle: var(--blackish-100);
+    --clr-bg-bad: var(--red-500);
     
     --clr-trim-color: var(--tan-700);
     
@@ -52,6 +54,8 @@
     
     --clr-control-color: var(--green-500);
     --clr-control-no-color: var(--blackish-200);
+    --clr-control-bad: var(--red-500);
+    --clr-control-bad-bold: var(--red-600);
 
     --clr-input-stroke: var(--blackish-500);
     --clr-input-border: var(--blackish-100);
@@ -161,35 +165,10 @@
     min-width: unset;
 }
 
-.button--disabled {
-    background-color: var(--clr-control-no-color);
-    color: var(--clr-fg-no-color);
-    cursor: default;
+.button--thin {
+    padding-top: 0;
+    padding-bottom: 0;
 }
-
-.button--encourage {
-    background-color: var(--clr-good-strong);
-    color: var(--clr-fg-no-color-alt);
-    cursor: pointer;
-}
-
-.button--discourage {
-    background-color: var(--clr-bad-strong);
-    color: var(--clr-fg-no-color-alt);
-    cursor: pointer;
-}
-
-/*
-.material-icons {
-    Filler css rule for documentation...
-    For icon options, https://fonts.google.com/icons?selected=Material+Icons
-}
-
-.material-icons-outlined {
-    Filler css rule for documentation...
-    For icon options, https://fonts.google.com/icons?selected=Material+Icons
-}
-*/
 
 .icon-button {
     --button-bg-default: none;
@@ -215,6 +194,40 @@
     background-color: var(--button-bg-hover);
     border: none;
 }
+
+.button--disabled {
+    background-color: var(--clr-control-no-color);
+    color: var(--clr-fg-no-color);
+    cursor: default;
+}
+
+.button--encourage {
+    background-color: var(--clr-good-strong);
+    color: var(--clr-fg-no-color-alt);
+    cursor: pointer;
+}
+
+.button--discourage {
+    background-color: var(--clr-control-bad);
+    color: var(--clr-fg-no-color-alt);
+    cursor: pointer;
+}
+
+.button--discourage:hover {
+    background-color: var(--clr-control-bad-bold);
+}
+
+/*
+.material-icons {
+    Filler css rule for documentation...
+    For icon options, https://fonts.google.com/icons?selected=Material+Icons
+}
+
+.material-icons-outlined {
+    Filler css rule for documentation...
+    For icon options, https://fonts.google.com/icons?selected=Material+Icons
+}
+*/
 
 /********* Errors/Warnings *********/
 .error-text,

@@ -97,13 +97,13 @@
   @if (this.isFinalizingBudget)
   {
     <Modal>
-      <div class="_finalize-confirmation">
+      <div class="modal__content--confirmation">
         <p>
           You are about to finalize this budget and move on to transaction tracking.
           You will not be able to modify the plan for the rest of this budget period
           unless you close out the period early. Are you sure you would like to do this?
         </p>
-        <div class="form-action-group _finalize-confirmation__actions">
+        <div class="form-action-group">
           <button class="button button--narrow form-action" @onclick="@this.ConfirmFinalizingBudgetClicked">
             Yes Finalize
           </button>
