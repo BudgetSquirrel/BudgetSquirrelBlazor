@@ -23,6 +23,12 @@ namespace BudgetSquirrel.BudgetTracking.Business.Ports
     Task<Guid> CreateTransaction(Transaction transaction);
 
     /// <summary>
+    /// Removes the given transaction from the database.
+    /// </summary>
+    /// <param name="transaction">The transaction to create</param>
+    Task DeleteTransaction(Guid transactionId);
+
+    /// <summary>
     /// Returns the transaction with the given id.
     /// </summary>
     /// <param name="transactionId"></param>

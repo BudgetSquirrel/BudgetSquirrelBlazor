@@ -74,5 +74,15 @@ namespace BudgetSquirrel.Backend.Controllers
 
       await command.Execute();
     }
+
+    [HttpPost("transactions/delete")]
+    public async Task DeleteTransaction([FromBody] DeleteTransactionRequest request)
+    {
+      DeleteTransactionCommand command = new DeleteTransactionCommand(
+        this.transactionRepository,
+        request.TransactionId);
+
+      await command.Execute();
+    }
   }
 }

@@ -40,7 +40,8 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         { "GetTransactionsByFundAndDateRange", $"{ScriptsDir}/Transactions/GetTransactionsByFundAndDateRange.sql" },
         { "GetTransactionById", $"{ScriptsDir}/Transactions/GetTransactionById.sql" },
         { "CreateTransaction", $"{ScriptsDir}/Transactions/CreateTransaction.sql" },
-        { "CreateTransactionAllocation", $"{ScriptsDir}/Transactions/CreateTransactionAllocation.sql" }
+        { "CreateTransactionAllocation", $"{ScriptsDir}/Transactions/CreateTransactionAllocation.sql" },
+        { "DeleteTransaction", $"{ScriptsDir}/Transactions/DeleteTransaction.sql" }
       };
     }
   }

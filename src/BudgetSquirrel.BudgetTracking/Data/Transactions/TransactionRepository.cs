@@ -41,6 +41,19 @@ namespace BudgetSquirrel.BudgetTracking.Data.Transactions
       return transaction.Id;
     }
 
+    public async Task DeleteTransaction(Guid transactionId)
+    {
+      using IDbConnection conn = this.dbConnectionProvider.GetConnection();
+
+      await conn.ExecuteAsync(
+        $"EXEC {StoredProcedures.Transactions.DeleteTransaction} @TransactionId",
+        new
+        {
+          TransactionId = transactionId,
+        }
+      );
+    }
+
     public async Task<Transaction> GetTransaction(Guid transactionId)
     {
       using IDbConnection conn = this.dbConnectionProvider.GetConnection();

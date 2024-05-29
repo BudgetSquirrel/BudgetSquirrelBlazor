@@ -59,3 +59,15 @@
 ._fund-detail-view ._transaction--column-headers ._transaction__date {
   color: var(--clr-fg-no-color-subtle-2);
 }
+
+/* Action buttons */
+
+._transaction__actions {
+  height: 100%;
+
+  display: none;
+}
+
+._transaction:hover ._transaction__actions {
+  display: inline-flex;
+}
