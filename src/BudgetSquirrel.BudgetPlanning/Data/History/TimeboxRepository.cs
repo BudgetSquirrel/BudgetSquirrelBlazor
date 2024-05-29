@@ -35,6 +35,22 @@ namespace BudgetSquirrel.BudgetPlanning.Data.History
       }
     }
 
+    public async Task<Timebox> GetLastTimebox(int profileId)
+    {
+      TimeboxDto timebox;
+      using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
+      {
+        timebox = await conn.QuerySingleAsync<TimeboxDto>(
+          $"EXEC {StoredProcedures.History.GetLastTimebox} @ProfileId",
+          new
+          {
+            ProfileId = profileId,
+          }
+        );
+      }
+      return TimeboxConversions.ToDomain(timebox);
+    }
+
     public async Task<Timebox> GetTimebox(int timeboxId)
     {
       TimeboxDto timebox;

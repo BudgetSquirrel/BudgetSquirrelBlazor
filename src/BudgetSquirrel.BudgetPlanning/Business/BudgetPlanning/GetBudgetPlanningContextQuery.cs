@@ -63,7 +63,7 @@ namespace BudgetSquirrel.BudgetPlanning.Business.BudgetPlanning
       }
       else
       {
-        timebox = await this.timeboxRepository.GetTimebox(this.profileId, DateTime.Now);
+        timebox = await this.timeboxRepository.GetLastTimebox(this.profileId);
       }
 
       Profile profile = await this.fundRepository.GetProfile(this.profileId);

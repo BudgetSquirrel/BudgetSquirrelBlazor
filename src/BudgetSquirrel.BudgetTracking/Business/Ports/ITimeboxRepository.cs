@@ -13,5 +13,12 @@ namespace BudgetSquirrel.BudgetTracking.Business.Ports
     /// the timebox's start and end date (inclusive).
     /// </summary>
     Task<Timebox> GetTimebox(int profileId, DateTime date);
+
+    /// <summary>
+    /// Gets the most recent timebox for the given profile.
+    /// </summary>
+    /// <param name="profileId"></param>
+    /// <returns></returns>
+    Task<Timebox> GetLastTimebox(int profileId);
   }
 }
