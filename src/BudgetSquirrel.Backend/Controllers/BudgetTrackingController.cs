@@ -55,7 +55,7 @@ namespace BudgetSquirrel.Backend.Controllers
       return BudgetTrackingMessageResolvers.ToApiMessage(response);
     }
 
-    [HttpPost("transactions")]
+    [HttpPost("transactions/add")]
     public async Task CreateTransaction([FromBody] AddTransactionRequest request)
     {
       Account account = await this.authService.GetCurrentUser();
@@ -75,7 +75,7 @@ namespace BudgetSquirrel.Backend.Controllers
       await command.Execute();
     }
 
-    [HttpDelete("transactions")]
+    [HttpPost("transactions/delete")]
     public async Task DeleteTransaction([FromBody] DeleteTransactionRequest request)
     {
       DeleteTransactionCommand command = new DeleteTransactionCommand(
