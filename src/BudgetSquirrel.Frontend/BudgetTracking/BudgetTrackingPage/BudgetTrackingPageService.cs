@@ -38,9 +38,8 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
     public Task DeleteTransaction(Guid transactionId)
     {
-      DeleteTransactionRequest request = new DeleteTransactionRequest(transactionId);
-
-      return this.backendClient.ExecuteCommand(DeleteTransactionEndpoint, request);
+      DeleteTransactionRequest apiRequest = new DeleteTransactionRequest(transactionId);
+      return this.backendClient.ExecuteCommand(DeleteTransactionEndpoint, apiRequest);
     }
 
     public async Task<BudgetTrackingContext> GetPageContext(int? timeboxId = null)

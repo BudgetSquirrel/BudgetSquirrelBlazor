@@ -35,6 +35,7 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         { "CreateTimebox", $"{ScriptsDir}/History/CreateTimebox.sql" },
         { "GetTimebox", $"{ScriptsDir}/History/GetTimebox.sql" },
         { "GetTimeboxByDate", $"{ScriptsDir}/History/GetTimeboxByDate.sql" },
+        { "GetLastTimebox", $"{ScriptsDir}/History/GetLastTimebox.sql" },
 
         /* Transactions */
         { "GetTransactionsByFundAndDateRange", $"{ScriptsDir}/Transactions/GetTransactionsByFundAndDateRange.sql" },
