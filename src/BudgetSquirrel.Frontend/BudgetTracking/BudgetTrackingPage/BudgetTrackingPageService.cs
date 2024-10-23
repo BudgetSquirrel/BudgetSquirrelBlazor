@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BudgetSquirrel.Frontend.BackendClient;
@@ -12,7 +13,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
   {
     private const string BudgetTrackingUri = "budget-tracking";
     private const string ContextEndpoint = BudgetTrackingUri + "/context";
-    private const string AddTransactionEndpoint = BudgetTrackingUri + "/transactions";
+    private const string TransactionEndpoint = BudgetTrackingUri + "/transactions";
 
     private IBackendClient backendClient;
 
@@ -31,7 +32,14 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
         request.DateOfTransaction,
         request.CheckNumber);
 
-      return this.backendClient.ExecuteCommand(AddTransactionEndpoint, apiRequest);
+      return this.backendClient.ExecuteCommand(TransactionEndpoint, apiRequest);
+    }
+
+    public Task DeleteTransaction(Guid transactionId)
+    {
+      DeleteTransactionRequest request = new DeleteTransactionRequest(transactionId);
+
+      return this.backendClient.ExecuteCommand(TransactionEndpoint, request);
     }
 
     public async Task<BudgetTrackingContext> GetPageContext(int? timeboxId = null)
