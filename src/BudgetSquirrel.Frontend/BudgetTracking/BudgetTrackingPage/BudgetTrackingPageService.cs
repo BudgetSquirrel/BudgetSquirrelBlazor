@@ -13,7 +13,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
   {
     private const string BudgetTrackingUri = "budget-tracking";
     private const string ContextEndpoint = BudgetTrackingUri + "/context";
-    private const string AddTransactionEndpoint = BudgetTrackingUri + "/transactions";
+    private const string AddTransactionEndpoint = BudgetTrackingUri + "/transactions/add";
     private const string DeleteTransactionEndpoint = BudgetTrackingUri + "/transactions/delete";
 
     private IBackendClient backendClient;
