@@ -43,7 +43,7 @@ namespace BudgetSquirrel.BudgetPlanning.Data.Funds
       using (IDbConnection conn = this.dbConnectionProvider.GetConnection())
       {
         flatFundTree = await conn.QueryAsync<FundDto>(
-          $"EXEC {StoredProcedures.Funds.GetAllFundsInFundTree} @ProfileId, @TimeboxId",
+          $"EXEC {StoredProcedures.Funds.GetAllFundsInFundTreeWithBudget} @ProfileId, @TimeboxId",
           new
           {
             ProfileId = profileId,
