@@ -52,7 +52,7 @@ namespace BudgetSquirrel.Backend.Controllers
         account.ProfileId);
 
       BudgetTrackingPageContext response = await query.Query();
-      return BudgetTrackingMessageResolvers.ToApiMessage(response);
+      return await BudgetTrackingMessageResolvers.ToApiMessage(response);
     }
 
     [HttpPost("transactions/add")]

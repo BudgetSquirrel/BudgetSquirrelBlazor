@@ -119,7 +119,10 @@ namespace BudgetSquirrel.BudgetPlanning.Data.Funds
         subFundNodes.Add(subFundNode);
       }
 
-      FundSubFunds fundSubFunds = new FundSubFunds(rootFund, subFundNodes);
+      FundSubFunds fundSubFunds = new FundSubFunds(
+        rootFund,
+        subFundNodes,
+        (DateTime asOf) => GetFundBalance(rootFund, subFundNodes, asOf));
 
       return fundSubFunds;
     }
@@ -139,47 +142,60 @@ namespace BudgetSquirrel.BudgetPlanning.Data.Funds
       }
 
       Fund rootFund = FundConversions.ToDomain(flatFundTree.Single(f => f.IsRoot));
-      FundSubFunds rootFundNode = this.BuildFundTree(rootFund, flatFundTree.Select(f => FundConversions.ToDomain(f)));
+      FundSubFunds rootFundNode = this.BuildFundTree(rootFund, flatFundTree
+        .Select(f => FundConversions.ToDomain(f)));
 
       return rootFundNode;
     }
 
-    private async Task<decimal> GetFundBalance(int profileId, DateTime startDate, DateTime endDate)
+    private async Task<decimal> GetFundBalance(int profileId, DateTime endDate)
     {
       FundSubFunds rootFundNode = await this.GetFundTreeFromFundId(profileId);
 
-      decimal balance = await this.GetFundBalance(rootFundNode, startDate, endDate);
+      decimal balance = await this.GetFundBalance(rootFundNode.Fund, rootFundNode.SubFunds, endDate);
       return balance;
     }
 
-    private async Task<decimal> GetFundBalance(FundSubFunds fund, DateTime startDate, DateTime endDate)
+    /// <summary>
+    /// Calculates the balance of the fund. If this fund is a category of sub funds instead of a leaf
+    /// fund, then it calculates the balance of those sub funds and sums those together as the balance
+    /// of this fund. This calculation of sub fund balances is done recursively.
+    /// </summary>
+    /// <param name="fund">The fund to calculate the balance for.</param>
+    /// <param name="subFunds">All sub funds of this fund</param>
+    /// <param name="endDate">
+    /// The last date to pull transactions for to calculate the balance. For reporting sake, this might
+    /// not always be the current date.
+    /// </param>
+    /// <returns></returns>
+    private async Task<decimal> GetFundBalance(Fund fund, IEnumerable<FundSubFunds> subFunds, DateTime endDate)
     {
       decimal balance;
-      if (fund.SubFunds.Any())
+      if (subFunds.Any())
       {
-        balance = await this.GetFundCategoryBalance(fund, startDate, endDate);
+        balance = await this.GetBalanceOfSubFunds(subFunds, endDate);
       }
       else
       {
-        balance = await this.GetFundLeafBalance(fund, startDate, endDate);
+        balance = await this.GetFundLeafBalance(fund, endDate);
       }
 
       return balance;
     }
 
-    private async Task<decimal> GetFundLeafBalance(FundSubFunds fund, DateTime startDate, DateTime endDate)
+    private async Task<decimal> GetFundLeafBalance(Fund fund, DateTime endDate)
     {
-      IEnumerable<Transaction> transactions = await this.transactionRepository.GetTransactionsInDates(fund.Fund.Id, startDate, endDate);
+      IEnumerable<Transaction> transactions = await this.transactionRepository.GetTransactionsInDates(fund.Id, null, endDate);
       return transactions.Sum(t => t.Amount);
     }
 
-    private async Task<decimal> GetFundCategoryBalance(FundSubFunds fund, DateTime startDate, DateTime endDate)
+    private async Task<decimal> GetBalanceOfSubFunds(IEnumerable<FundSubFunds> subFunds, DateTime endDate)
     {
       List<Task<decimal>> syncTasks = new List<Task<decimal>>();
 
-      foreach (FundSubFunds subFund in fund.SubFunds)
+      foreach (FundSubFunds subFund in subFunds)
       {
-        Task<decimal> syncTask = this.GetFundBalance(subFund, startDate, endDate);
+        Task<decimal> syncTask = this.GetFundBalance(subFund.Fund, subFund.SubFunds, endDate);
         syncTasks.Add(syncTask);
       }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BudgetSquirrel.BudgetTracking.Business.BudgetTrackingPage;
 using BudgetSquirrel.Web.Common.Messages.BudgetTracking;
 using BudgetSquirrel.Web.Common.Messages.BudgetTracking.Transactions;
@@ -10,27 +11,37 @@ namespace BudgetSquirrel.Backend.Resolvers
 {
   public static class BudgetTrackingMessageResolvers
   {
-    public static BudgetTrackingContextResponse ToApiMessage(BudgetTrackingPageContext context)
+    public static async Task<BudgetTrackingContextResponse> ToApiMessage(BudgetTrackingPageContext context)
     {
       List<FundRelationshipDtos> fundRelationships = context.Funds.Select(b => ToApiMessage(b)).ToList();
-      FundSubFunds fundSubFundsTree = ToApiMessage(context.FundTree);
+      FundSubFunds fundSubFundsTree = await ToApiMessage(context.FundTree, context.Timebox.EndDate);
+
       BudgetTracking.Domain.BudgetTracking.FundRelationships rootFundBudget = context.Funds.Single(b => b.Fund.IsRoot);
+      
       return new BudgetTrackingContextResponse(
-        new TimeboxDetails(context.Timebox.Id, context.Timebox.StartDate, context.Timebox.EndDate),
+        new TimeboxDetails(
+          context.Timebox.Id,
+          context.Timebox.StartDate,
+          context.Timebox.EndDate),
         new UserProfile(context.Profile.ProfileId),
         fundSubFundsTree,
         fundRelationships,
         rootFundBudget.Budget.IsFinalized);
     }
 
-    private static FundSubFunds ToApiMessage(BudgetSquirrel.BudgetTracking.Domain.Funds.FundSubFunds fundSubFunds)
+    private static async Task<FundSubFunds> ToApiMessage(
+      BudgetSquirrel.BudgetTracking.Domain.Funds.FundSubFunds fundSubFunds,
+      DateTime asOf)
     {
-      List<FundSubFunds> subFunds = fundSubFunds.SubFunds.Select(fsf => ToApiMessage(fsf)).ToList();
+      IEnumerable<FundSubFunds> subFunds = await Task.WhenAll(fundSubFunds.SubFunds
+        .Select(fsf => ToApiMessage(fsf, asOf))
+        .ToList());
+
       return new FundSubFunds(
         new Fund(
           fundSubFunds.Fund.Id,
           fundSubFunds.Fund.Name,
-          fundSubFunds.Fund.Balance,
+          await fundSubFunds.GetBalance(DateTime.UtcNow),
           fundSubFunds.Fund.IsRoot,
           fundSubFunds.Fund.ProfileId,
           fundSubFunds.Fund.ParentFundId),

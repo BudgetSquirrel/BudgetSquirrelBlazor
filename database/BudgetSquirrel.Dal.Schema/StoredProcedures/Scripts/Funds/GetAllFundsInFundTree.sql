@@ -1,5 +1,5 @@
 CREATE PROCEDURE [GetAllFundsInFundTree] (
-  @ProfileId INT,
+  @ProfileId INT
 )
 AS
 BEGIN

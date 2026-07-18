@@ -77,7 +77,13 @@ namespace BudgetSquirrel.Web.Common.Messages.BudgetTracking
       {
       }
 
-      public Fund(int id, string name, decimal balance, bool isRoot, int profileId, int parentFundId)
+      public Fund(
+        int id,
+        string name,
+        decimal balance,
+        bool isRoot,
+        int profileId,
+        int parentFundId)
       {
         this.Id = id;
         this.Name = name;

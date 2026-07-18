@@ -49,7 +49,7 @@ namespace BudgetSquirrel.BudgetTracking.Business.Queries
     {
       Budget budget = await this.budgetRepository.GetBudget(fund.Fund.Id, this.timebox.Id);
       IEnumerable<Transaction> transactions = await this.transactionRepository.GetTransactionsInDates(fund.Fund.Id, timebox.StartDate, timebox.EndDate);
-      FundRelationships fundBudgetRelationship = new FundRelationships(budget, fund.Fund, transactions);
+      FundRelationships fundBudgetRelationship = new FundRelationships(budget, fund.Fund, transactions, fund.GetBalance);
       return fundBudgetRelationship;
     }
   }
