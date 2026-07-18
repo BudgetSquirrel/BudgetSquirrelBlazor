@@ -10,11 +10,13 @@ namespace BudgetSquirrel.BudgetTracking.Business.Ports
   {
     /// <summary>
     /// Returns all transactions for the given fund within the given start and end date.
+    /// If <paramref name="startDate"/> is null, all transactions up to <paramref name="endDate"/>
+    /// will be fetched.
     /// </summary>
     /// <param name="fundId">The id of the fund for which to fetch the transactions</param>
     /// <param name="startDate">The first day for which to fetch the transactions (inclusive)</param>
     /// <param name="endDate">The last day for which to fetch the transactions (inclusive)</param>
-    Task<IEnumerable<Transaction>> GetTransactionsInDates(int fundId, DateTime startDate, DateTime endDate);
+    Task<IEnumerable<Transaction>> GetTransactionsInDates(int fundId, DateTime? startDate, DateTime endDate);
 
     /// <summary>
     /// Creates the given transaction in the database.

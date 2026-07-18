@@ -1,0 +1,26 @@
+name: budgetsquirrel
+
+startup_window: commands
+
+windows:
+  - commands: 
+      layout: tiled
+      panes:
+        - commands:
+          - 
+
+  - primary-app:
+      layout: tiled
+      panes:
+        - frontend:
+          - cd src/BudgetSquirrel.Frontend
+          - <% if @args[0]&.include?("frontend") %>dotnet run<% end %>
+        - backend-task-generator:
+          - cd src/BudgetSquirrel.Backend
+          - <% if @args[0]&.include?("backend") %>dotnet run<% end %>
+
+  - database:
+      layout: main-vertical
+      panes:
+        - database:
+          - docker compose -f database/docker-compose.yml up db

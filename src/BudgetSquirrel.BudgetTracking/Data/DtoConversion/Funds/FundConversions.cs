@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using BudgetSquirrel.BudgetTracking.Domain.Funds;
 using BudgetSquirrel.Common.Data.Schema.Funds;
 
@@ -10,7 +12,12 @@ namespace BudgetSquirrel.BudgetTracking.Data.Funds
   {
     public static Fund ToDomain(FundDto fundDto)
     {
-      return new Fund(fundDto.Name, fundDto.Balance, fundDto.IsRoot, fundDto.ProfileId, fundDto.Id, fundDto.ParentFundId);
+      return new Fund(
+        fundDto.Name,
+        fundDto.IsRoot,
+        fundDto.ProfileId,
+        fundDto.Id,
+        fundDto.ParentFundId);
     }
   }
 }

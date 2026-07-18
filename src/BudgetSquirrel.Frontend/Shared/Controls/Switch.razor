@@ -1,0 +1,28 @@
+@using System;
+
+<div class="_switch">
+  @foreach (SwitchOption option in @Options)
+  {
+    <button class="_switch__option" onclick="@OnStateChanged.InvokeAsync(option)">@option.DisplayText</button>
+  }
+</div>
+
+@code {
+  public class SwitchOption
+  {
+    public SwitchOption(string displayText, string id)
+    {
+      DisplayText = displayText;
+      Id = id;
+    }
+
+    public string DisplayText { get; }
+    public string Id { get; }
+  }
+
+  [Parameter]
+  public IEnumerable<SwitchOption> Options { get; set; } = Array.Empty<SwitchOption>();
+
+  [Parameter]
+  public EventCallback<SwitchOption> OnStateChanged { get; set; }
+}

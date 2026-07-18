@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using BudgetSquirrel.BudgetTracking.Domain.BudgetPlanning;
 using BudgetSquirrel.BudgetTracking.Domain.Funds;
 
@@ -9,11 +11,16 @@ namespace BudgetSquirrel.BudgetTracking.Domain.BudgetTracking
   /// </summary>
   public class FundRelationships
   {
-    public FundRelationships(Budget budget, Fund fund, IEnumerable<Transaction> transactions)
+    public FundRelationships(
+      Budget budget,
+      Fund fund,
+      IEnumerable<Transaction> transactions,
+      Func<DateTime, Task<decimal>> getBalance)
     {
       this.Budget = budget;
       this.Fund = fund;
       this.Transactions = transactions;
+      GetBalance = getBalance;
     }
 
     public Budget Budget { get; private set; }
@@ -24,5 +31,7 @@ namespace BudgetSquirrel.BudgetTracking.Domain.BudgetTracking
     /// The transactions allocated to this fund for a specific timebox.
     /// </summary>
     public IEnumerable<Transaction> Transactions { get; private set; }
+
+    public Func<DateTime, Task<decimal>> GetBalance { get; }
   }
 }
