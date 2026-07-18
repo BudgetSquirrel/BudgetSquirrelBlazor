@@ -12,12 +12,16 @@
   </div>
   
   <div class="modal-form">
-    <CurrencyInput
-      Value="@this.Amount"
-      Placeholder="Amount (ex $34.67)"
-      Name="amount"
-      CssClass="input--centered form-input"
-      OnChange="@this.ChangeAmount" />
+    <div class="form-block form-block--horizontal _field-couples">
+      
+      
+      <CurrencyInput
+        Value="@this.Amount"
+        Placeholder="Amount (ex $34.67)"
+        Name="amount"
+        CssClass="input--centered form-input"
+        OnChange="@this.ChangeAmount" />
+    </div>
 
     <div class="form-block form-block--horizontal _field-couples">
       <DateInput

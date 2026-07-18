@@ -1,0 +1,6 @@
+._switch__option {
+  display: inline-block;
+  border: none;
+  background-color: var(--clr-input-bg);
+  color: var(--clr-input-stroke);
+}
