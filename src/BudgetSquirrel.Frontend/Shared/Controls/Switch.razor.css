@@ -1,6 +1,27 @@
+._switch {
+  display: inline-grid;
+  /* grid-template-columns: repeat(var(--switch-option-count), calc(100% / var(--switch-option-count))); /* --switch-option-count set dynamically in the component code. */
+  /* grid-template-rows: auto; */
+
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+
+  border-radius: 4px;
+}
+
 ._switch__option {
-  display: inline-block;
   border: none;
   background-color: var(--clr-input-bg);
   color: var(--clr-input-stroke);
+  cursor: pointer;
+}
+
+._switch__option:hover:not(._switch__option--selected) {
+  background-color: var(--clr-good);
+  color: var(--clr-fg-no-color-alt);
+}
+
+._switch__option--selected {
+  background-color: var(--clr-good-strong);
+  color: var(--clr-fg-no-color-alt);
 }

@@ -8,6 +8,12 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Transactions
     {
       this.FundId = fundId;
     }
+
+    /// <summary>
+    /// Whether or not this transaction is an expense (taking money out
+    /// of the fund) or an income (putting money into the fund).
+    /// </summary>
+    public bool IsExpense { get; set; } = true;
     
     public int FundId { get; private set; }
     
