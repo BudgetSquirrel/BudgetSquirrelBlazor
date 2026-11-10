@@ -10,6 +10,7 @@ namespace BudgetSquirrel.Web.Common.Messages.BudgetTracking.Transactions
 
     public TransactionResponse(
       Guid id,
+      int fundId,
       string vendorName,
       string description,
       decimal amount,
@@ -17,6 +18,7 @@ namespace BudgetSquirrel.Web.Common.Messages.BudgetTracking.Transactions
       string checkNumber)
     {
       Id = id;
+      FundId = fundId;
       VendorName = vendorName;
       Description = description;
       Amount = amount;
@@ -25,6 +27,7 @@ namespace BudgetSquirrel.Web.Common.Messages.BudgetTracking.Transactions
     }
 
     public Guid Id { get; set; }
+    public int FundId { get; set; }
     public string VendorName { get; set; }
     public string Description { get; set; }
     public decimal Amount { get; set; }

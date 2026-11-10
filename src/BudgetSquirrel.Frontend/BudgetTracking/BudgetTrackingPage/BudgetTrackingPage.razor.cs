@@ -71,6 +71,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
     }
 
     private FundRelationships? addTransactionFund { get; set; }
+    private Transaction? editTransaction { get; set; }
 
 #endregion actions state
 
@@ -81,6 +82,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
     private bool isViewingFund => this.viewingFund != null;
 
     private bool isAddingTransaction => this.addTransactionFund != null;
+    private bool isEditingTransaction => this.editTransaction != null;
 
     private string rootBalanceDisplay => this.rootBudget.Fund.Balance.ToString("C");
 
@@ -151,6 +153,23 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
       await this.pageService.CreateTransaction(state);
       await this.ReloadContext();
       this.StopAddingTransaction();
+    }
+
+    private void StopEditingTransaction()
+    {
+      this.editTransaction = null;
+    }
+
+    private void StartEditingTransaction(Transaction transaction)
+    {
+      this.editTransaction = transaction;
+    }
+
+    private async Task SubmitEditTransaction(EditTransactionFormState state)
+    {
+      await this.pageService.EditTransaction(state);
+      await this.ReloadContext();
+      this.StopEditingTransaction();
     }
 
 #endregion event handlers

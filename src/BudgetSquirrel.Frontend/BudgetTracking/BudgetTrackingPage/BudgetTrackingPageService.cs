@@ -15,6 +15,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
     private const string ContextEndpoint = BudgetTrackingUri + "/context";
     private const string AddTransactionEndpoint = BudgetTrackingUri + "/transactions/add";
     private const string DeleteTransactionEndpoint = BudgetTrackingUri + "/transactions/delete";
+    private const string EditTransactionEndpoint = BudgetTrackingUri + "/transactions/edit";
 
     private IBackendClient backendClient;
 
@@ -51,6 +52,31 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
     {
       DeleteTransactionRequest apiRequest = new DeleteTransactionRequest(transactionId);
       return this.backendClient.ExecuteCommand(DeleteTransactionEndpoint, apiRequest);
+    }
+
+    public Task EditTransaction(EditTransactionFormState request)
+    {
+      decimal amount = request.Amount;
+      
+      if (request.IsExpense)
+      {
+        amount = -1 * Math.Abs(amount);
+      }
+      else
+      {
+        amount = Math.Abs(amount);
+      }
+      
+      EditTransactionRequest apiRequest = new EditTransactionRequest(
+        request.TransactionId,
+        request.FundId,
+        request.VendorName,
+        request.Description,
+        amount,
+        request.DateOfTransaction,
+        request.CheckNumber);
+
+      return this.backendClient.ExecuteCommand(EditTransactionEndpoint, apiRequest);
     }
 
     public async Task<BudgetTrackingContext> GetPageContext(int? timeboxId = null)

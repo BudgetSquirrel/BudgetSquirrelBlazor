@@ -60,7 +60,8 @@
           <FundDetailView
             Fund=this.viewingFund
             OnClose=this.CloseFundView
-            OnTransactionDeleted=this.ReloadContext />
+            OnTransactionDeleted=this.ReloadContext
+            OnTransactionSelectedToEdit=this.StartEditingTransaction />
         </div>
       }
 
@@ -71,6 +72,16 @@
             OnCancel=this.StopAddingTransaction
             OnTransactionAdded=this.SubmitAddTransaction
             Fund=this.addTransactionFund />
+        </Modal>
+      }
+
+      @if (this.isEditingTransaction)
+      {
+        <Modal>
+          <EditTransactionForm
+            OnCancel=this.StopEditingTransaction
+            OnTransactionEdited=this.SubmitEditTransaction
+            Original=this.editTransaction />
         </Modal>
       }
     </div>

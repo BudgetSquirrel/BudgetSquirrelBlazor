@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Transactions;
 using BudgetSquirrel.Frontend.BudgetTracking.Domain;
 using Microsoft.AspNetCore.Components;
 using static BudgetSquirrel.Frontend.BudgetTracking.Domain.BudgetTrackingContext;
@@ -18,6 +19,9 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 
     [Parameter]
     public EventCallback OnTransactionDeleted { get; set; } = new EventCallback();
+
+    [Parameter]
+    public EventCallback<Transaction> OnTransactionSelectedToEdit { get; set; } = new EventCallback<Transaction>();
 
     [Inject]
     private IBudgetTrackingPageService pageService { get; set; } = null!;
@@ -55,6 +59,11 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
       await this.pageService.DeleteTransaction(this.transactionToDelete!.Id);
       this.transactionToDelete = null;
       await this.OnTransactionDeleted.InvokeAsync();
+    }
+
+    private void OnEditTransactionClicked(Transaction transaction)
+    {
+      this.OnTransactionSelectedToEdit.InvokeAsync(transaction);
     }
   }
 }

@@ -1,0 +1,20 @@
+._actions {
+  margin-top: 1em;
+}
+
+._field-couples {
+  flex-wrap: nowrap;
+}
+
+._field-couples > .form-input {
+  /* width: ; */
+}
+
+::deep ._field__amount {
+  flex: 0.6;
+}
+
+::deep ._field__amount-direction {
+  flex: 0.4;
+  margin-left: 1em;
+}

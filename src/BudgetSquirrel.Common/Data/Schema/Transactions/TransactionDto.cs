@@ -4,6 +4,11 @@ namespace BudgetSquirrel.Common.Data.Schema.Transactions
 {
   public class TransactionDto
   {
+    public TransactionDto()
+    {
+      
+    }
+    
     public Guid Id { get; set; }
     public string VendorName { get; set; }
     public string Description { get; set; }

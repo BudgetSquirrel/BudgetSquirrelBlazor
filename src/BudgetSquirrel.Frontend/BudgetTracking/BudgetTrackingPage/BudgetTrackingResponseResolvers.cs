@@ -50,7 +50,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking
 
     private static Transaction ToFrontendDto(TransactionResponse t)
     {
-      return new Transaction(t.Id, t.VendorName, t.Description, t.Amount, t.DateOfTransaction, t.CheckNumber);
+      return new Transaction(t.Id, t.FundId, t.VendorName, t.Description, t.Amount, t.DateOfTransaction, t.CheckNumber);
     }
   }
 }

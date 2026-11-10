@@ -16,15 +16,14 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Transactions
     public EventCallback OnCancel { get; set; }
 
     [Parameter]
-    public FundRelationships Fund { get; set; }
+    public FundRelationships Fund { get; set; } = default!;
 
     protected override void OnInitialized()
     {
-      Console.WriteLine($"AddTransactionForm: FundId={Fund.Fund.Id}");
       State = new AddTransactionFormState(Fund.Fund.Id);
     }
 
-    public AddTransactionFormState State { get; private set; }
+    public AddTransactionFormState State { get; private set; } = default!;
 
     private Switch.SwitchOption amountDirectionOptionExpense = new Switch.SwitchOption("Expense", "expense");
     private Switch.SwitchOption amountDirectionOptionIncome = new Switch.SwitchOption("Income", "income");
@@ -86,9 +85,9 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Transactions
       State.CheckNumber = checkNumber;
     }
 
-    private async Task Cancel()
+    private Task Cancel()
     {
-      OnCancel.InvokeAsync();
+      return OnCancel.InvokeAsync();
     }
 
     private async Task Submit()

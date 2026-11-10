@@ -1,4 +1,5 @@
 using System;
+using static BudgetSquirrel.Frontend.BudgetTracking.Domain.BudgetTrackingContext;
 
 namespace BudgetSquirrel.Frontend.BudgetTracking.Domain
 {
@@ -6,6 +7,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.Domain
   {
     public Transaction(
       Guid id,
+      int fundId,
       string vendorName,
       string description,
       decimal amount,
@@ -13,6 +15,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.Domain
       string checkNumber)
     {
       Id = id;
+      FundId = fundId;
       VendorName = vendorName;
       Description = description;
       Amount = amount;
@@ -21,6 +24,7 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.Domain
     }
 
     public Guid Id { get; private set; }
+    public int FundId { get; private set; }
     public string VendorName { get; private set; }
     public string Description { get; private set; }
     public decimal Amount { get; private set; }

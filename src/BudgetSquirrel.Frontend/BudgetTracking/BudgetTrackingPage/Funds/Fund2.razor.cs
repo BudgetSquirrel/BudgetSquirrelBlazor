@@ -22,14 +22,14 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage.Funds
 
     private EditBudgetFormValues State => this.baseInstance.State;
 
-    protected override Task OnInitializedAsync()
+    protected override void OnParametersSet()
     {
+      base.OnParametersSet();
       this.baseInstance = new FundComponentBase(
         this.Fund,
         this.OnNameChanged,
         this.OnView,
         this.OnStartAddingTransactionClicked);
-      return base.OnInitializedAsync();
     }
 
     private string Name => this.baseInstance.Name;

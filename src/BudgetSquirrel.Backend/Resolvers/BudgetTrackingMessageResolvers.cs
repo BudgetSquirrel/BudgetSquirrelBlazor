@@ -30,7 +30,7 @@ namespace BudgetSquirrel.Backend.Resolvers
     }
 
     private static async Task<FundSubFunds> ToApiMessage(
-      BudgetSquirrel.BudgetTracking.Domain.Funds.FundSubFunds fundSubFunds,
+      BudgetTracking.Domain.Funds.FundSubFunds fundSubFunds,
       DateTime asOf)
     {
       IEnumerable<FundSubFunds> subFunds = await Task.WhenAll(fundSubFunds.SubFunds
@@ -48,11 +48,11 @@ namespace BudgetSquirrel.Backend.Resolvers
         subFunds);
     }
 
-    private static FundRelationshipDtos ToApiMessage(BudgetSquirrel.BudgetTracking.Domain.BudgetTracking.FundRelationships fundBudget)
+    private static FundRelationshipDtos ToApiMessage(BudgetTracking.Domain.BudgetTracking.FundRelationships fundBudget)
     {
       decimal plannedAmount = fundBudget.Budget.PlannedAmount;
       int fundId = fundBudget.Fund.Id;
-      TransactionResponse[] transactions = fundBudget.Transactions.Select(t => ToApiMessage(t)).ToArray();
+      TransactionResponse[] transactions = fundBudget.Transactions.Select(t => ToApiMessage(fundBudget, t)).ToArray();
 
       return new FundRelationshipDtos(
         new Budget(
@@ -61,10 +61,13 @@ namespace BudgetSquirrel.Backend.Resolvers
         fundId);
     }
 
-    private static TransactionResponse ToApiMessage(BudgetTracking.Domain.BudgetTracking.Transaction t)
+    private static TransactionResponse ToApiMessage(
+      BudgetTracking.Domain.BudgetTracking.FundRelationships fundBudget,
+      BudgetTracking.Domain.BudgetTracking.Transaction t)
     {
       return new TransactionResponse(
         t.Id,
+        fundBudget.Fund.Id,
         t.VendorName,
         t.Description,
         t.Amount,

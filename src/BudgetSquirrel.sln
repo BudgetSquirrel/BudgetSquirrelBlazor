@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BudgetSquirrel.Common", "Bu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Common.AggregationUtils", "BudgetSquirrel.Common\AggregationUtils\BudgetSquirrel.Common.AggregationUtils.csproj", "{41A934D9-3306-476C-B6D9-D8432C5DB577}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{1A5C6976-CE7A-4E1C-8576-CBCF5DDAD2EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetSquirrel.Common.Data", "BudgetSquirrel.Common\Data\BudgetSquirrel.Common.Data.csproj", "{C242B74B-1941-492E-BFD2-F4846D2648BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -171,17 +175,31 @@ Global
 		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Release|x64.Build.0 = Release|Any CPU
 		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Release|x86.ActiveCfg = Release|Any CPU
 		{41A934D9-3306-476C-B6D9-D8432C5DB577}.Release|x86.Build.0 = Release|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Debug|x64.Build.0 = Debug|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Release|x64.Build.0 = Release|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{C242B74B-1941-492E-BFD2-F4846D2648BD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DB29E7B8-D653-4F0F-935E-6A3438786C5C}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A91E7187-C6A6-42AE-A8A7-5B51EF254C37} = {C8509E65-73E3-414A-8FDA-9A1DF990278D}
 		{F8A76AA5-9155-489A-9E7F-4D2B5B88C2E7} = {C8509E65-73E3-414A-8FDA-9A1DF990278D}
 		{6018CA5D-4AA7-4C59-A9D2-E4B7E485A139} = {C8509E65-73E3-414A-8FDA-9A1DF990278D}
 		{41A934D9-3306-476C-B6D9-D8432C5DB577} = {C4FCBA26-3730-486A-828D-934C3EC4913D}
+		{1A5C6976-CE7A-4E1C-8576-CBCF5DDAD2EB} = {C4FCBA26-3730-486A-828D-934C3EC4913D}
+		{C242B74B-1941-492E-BFD2-F4846D2648BD} = {1A5C6976-CE7A-4E1C-8576-CBCF5DDAD2EB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB29E7B8-D653-4F0F-935E-6A3438786C5C}
 	EndGlobalSection
 EndGlobal
