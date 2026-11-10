@@ -17,11 +17,11 @@
 }
 
 ._switch__option:hover:not(._switch__option--selected) {
-  background-color: var(--clr-good);
-  color: var(--clr-fg-no-color-alt);
+  background-color: var(--clr-bg-good-strong);
+  color: var(--clr-fg-good-subtle);
 }
 
 ._switch__option--selected {
-  background-color: var(--clr-good-strong);
-  color: var(--clr-fg-no-color-alt);
+  background-color: var(--clr-bg-good-strong);
+  color: var(--clr-fg-good-subtle);
 }

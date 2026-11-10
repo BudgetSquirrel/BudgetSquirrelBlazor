@@ -14,7 +14,12 @@
     --tan-500: #c8ac92ff;
     --tan-200: #fdf6ed;
     --tan-a500: #fbddb6;
-    --green-500: #5a8a4eff;
+    --green-500: #5a8a4e;
+    --green-400: #719a66;
+    --green-300: #8dae85;
+    --green-200: #aac2a3;
+    --green-100: #c6d7c2;
+    --green-0: #e3ebe0;
     --green-a700: #2fc215;
     --red-500: #d26565ff;
     --red-600: #cb4d4d;
@@ -35,6 +40,7 @@
     --clr-bg-no-color: white;
     --clr-bg-no-color-subtle: var(--blackish-100);
     --clr-bg-bad: var(--red-500);
+    --clr-bg-good-strong: var(--green-500);
     
     --clr-trim-color: var(--tan-700);
     
@@ -48,6 +54,19 @@
     --clr-fg-no-color-subtle: var(--blackish-a200);
     --clr-fg-no-color-subtle-2: var(--blackish-300);
     --clr-fg-no-color-alt: white;
+    --clr-fg-good: var(--green-500);
+    
+    --clr-bg-good-subtle: white;
+    --clr-bg-good-strong: var(--green-500);
+    
+    --clr-bg-bad-subtle: white;
+    --clr-bg-bad-strong: var(--red-500);
+    
+    --clr-fg-good-subtle: white;
+    --clr-fg-good-strong: var(--green-500);
+    
+    --clr-fg-bad-subtle: white;
+    --clr-fg-bad-strong: var(--red-500);
 
     --clr-brdr-no-color: var(--blackish-200);
     --clr-brdr-no-color-subtle: var(--blackish-100);
@@ -61,9 +80,6 @@
     --clr-input-border: var(--blackish-100);
     --clr-input-bg: var(--blackish-50);
 
-    --clr-good-strong: var(--green-500);
-
-    --clr-bad-strong: var(--red-500);
 }
 
 .app {
@@ -105,16 +121,16 @@
 }
 
 .input--valid {
-    border: 1px solid var(--clr-good-strong);
-    color: var(--clr-good-strong);
-    caret-color: var(--clr-good-strong);
+    border: 1px solid var(--clr-fg-good-strong);
+    color: var(--clr-fg-good-strong);
+    caret-color: var(--clr-fg-good-strong);
 }
 
 .input--invalid,
 .input.invalid {
-    border: 1px solid var(--clr-bad-strong);
-    color: var(--clr-bad-strong);
-    caret-color: var(--clr-bad-strong);
+    border: 1px solid var(--clr-fg-bad-strong);
+    color: var(--clr-fg-bad-strong);
+    caret-color: var(--clr-fg-bad-strong);
 }
 
 .input--password {
@@ -202,8 +218,8 @@
 }
 
 .button--encourage {
-    background-color: var(--clr-good-strong);
-    color: var(--clr-fg-no-color-alt);
+    background-color: var(--clr-bg-good-strong);
+    color: var(--clr-fg-good-subtle);
     cursor: pointer;
 }
 
@@ -233,7 +249,7 @@
 .error-text,
 .invalid,
 .validation-message {
-    color: var(--clr-bad-strong);
+    color: var(--clr-fg-bad-strong);
 }
 
 /********* Forms *********/
