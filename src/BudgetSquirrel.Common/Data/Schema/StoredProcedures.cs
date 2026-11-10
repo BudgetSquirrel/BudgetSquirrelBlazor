@@ -32,7 +32,7 @@ namespace BudgetSquirrel.Common.Data.Schema
 
     public static class Funds
     {
-      public static readonly string GetAllFundsInFundTree = _("GetAllFundsInFundTree");
+      public static readonly string GetAllFundsInFundTreeWithBudget = _("GetAllFundsInFundTreeWithBudget");
       public static readonly string GetProfile = _("GetProfile");
       public static readonly string GetFundById = _("GetFundById");
       public static readonly string UpdateFundDetails = _("UpdateFundDetails");

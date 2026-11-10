@@ -1,7 +1,7 @@
 CREATE PROCEDURE [GetTransactionsByFundAndDateRange] (
   @FundId INT,
-  @StartDate DATE, -- Inclusive
-  @EndDate DATE -- Exclusive
+  @StartDate DATE = NULL, -- Inclusive
+  @EndDate DATE -- Inclusive
 )
 AS
 BEGIN
@@ -18,7 +18,7 @@ FROM [dbo].[Transactions]
 INNER JOIN [dbo].[TransactionAllocations]
   ON [dbo].[TransactionAllocations].[TransactionId] = [dbo].[Transactions].[Id]
 WHERE [dbo].[TransactionAllocations].[FundId] = @FundId
-  AND [dbo].[Transactions].[DateOfTransaction] >= @StartDate
+  AND (@StartDate IS NULL OR [dbo].[Transactions].[DateOfTransaction] >= @StartDate)
   AND [dbo].[Transactions].[DateOfTransaction] <= @EndDate;
 
 END

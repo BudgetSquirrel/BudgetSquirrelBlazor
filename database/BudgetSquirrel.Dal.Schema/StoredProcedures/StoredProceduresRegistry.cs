@@ -25,6 +25,7 @@ namespace BudgetSquirrel.Dal.Schema.StoredProcedures
         { "SetBudgetIsFinalized", $"{ScriptsDir}/BudgetPlanning/SetBudgetIsFinalized.sql" },
 
         /* Funds */
+        { "GetAllFundsInFundTreeWithBudget", $"{ScriptsDir}/Funds/GetAllFundsInFundTreeWithBudget.sql" },
         { "GetAllFundsInFundTree", $"{ScriptsDir}/Funds/GetAllFundsInFundTree.sql" },
         { "GetProfile", $"{ScriptsDir}/Funds/GetProfile.sql" },
         { "GetFundById", $"{ScriptsDir}/Funds/GetFundById.sql" },

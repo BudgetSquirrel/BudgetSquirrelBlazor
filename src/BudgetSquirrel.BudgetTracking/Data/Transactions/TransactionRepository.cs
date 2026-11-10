@@ -69,7 +69,7 @@ namespace BudgetSquirrel.BudgetTracking.Data.Transactions
       return TransactionConversions.ToDomain(transaction);
     }
 
-    public async Task<IEnumerable<Transaction>> GetTransactionsInDates(int fundId, DateTime startDate, DateTime endDate)
+    public async Task<IEnumerable<Transaction>> GetTransactionsInDates(int fundId, DateTime? startDate, DateTime endDate)
     {
       using IDbConnection conn = this.dbConnectionProvider.GetConnection();
       

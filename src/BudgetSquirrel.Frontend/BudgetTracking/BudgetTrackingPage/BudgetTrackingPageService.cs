@@ -25,11 +25,22 @@ namespace BudgetSquirrel.Frontend.BudgetTracking.BudgetTrackingPage
 
     public Task CreateTransaction(AddTransactionFormState request)
     {
+      decimal amount = request.Amount;
+      
+      if (request.IsExpense)
+      {
+        amount = -1 * Math.Abs(amount);
+      }
+      else
+      {
+        amount = Math.Abs(amount);
+      }
+      
       AddTransactionRequest apiRequest = new AddTransactionRequest(
         request.FundId,
         request.VendorName,
         request.Description,
-        request.Amount,
+        amount,
         request.DateOfTransaction,
         request.CheckNumber);
 

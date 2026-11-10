@@ -1,0 +1,47 @@
+@using System;
+@using Microsoft.Extensions.Options
+
+<div class="_switch @(CssClass)" style="@CssVarComponentCount">
+  @foreach (SwitchOption option in @Options)
+  {
+    <button
+      class="_switch__option @(option.Id == ActiveOptionId ? "_switch__option--selected" : string.Empty)"
+      @onclick="@(() => @OnStateChanged.InvokeAsync(option))">
+      @option.DisplayText
+    </button>
+  }
+</div>
+
+@code {
+  public class SwitchOption
+  {
+    public SwitchOption(string displayText, string id)
+    {
+      DisplayText = displayText;
+      Id = id;
+    }
+
+    public string DisplayText { get; }
+    public string Id { get; }
+  }
+
+  protected override void OnInitialized()
+  {
+    Console.WriteLine($"Switch: ActiveOptionId={ActiveOptionId}");
+    Console.WriteLine($"Switch Options: {string.Join(", ", Options.Select(o => o.DisplayText + " (" + o.Id + ")"))}");
+  }
+
+  [Parameter]
+  public string ActiveOptionId { get; set; } = string.Empty;
+
+  [Parameter]
+  public IEnumerable<SwitchOption> Options { get; set; } = Array.Empty<SwitchOption>();
+
+  [Parameter]
+  public EventCallback<SwitchOption> OnStateChanged { get; set; }
+
+  [Parameter]
+  public string CssClass { get; set; } = string.Empty;
+
+  private string CssVarComponentCount => $"--switch-option-count: {Options.Count()}";
+}
